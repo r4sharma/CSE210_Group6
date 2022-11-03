@@ -11,46 +11,46 @@
 # Domain Ideas
 
 1. Poetry App
-  a. Features - Read it out loud, Daily prompt, Most frequent words
-  b. Share feature
-  c. Star fav poems
-  d. vs Note taking app - Quote of the day, rhyme recommendation (toggle), syllable count, word usage (analytics) - Most common words, avg length of poem
-  e. Motivation - Personal Event, nature, witness some interaction
-  f. Labels for diff genres
-  g. Read famous poems
-  h. Audio Capture - towards the end
-  i. Github - https://github.com/caarmen/poet-assistant ; https://github.com/topics/poem-tools
-  j. Tech Stack
-    i. Frontend
+  * Features - Read it out loud, Daily prompt, Most frequent words
+  * Share feature
+  * Star fav poems
+  * vs Note taking app - Quote of the day, rhyme recommendation (toggle), syllable count, word usage (analytics) - Most common words, avg length of poem
+  * Motivation - Personal Event, nature, witness some interaction
+  * Labels for diff genres
+  * Read famous poems
+  * Audio Capture - towards the end
+  * Github - https://github.com/caarmen/poet-assistant ; https://github.com/topics/poem-tools
+  * Tech Stack
+    * Frontend
   
 2. Personal Food Blog
-  a. Location
-  b. Can share over social media
+  * Location
+  * Can share over social media
 
 3. Student Optimizer
-  a. Open app -> Which uni, dept
-  b. Feed timetable
-  c. Different colored events for different activities
-  d. 7 day calendar view
+  * Open app -> Which uni, dept
+  * Feed timetable
+  * Different colored events for different activities
+  * 7 day calendar view
 
 4. Explorer’s Diary
-  a. Look at a picture in real life, write about it
-  b. Inspired in real-time
+  * Look at a picture in real life, write about it
+  * Inspired in real-time
 
 5. Student Diet Planner
-  a. Plug in ingredients available
-  b. Simple recipe recommendation
-  c. Assumption conveyed in the beginning
-  d. Dropdown for ingredients (i+1 dependent on i)
+  * Plug in ingredients available
+  * Simple recipe recommendation
+  * Assumption conveyed in the beginning
+  * Dropdown for ingredients (i+1 dependent on i)
 
 6. Job Tracker
-  a. Track progress after applying to the company
-  b. Scroll title cards
-  c. Sort by
-  d. Status
-  e. Interview, OA Reminders - Stage 2 (More suitable for mobile app)
-  f. Desktop Notifications
-  g. Resources (Description Box)  
-  h. Wishlist
-  i. Publish to Linkedin
-  j. Updating Resume
+  * Track progress after applying to the company
+  * Scroll title cards
+  * Sort by
+  * Status
+  * Interview, OA Reminders - Stage 2 (More suitable for mobile app)
+  * Desktop Notifications
+  * Resources (Description Box)  
+  * Wishlist
+  * Publish to Linkedin
+  * Updating Resume
