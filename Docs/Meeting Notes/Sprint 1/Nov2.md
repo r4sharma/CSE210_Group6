@@ -1,0 +1,7 @@
+- Set up the zenhub actions
+- Discussed UI
+- Learnt how to write user/developer stories
+- Divided basic tasks for next meet
+- Initialised IndexedDB
+- Finalised a skeleton for UI
+- Setting up CICD
