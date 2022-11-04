@@ -1,3 +1,10 @@
+# Meeting Notes
+
+Links for folder structure:
+* https://ramandeep-singh-1983.medium.com/project-structure-for-modern-angular-applications-d00036c9e1ee 
+* https://stackoverflow.com/questions/35807001/web-projects-folders-directories-structure-best-practices
+
+## Preliminary Folder Structure
 ```
 └─┬app
   |
@@ -6,12 +13,12 @@
   └─┬root
     |
     |
-    ├─┬Libs // Js libraries 
+    ├─┬libs // Js libraries 
     | |
-    | └─┬Bootstrap
+    | └─┬bootstrap
     |   └ … (.js files)
     |
-    ├─┬Shared
+    ├─┬shared
     | |
     | ├─┬button
     | | └ … (.js files)
@@ -31,41 +38,15 @@
     | └─┬app-nagivation
     |   └ … (.js files)
     |
-    ├─┬Modules
+    ├─┬modules
     | |
-    | ├─┬moduleA
-    | | |
-    | | ├moduleA.js   //modules controller
-    | | |
-    | | ├moduleA.html //modules view
-    | | |
-    | | ├moduleA.less //modules style
-    | | |
-    | | └moduleA.json //modules data
+    | ├─┬dashboard
+    | | | 
+    | | ├─stat-sample
+    | | | 
+    | | └─app-cards  
     | |
-    | ├─┬moduleB
-    | | |
-    | | ├moduleB.js  
-    | | |
-    | | ├moduleB.html
-    | | |
-    | | ├moduleB.less 
-    | | |
-    | | ├moduleB.json 
-    | | |
-    | | └moduleB-icon.png
-    | |
-    | └─┬moduleC
-    |   |
-    |   ├moduleC.js  
-    |   |
-    |   ├moduleC.html
-    |   |
-    |   ├moduleC.less 
-    |   |
-    |   ├moduleC.json
-    |   |
-    |   └moduleC-font.woff
+    | └──app-page
     |
     └index.html // web site entry point
     ```
