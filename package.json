@@ -1,0 +1,23 @@
+{
+  "name": "cse210_group6",
+  "version": "1.0.0",
+  "description": "This is the project repository for team 6",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r4sharma/CSE210_Group6.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/r4sharma/CSE210_Group6/issues"
+  },
+  "homepage": "https://github.com/r4sharma/CSE210_Group6#readme",
+  "devDependencies": {
+    "jest": "^29.2.2"
+  }
+}
