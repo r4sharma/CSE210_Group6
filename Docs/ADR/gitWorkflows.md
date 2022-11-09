@@ -10,6 +10,7 @@ It is so flexible. We can create our own workflow strategy using git. The main w
  - Feature Branch Workflow
  - Git Flow
  - Gitlab flow
+
 The main problems that we want addressed are : 
  - How to control version well?
  - How to cooperate with less code conflicts?
