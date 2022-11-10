@@ -25,7 +25,7 @@ The main problems that we want addressed are :
 ## Decision Outcome
 
 Chosen option: <b>"Git Flow"</b>
-![image info](gitflow.png)
+![image info](gitflow_instruction.png)
 
 ### Consequences
 
@@ -36,3 +36,5 @@ Chosen option: <b>"Git Flow"</b>
 * Bad, Releases are hard to do more than once a week.
 However, these two bad situations could be avoided because we do not need to release the project once a week and we do not have a lot of pull requests.
 
+### Gitflow Command Diagram 
+![image info](gitflow.png)
