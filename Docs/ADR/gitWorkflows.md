@@ -25,7 +25,7 @@ The main problems that we want addressed are :
 ## Decision Outcome
 
 Chosen option: <b>"Git Flow"</b>
-![image info](gitflow_instruction.png)
+![image info](gitflow_instruction.jpg)
 
 ### Consequences
 
