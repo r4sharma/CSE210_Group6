@@ -18,7 +18,7 @@ Links for folder structure:
     | └─┬bootstrap
     |   └ … (.js files)
     |
-    ├─┬shared
+    ├─┬components
     | |
     | ├─┬button
     | | └ … (.js files)
@@ -38,7 +38,7 @@ Links for folder structure:
     | └─┬app-nagivation
     |   └ … (.js files)
     |
-    ├─┬modules
+    ├─┬views
     | |
     | ├─┬dashboard
     | | | 
