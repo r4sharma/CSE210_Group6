@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="appTrak Homepage">
+    <meta name="author" content="Alex Martakis">
+    <title>AppTrak</title>
+    <link href ="styles.css" rel="stylesheet">
+    <script src="job-cards.js"></script>
+</head>
+
+<body onload="defaultLoad()">
+
+    <navbar>
+        <ul id="navbar">
+          <li><a href="./index.html">AppTrak</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Settings</a></li>
+            <a href="./index.html">
+                <button>login</button>
+            </a>
+        </ul>
+    </navbar>
+
+    <ul>
+        <button onclick="showApplications()">Applications</button>
+        <button onclick="showReminders()">Reminders</button>
+        <button onclick="showStatistics()">Statistics</button>
+    </ul>
+
+    <applications id="applications">
+        <h2>Applications</h4>
+
+        <job-card-stack id="job-card-stack">
+        </job-card-stack>
+
+    </applications>
+
+    <reminders id="reminders">
+        <h2>Reminders</h4>
+
+        <card class="reminder-card">
+            <card-container class="reminder-card-container">
+                <h4>Finish Online Assessment</h4>
+                <p>Due Date: 11/18/2022</p>
+            </card-container>
+        </card>
+    </reminders>
+
+    <statistics id="statistics">
+        <h2>Statistics</h4>
+            <table>
+                <tr>
+                  <th>Applied</th>
+                  <th>Interview</th>
+                  <th>Offer</th>
+                  <th>Reject</th>
+                </tr>
+                <tr>
+                  <td>27</td>
+                  <td>12</td>
+                  <td>3</td>
+                  <td>5</td>
+                </tr>
+            </table>
+    </statistics>
+
+</body>
+</html>
