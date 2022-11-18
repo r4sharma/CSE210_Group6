@@ -13,6 +13,7 @@ function defaultLoad(){
 //applications, reminders, and statistics are loaded but only applications is shown
 function showApplications(){
     console.log("applications is currently being displayed")
+    document.getElementById("application-form").style.display = "none";
     document.getElementById("applications").style.display = "";
     document.getElementById("reminders").style.display = "none";
     document.getElementById("statistics").style.display = "none";
@@ -21,6 +22,7 @@ function showApplications(){
 //applications, reminders, and statistics are loaded but only reminders is shown
 function showReminders(){
     console.log("reminders is currently being displayed")
+    document.getElementById("application-form").style.display = "none";
     document.getElementById("applications").style.display = "none";
     document.getElementById("reminders").style.display = "";
     document.getElementById("statistics").style.display = "none";
@@ -29,9 +31,15 @@ function showReminders(){
 //applications, reminders, and statistics are loaded but only statistics is shown
 function showStatistics(){
     console.log("statistics is currently being displayed")
-    document.getElementById("applications").style.display = "none";
+    document.getElementById("application-form").style.display = "none";
     document.getElementById("reminders").style.display = "none";
+    document.getElementById("application-form").style.display = "none";
     document.getElementById("statistics").style.display = "";
+}
+
+function showApplicationForm(){
+    console.log("Application Form Has Been Activated")
+    document.getElementById("application-form").style.display = "";
 }
 
 //retrieves JSON Job Application object and creates a job card for each applied job
@@ -50,15 +58,16 @@ function createJobApplicationsCardStack(){
 // creates a job application card with elements for each attribute from the job object from the job application JSON object
 function createJobApplicationCard(job){
 
-    var card = document.createElement("job-card");
-    card.setAttribute("id", "job-card");
+    var card = document.createElement("article");
+    card.setAttribute("id", job.jobID);
+    card.setAttribute("class", "job-card")
     console.log(card)
 
     addJobCardElement("h3", "company", getCompanyTitle(job), card)
     addJobCardElement("p", "job-type", getEmploymentType(job), card)
     addJobCardElement("p", "job-role", getJobRole(job), card)
     addJobCardElement("p", "date-applied", getDateApplied(job), card)
-    addJobCardElement("p", "job-status", getStatus(job), card)
+    addStatusElement("p", "job-status", getStatus(job), card)
 
     var cardStack = document.getElementById("job-card-stack")
     cardStack.appendChild(card)
@@ -70,8 +79,33 @@ function createJobApplicationCard(job){
 function addJobCardElement(elementTag, id, elementContent, card){
     var element = document.createElement(elementTag);
     element.setAttribute("id", id);
+    element.setAttribute("class", id);
     element.appendChild(document.createTextNode(elementContent));
     card.appendChild(element)
+}
+
+function addStatusElement(elementTag, id, elementContent, card){
+    var element = document.createElement(elementTag);
+    element.setAttribute("id", id);
+    element.setAttribute("class", id);
+    element.appendChild(document.createTextNode(elementContent));
+    setStatusBackgroundColor(element, elementContent)
+
+    card.appendChild(element)
+}
+
+function setStatusBackgroundColor(element, elementContent){
+    if (elementContent == "Applied"){
+        element.setAttribute("style", "background-color: yellow;");
+    } else if (elementContent == "Interview"){
+        element.setAttribute("style", "background-color: orange;");
+    } else if (elementContent == "Offer"){
+        element.setAttribute("style", "background-color: green;");
+    } else if (elementContent == "Denied"){
+        element.setAttribute("style", "background-color: red;");
+    } else {
+        element.setAttribute("style", "background-color: grey;");
+    }
 }
 
 function getCompanyTitle(job){

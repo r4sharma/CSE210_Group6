@@ -5,34 +5,46 @@
     <meta name="description" content="appTrak Homepage">
     <meta name="author" content="Alex Martakis">
     <title>AppTrak</title>
-    <link href ="styles.css" rel="stylesheet">
+    <link href ="job-cards.css" rel="stylesheet">
     <script src="job-cards.js"></script>
 </head>
 
 <body onload="defaultLoad()">
 
-    <navbar>
-        <ul id="navbar">
-          <li><a href="./index.html">AppTrak</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Settings</a></li>
-            <a href="./index.html">
-                <button>login</button>
-            </a>
+    <header>
+        <!-- <img src=""> -->
+         <nav>
+            <ul id="header-buttons" class="header-buttons btn">
+                <li><a href="./index.html">AppTrak</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Login</a></li>
+              </ul>
+         </nav>
+    </header>
+
+    <body-content id="main-content" class="main-content">
+
+     <selection-component class="selection-component">
+        <ul>
+            <button class="btn" onclick="showApplications()">Applications</button>
+            <button class="btn" onclick="showReminders()">Reminders</button>
+            <button class="btn" onclick="showStatistics()">Statistics</button>
         </ul>
-    </navbar>
+    </selection-component>
 
-    <ul>
-        <button onclick="showApplications()">Applications</button>
-        <button onclick="showReminders()">Reminders</button>
-        <button onclick="showStatistics()">Statistics</button>
-    </ul>
-
-    <applications id="applications">
+    <applications id="applications" class="applications">
         <h2>Applications</h4>
 
-        <job-card-stack id="job-card-stack">
-        </job-card-stack>
+            <ul>
+            <button onclick="showApplicationForm()">Add Application</button>
+            </ul>
+
+            <form id="application-form" class="application-form" style="display: none;">
+                <p>I'm the application-form<p>
+            </form>
+
+            <article id="job-card-stack" class="job-card-stack"></article>
 
     </applications>
 
@@ -64,6 +76,8 @@
                 </tr>
             </table>
     </statistics>
+
+</body-content>
 
 </body>
 </html>
