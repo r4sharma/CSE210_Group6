@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="appTrak Homepage">
+    <meta name="author" content="Alex Martakis">
+    <title>AppTrak</title>
+    <link href ="job-cards.css" rel="stylesheet">
+    <script src="job-cards.js"></script>
+</head>
+
+<body onload="defaultLoad()">
+
+    <header>
+        <!-- <img src=""> -->
+         <nav>
+            <ul id="header-buttons" class="header-buttons btn">
+                <li><a href="./index.html">AppTrak</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Login</a></li>
+              </ul>
+         </nav>
+    </header>
+
+    <body-content id="main-content" class="main-content">
+
+     <selection-component class="selection-component">
+        <ul>
+            <button class="btn" onclick="showApplications()">Applications</button>
+            <button class="btn" onclick="showReminders()">Reminders</button>
+            <button class="btn" onclick="showStatistics()">Statistics</button>
+        </ul>
+    </selection-component>
+
+    <applications id="applications" class="applications">
+        <h2>Applications</h4>
+
+            <ul>
+            <button onclick="showApplicationForm()">Add Application</button>
+            </ul>
+
+            <form id="application-form" class="application-form" style="display: none;">
+                <p>I'm the application-form<p>
+            </form>
+
+            <article id="job-card-stack" class="job-card-stack"></article>
+
+    </applications>
+
+    <reminders id="reminders">
+        <h2>Reminders</h4>
+
+        <card class="reminder-card">
+            <card-container class="reminder-card-container">
+                <h4>Finish Online Assessment</h4>
+                <p>Due Date: 11/18/2022</p>
+            </card-container>
+        </card>
+    </reminders>
+
+    <statistics id="statistics">
+        <h2>Statistics</h4>
+            <table>
+                <tr>
+                  <th>Applied</th>
+                  <th>Interview</th>
+                  <th>Offer</th>
+                  <th>Reject</th>
+                </tr>
+                <tr>
+                  <td>27</td>
+                  <td>12</td>
+                  <td>3</td>
+                  <td>5</td>
+                </tr>
+            </table>
+    </statistics>
+
+</body-content>
+
+</body>
+</html>
