@@ -32,8 +32,8 @@ function showReminders(){
 function showStatistics(){
     console.log("statistics is currently being displayed")
     document.getElementById("application-form").style.display = "none";
+    document.getElementById("applications").style.display = "none";
     document.getElementById("reminders").style.display = "none";
-    document.getElementById("application-form").style.display = "none";
     document.getElementById("statistics").style.display = "";
 }
 
