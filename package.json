@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/r4sharma/CSE210_Group6#readme",
   "devDependencies": {
-    "eslint": "^8.27.0",
+    "eslint": "^8.28.0",
+    "eslint-config-google": "^0.14.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^27.1.4",
