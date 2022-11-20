@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "description": "This is the project repository for team 6",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "test": "jest",
     "lint": "./node_modules/.bin/eslint . ",
     "lint-fix": "./node_modules/.bin/eslint --fix .  --ext .js",
-    "doc": "jsdoc -c jsdoc.json"
+    "doc": "jsdoc -c jsdoc.json",
+    "build": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +31,8 @@
     "eslint-plugin-n": "^15.5.0",
     "eslint-plugin-promise": "^6.1.1",
     "jest": "^29.2.2",
-    "jsdoc": "^4.0.0"
+    "jsdoc": "^4.0.0",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0"
   }
 }
