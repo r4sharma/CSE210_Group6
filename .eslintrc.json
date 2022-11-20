@@ -12,7 +12,7 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "ignorePatterns": ["**/libs/**/*.js"],
+    "ignorePatterns": ["**/libs/**/*.js", "dist/main.js"],
     "rules": {
     }
 }
