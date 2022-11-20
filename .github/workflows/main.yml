@@ -1,11 +1,14 @@
-name: Unit Tests
+name: CI/CD
 
 on:
   push:
     branches:
       - main
+      - dev
   pull_request:
-    branches: [main]
+    branches: 
+      - main
+      - dev
 
 jobs:
   Jest:
@@ -14,8 +17,11 @@ jobs:
       - uses: actions/checkout@v1
       - name: Run Tests
         run: |
-          npm install 
+          npm ci 
           npm test
+
+      - name: Build
+        run: npm run build
           
       - name: Lint
         run: npm run lint
