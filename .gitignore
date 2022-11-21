@@ -7,3 +7,7 @@ node_modules
 # ignore test-related files
 /coverage.data
 /coverage/
+
+# ignore all files of jsdoc except index.html
+docs/jsdoc/*
+!docs/jsdoc/index.html
