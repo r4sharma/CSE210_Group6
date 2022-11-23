@@ -1,7 +1,7 @@
 /**
  * Database module
  */
-export default class Database {
+class Database {
   /**
      * @param {string} name Database Name
      * @param {int} version Database Version
@@ -10,10 +10,10 @@ export default class Database {
     this.name = name;
     this.version = version;
     this.indexedDB = {};
-    this.database = window.indexedDB.open(name, version);
+    this.database = indexedDB.open(name, version);
   }
   /**
-   * Initialize
+   * Initialize DB
    * @param {string} fields Fields of indexedDB instance
    * @return {Promise} promise
    */
@@ -35,11 +35,35 @@ export default class Database {
       this.database.onsuccess = (event) => {
         console.log(`Database ${this.name}: created successfully`);
         this.indexedDB = this.database.result;
-        resolve();
+        resolve(this.indexedDB);
       };
       this.database.onerror = function(event) {
         reject(new Error(`error opening database ${event.target.errorCode}`));
       };
     });
   }
+
+  /**
+   * Save a record to DB
+   * @param {Object} record Application object to be saved
+   * @return {Promise} promise
+   */
+  save(record) {
+    return new Promise((resolve, reject) => {
+      if (typeof record === 'object') {
+        // eslint-disable-next-line max-len
+        const transaction = this.indexedDB.transaction([this.name], 'readwrite');
+        const objectStore = transaction.objectStore(this.name);
+        const request = objectStore.add(record);
+        request.onsuccess = () => {
+          resolve(request.result);
+        };
+        request.onerror = () => {
+          reject(new Error('An object was expected.'));
+        };
+      }
+    });
+  }
 }
+
+module.exports = Database;
