@@ -100,6 +100,52 @@ class Database {
       }
     });
   }
+  /**
+   * Updates a record in DB
+   * @param {Object} record
+   * @return {Promise} promise
+   */
+  update(record) {
+    return new Promise((resolve, reject) => {
+      if (typeof record === 'object') {
+        // eslint-disable-next-line max-len
+        const transaction = this.indexedDB.transaction([this.name], 'readwrite');
+        const objectStore = transaction.objectStore(this.name);
+        const request = objectStore.put(record);
+        console.log('Update type', typeof(request));
+        request.onsuccess = () => {
+          resolve(request.result);
+        };
+        request.onerror = () => {
+          reject(new Error('Could not update'));
+        };
+      } else {
+        reject(new Error('An object was expected'));
+      }
+    });
+  }
+
+  /**
+   * Delete Record by Key
+   * @param {int} key
+   * @return {Promise} promise
+   */
+  remove(key) {
+    return new Promise((resolve, reject) => {
+      if (typeof key === 'number') {
+        // eslint-disable-next-line max-len
+        const transaction = this.indexedDB.transaction([this.name], 'readwrite');
+        const objectStore = transaction.objectStore(this.name);
+        const request = objectStore.delete(key);
+        request.onsuccess = () => {
+          resolve(request.result);
+        };
+      } else {
+        reject(new Error('key is not number'));
+      }
+    });
+  }
 }
+
 
 module.exports = Database;
