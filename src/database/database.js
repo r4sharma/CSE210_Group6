@@ -64,6 +64,42 @@ class Database {
       }
     });
   }
+  /**
+   * getCursor
+   * @return {Cursor} Cursor
+   */
+  getCursor() {
+    return new Promise((resolve, reject) => {
+      const transaction = this.indexedDB.transaction([this.name], 'readonly');
+      const objectStore = transaction.objectStore(this.name);
+      const request = objectStore.openCursor();
+      request.onsuccess = (e) => {
+        resolve(request);
+      };
+      request.onerror = () => {
+        reject(new Error('Could not get cursor'));
+      };
+    });
+  }
+  /**
+   * Get Record By Key
+   * @param {int} key
+   * @return {Object} record
+   */
+  getRecordByKey(key) {
+    return new Promise((resolve, reject) => {
+      if (typeof key === 'number') {
+        const transaction = this.indexedDB.transaction([this.name], 'readonly');
+        const objectStore = transaction.objectStore(this.name);
+        const request = objectStore.get(key);
+        request.onsuccess = () => {
+          resolve(request.result);
+        };
+      } else {
+        reject(new Error('Key expected to be a number.'));
+      }
+    });
+  }
 }
 
 module.exports = Database;
