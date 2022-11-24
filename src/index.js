@@ -20,7 +20,22 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     @param {event} event
    */
   function addApplication(event) {
-    const application = {jobID: '2', companyName: 'Amazon'};
+    event.preventDefault();
+    const jobID = document.getElementById('jobid').value;
+    const companyName = document.getElementById('cname').value;
+    const jobType = findRadioSelectedValue(document.getElementsByName('jobtype'));
+    const jobRole = document.getElementById('jobrole').value;
+    const doa = document.getElementById('doa').value;
+    const applicationStatus = document.getElementById('status').value;
+    const description = document.getElementById('desc').value;
+    // craeting record in db
+    const application = {jobID: jobID,
+                         companyName: companyName, 
+                         jobType : jobType,
+                         jobRole : jobRole,
+                         doa : doa,
+                         applicationStatus: applicationStatus,
+                         description: description};
     database.save(application)
         .then((transaction) => {
           // showApplications(); // to be added
@@ -40,6 +55,20 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
       document.getElementById("application-form").style.display = "";
     }
 
+  /**
+   * find the value selected in Radio button
+   * @param {elements}
+   * @return {val}
+   */
+  function findRadioSelectedValue(elements) {
+    var val = '';
+      
+    for(i = 0; i < elements.length; i++) {
+        if(elements[i].checked)
+          val = elements[i].value;
+    }
+    return val;
+  }
 
 });
 
