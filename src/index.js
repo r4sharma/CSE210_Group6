@@ -14,13 +14,14 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   'applicationStatus,'+
   'description';
   const database = new Database(name, version);
-  database.initialize(fields);
+  database.initialize(fields).then(()=>showAppCards());
   console.log(database);
   // save button to save application in database
   document.getElementById('save').onclick = addApplication;
   // show form to call function to display form
   document.getElementById('showForm').onclick = showApplicationForm;
-
+  // getting the element containing all job cards
+  const appCardContainer = document.querySelector('#app-card-container');
   /**
     Add Application Function
     @param {event} event
@@ -49,6 +50,124 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
           console.log('added');
         })
         .catch((transaction) => console.log('error'));
+  }
+
+  /**
+    * Function to fetch and create all cards from db
+    */
+  function showAppCards() {
+    // Leave the div for card container empty
+    while (appCardContainer.firstChild) {
+      appCardContainer.removeChild(appCardContainer.firstChild);
+    }
+    database.getCursor().then(
+        (request)=>createAppCards(request))
+    // .catch(()=>{console.log("Record fetch error")})
+    ;
+  }
+
+  /**
+   * Create app cards for all records in db
+   * @param {IDBOpenDBRequest} request
+   */
+  function createAppCards(request) {
+    console.log(request);
+    const cursor = request.result;
+
+    if (cursor && cursor!=='') {
+      createJobCard(cursor.value);
+      console.log(cursor);
+    } else {
+      createEmptyAppCard();
+    }
+  }
+  /**
+   * Function to create Empty card in case of no applications
+   * @param {Object} value
+   */
+  function createJobCard(value) {
+    const {key,
+      jobID,
+      companyName,
+      jobType,
+      jobRole,
+      doa,
+      description,
+      applicationStatus} = value;
+    console.log(value);
+    const card = document.createElement('article');
+    card.setAttribute('id', key);
+    card.setAttribute('class', 'job-card');
+    addJobCardElement('h3', 'job-id', jobID, card);
+    addJobCardElement('h3', 'company', companyName, card);
+    addJobCardElement('p', 'job-type', jobType, card);
+    addJobCardElement('p', 'job-role', jobRole, card);
+    addJobCardElement('p', 'date-applied', doa, card);
+    addJobCardElement('p', 'description', description, card);
+    addStatusElement('p', 'job-status', applicationStatus, card);
+
+    appCardContainer.appendChild(card);
+  }
+
+  /**
+  * Appends the element to the job card for each attribute from the job object
+  * @param {String} elementTag
+  * @param {String} id
+  * @param {String} elementContent
+  * @param {HTMLElement} card
+  * */
+  function addJobCardElement(elementTag, id, elementContent, card) {
+    const element = document.createElement(elementTag);
+    element.setAttribute('id', id);
+    element.setAttribute('class', id);
+    element.appendChild(document.createTextNode(elementContent));
+    card.appendChild(element);
+  }
+  /**
+  * Appends the status to the job card for each attribute from the job object
+  * @param {String} elementTag
+  * @param {String} id
+  * @param {String} elementContent
+  * @param {HTMLElement} card
+  * */
+  function addStatusElement(elementTag, id, elementContent, card) {
+    const element = document.createElement(elementTag);
+    element.setAttribute('id', id);
+    element.setAttribute('class', id);
+    element.appendChild(document.createTextNode(elementContent));
+    setStatusBackgroundColor(element, elementContent);
+
+    card.appendChild(element);
+  }
+
+  /**
+ * To set bg color indicating status of application.
+ * @param {String} element
+ * @param {String} elementContent
+ */
+  function setStatusBackgroundColor(element, elementContent) {
+    if (elementContent == 'Applied') {
+      element.setAttribute('style', 'background-color: yellow;');
+    } else if (elementContent == 'In Progress') {
+      element.setAttribute('style', 'background-color: orange;');
+    } else if (elementContent == 'Offer') {
+      element.setAttribute('style', 'background-color: green;');
+    } else if (elementContent == 'Reject') {
+      element.setAttribute('style', 'background-color: red;');
+    } else {
+      element.setAttribute('style', 'background-color: grey;');
+    }
+  }
+
+  /**
+   * Function to create Empty card in case of no applications
+   */
+  function createEmptyAppCard() {
+    if (!appCardContainer.firstChild) {
+      const text = document.createElement('p');
+      text.textContent = 'No applications to show here!';
+      appCardContainer.appendChild(text);
+    }
   }
 
   /**
