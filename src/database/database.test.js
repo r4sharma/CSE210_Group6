@@ -104,4 +104,12 @@ test('Delete data from DB Non Integer Key', async ()=> {
       });
 });
 
+test('Get All records from DB', async ()=> {
+  expect.assertions(1);
+  const database = new Database('testDB', 1);
+  await database.initialize('company, role');
+  return database.getAllRecords().then(
+      (data)=>expect(Array.isArray(data).toBeTruthy()));
+});
+
 
