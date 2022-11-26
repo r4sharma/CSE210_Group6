@@ -1,4 +1,5 @@
-const Database = require('./database/database');
+import Database from './database/database';
+
 /**
 @param {LoadDatabase} loadDB Run on page load/refresh
 @listens LoadDatabase
@@ -27,7 +28,6 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     @param {event} event
    */
   function addApplication(event) {
-    event.preventDefault();
     const jobID = document.getElementById('jobid').value;
     const companyName = document.getElementById('cname').value;
     const jobType =
@@ -60,23 +60,20 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     while (appCardContainer.firstChild) {
       appCardContainer.removeChild(appCardContainer.firstChild);
     }
-    database.getCursor().then(
-        (request)=>createAppCards(request))
-    // .catch(()=>{console.log("Record fetch error")})
-    ;
+    database.getAllRecords().then(
+        (data) => {
+          createAppCards(data);
+        },
+    ).catch(() => console.log('error in fetching all records')); ;
   }
 
   /**
    * Create app cards for all records in db
-   * @param {IDBOpenDBRequest} request
+   * @param {Array} data
    */
-  function createAppCards(request) {
-    console.log(request);
-    const cursor = request.result;
-
-    if (cursor && cursor!=='') {
-      createJobCard(cursor.value);
-      console.log(cursor);
+  function createAppCards(data) {
+    if (data!==null && data.length>0) {
+      data.forEach(createJobCard);
     } else {
       createEmptyAppCard();
     }
@@ -189,7 +186,7 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   function findRadioSelectedValue(elements) {
     let val = '';
 
-    for (i = 0; i < elements.length; i++) {
+    for (let i = 0; i < elements.length; i++) {
       if (elements[i].checked) {
         val = elements[i].value;
       }
@@ -197,5 +194,3 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     return val;
   }
 });
-
-
