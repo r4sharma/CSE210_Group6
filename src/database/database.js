@@ -101,6 +101,30 @@ class Database {
     });
   }
   /**
+   * get all records in db
+   * @return {Promise}
+   */
+  getAllRecords() {
+    return new Promise((resolve, reject) => {
+      const transaction = this.indexedDB.transaction([this.name], 'readonly');
+      const objectStore = transaction.objectStore(this.name);
+      const request = objectStore.openCursor();
+      const data = [];
+      request.onsuccess = (e) => {
+        const cursor = e.target.result;
+        if (cursor) {
+          data.push(cursor.value);
+          cursor.continue();
+        } else {
+          resolve(data);
+        }
+      };
+      request.onerror = () => {
+        reject(new Error('Could not get records'));
+      };
+    });
+  }
+  /**
    * Updates a record in DB
    * @param {Object} record
    * @return {Promise} promise
