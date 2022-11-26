@@ -109,7 +109,7 @@ test('Get All records from DB', async ()=> {
   const database = new Database('testDB', 1);
   await database.initialize('company, role');
   return database.getAllRecords().then(
-      (data)=>expect(Array.isArray(data).toBeTruthy()));
+      (data)=>expect(Array.isArray(data)).toBeTruthy());
 });
 
 
