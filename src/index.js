@@ -47,9 +47,11 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     database.save(application)
         .then((transaction) => {
           // showApplications(); // to be added
-          console.log('added');
+          transaction.oncomplete = () => {
+            console.log('added');
+          };
         })
-        .catch((transaction) => console.log('error'));
+        .catch((error) => console.log('error', error));
   }
 
   /**
