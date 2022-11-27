@@ -56,7 +56,7 @@ class Database {
         const objectStore = transaction.objectStore(this.name);
         const request = objectStore.add(record);
         request.onsuccess = () => {
-          resolve(request.result);
+          resolve(transaction);
         };
         request.onerror = () => {
           reject(new Error('An object was expected.'));
