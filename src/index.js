@@ -46,8 +46,9 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
       description: description};
     database.save(application)
         .then((transaction) => {
-          // showApplications(); // to be added
+          document.getElementById('showForm').reset();
           transaction.oncomplete = () => {
+            showAppCards();
             console.log('added');
           };
         })
