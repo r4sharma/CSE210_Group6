@@ -7,6 +7,8 @@
 
 The production code has to provide the end-user with a single file that can be used to launch the application. Thus, a bundler is required that combines many JavaScript files into a single one that is production-ready loadable in the browser of the end-user. In this project, Webpack is used.
 
+Without webpack, the application would require a webserver to be started - in this case localhost. With webpack, all dependencies are pre-compiled and ready for use offline and without a live server.
+
 ## Considered Options
 
 * Rollup
