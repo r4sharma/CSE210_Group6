@@ -14,6 +14,10 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   'doa,'+
   'applicationStatus,'+
   'description';
+  let appliedCount =0;
+  let inProgressCount=0;
+  let offerCount=0;
+  let rejectCount=0;
   const database = new Database(name, version);
   database.initialize(fields).then(()=>showAppCards());
   console.log(database);
@@ -28,6 +32,7 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     @param {event} event
    */
   function addApplication(event) {
+    event.preventDefault();
     const jobID = document.getElementById('jobid').value;
     const companyName = document.getElementById('cname').value;
     const jobType =
@@ -46,7 +51,7 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
       description: description};
     database.save(application)
         .then((transaction) => {
-          document.getElementById('showForm').reset();
+          document.getElementById('application-form').reset();
           transaction.oncomplete = () => {
             showAppCards();
             console.log('added');
@@ -66,8 +71,9 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     database.getAllRecords().then(
         (data) => {
           createAppCards(data);
+          console.log(appliedCount, inProgressCount, offerCount, rejectCount);
         },
-    ).catch(() => console.log('error in fetching all records')); ;
+    ).catch(() => console.log('error in fetching all records'));
   }
 
   /**
@@ -105,7 +111,20 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     addJobCardElement('p', 'date-applied', doa, card);
     addJobCardElement('p', 'description', description, card);
     addStatusElement('p', 'job-status', applicationStatus, card);
-
+    switch (applicationStatus) {
+      case 'applied':
+        appliedCount++;
+        break;
+      case 'inprogress':
+        inProgressCount++;
+        break;
+      case 'offer':
+        offerCount++;
+        break;
+      case 'reject':
+        rejectCount++;
+        break;
+    }
     appCardContainer.appendChild(card);
   }
 
