@@ -58,21 +58,153 @@ function createJobApplicationsCardStack(){
 // creates a job application card with elements for each attribute from the job object from the job application JSON object
 function createJobApplicationCard(job){
 
-    var card = document.createElement("article");
-    card.setAttribute("id", job.jobID);
-    card.setAttribute("class", "job-card")
-    console.log(card)
+    var card = document.createElement("div");
+    card.setAttribute("class", "card mb-3 mx-auto")
+    card.style = "max-width: 750px;"
 
-    addJobCardElement("h3", "company", getCompanyTitle(job), card)
-    addJobCardElement("p", "job-type", getEmploymentType(job), card)
-    addJobCardElement("p", "job-role", getJobRole(job), card)
-    addJobCardElement("p", "date-applied", getDateApplied(job), card)
-    addStatusElement("p", "job-status", getStatus(job), card)
+    var row = document.createElement("div");
+    row.setAttribute("class", "row g-0")
+    card.appendChild(row)
+
+    createJobCardColumnOne(row, job)
+    createJobCardColumnTwo(row, job)
+    createJobCardColumnThree(row)
 
     var cardStack = document.getElementById("job-card-stack")
+    cardStack.setAttribute("class", "card-text")
     cardStack.appendChild(card)
+}
 
-    console.log(cardStack)
+function createJobCardColumnOne(parent, job){
+    var column_1 = document.createElement("div");
+    column_1.setAttribute("class", "col-md-8")
+    parent.appendChild(column_1)
+
+    var bodyOne = document.createElement("div");
+    bodyOne.setAttribute("class", "card-body")
+    column_1.appendChild(bodyOne)
+
+    createJobTitleElement(bodyOne, job)
+    createJobTypeElement(bodyOne, job)
+    createJobRoleElement(bodyOne, job)
+    createDateAppliedElement(bodyOne, job)
+    // createLastUpdatedElement(bodyOne, job)
+}
+
+function createJobCardColumnTwo(parent, job){
+    var columnTwo = document.createElement("div");
+    columnTwo.setAttribute("class", setBootstrapStatusBackgroundColor(job.status))
+    parent.appendChild(columnTwo)
+
+    var bodyTwo = document.createElement("div");
+    bodyTwo.setAttribute("class", "card-body")
+    columnTwo.appendChild(bodyTwo)
+
+    var coloredColumn = document.createElement("div");
+    coloredColumn.setAttribute("class", "d-flex justify-content-center")
+    bodyTwo.appendChild(coloredColumn)
+
+    var status = document.createElement("h5")
+    status.setAttribute("class", "text-light")
+    status.innerHTML = getStatus(job)
+    coloredColumn.appendChild(status)
+}
+
+function createJobCardColumnThree(parent){
+    var columnThree = document.createElement("div");
+    columnThree.setAttribute("class", "col-sm-1 btn-group-vertical btn-block")
+    parent.appendChild(columnThree)
+
+    addJobCardEditButton(columnThree)
+    addJobCardDeleteButton(columnThree)
+}
+
+function createJobTitleElement(parent, job){
+    var cardTitle = document.createElement("h5");
+    cardTitle.innerHTML = getCompanyTitle(job)
+    parent.appendChild(cardTitle)
+}
+
+function createJobTypeElement(parent, job){
+    var jobType = document.createElement("p");
+    jobType.setAttribute("class", "card-text")
+    parent.appendChild(jobType)
+
+    var mutedTextOne = document.createElement("text");
+    mutedTextOne.setAttribute("class", "text-muted")
+    mutedTextOne.innerHTML = "Job Type: "
+    jobType.appendChild(mutedTextOne)
+
+    var regularTextOne = document.createElement("text");
+    regularTextOne.innerHTML = "Full Time"
+    jobType.appendChild(regularTextOne)
+}
+
+function createJobRoleElement(parent, job){
+    var jobRole = document.createElement("p");
+    jobRole.setAttribute("class", "card-text")
+    parent.appendChild(jobRole)
+
+    var mutedTextTwo = document.createElement("text");
+    mutedTextTwo.setAttribute("class", "text-muted")
+    mutedTextTwo.innerHTML = "Job Role: "
+    jobRole.appendChild(mutedTextTwo)
+
+    var regularTextTwo = document.createElement("text");
+    regularTextTwo.innerHTML = getJobRole(job)
+    jobRole.appendChild(regularTextTwo)
+}
+
+function createDateAppliedElement(parent, job){
+    var dateApplied = document.createElement("p");
+    dateApplied.setAttribute("class", "card-text")
+    parent.appendChild(dateApplied)
+
+    var mutedTextTwo = document.createElement("text");
+    mutedTextTwo.setAttribute("class", "text-muted")
+    mutedTextTwo.innerHTML = "Date Applied: "
+    dateApplied.appendChild(mutedTextTwo)
+
+    var regularTextTwo = document.createElement("text");
+    regularTextTwo.innerHTML = getDateApplied(job)
+    dateApplied.appendChild(regularTextTwo)
+}
+
+function createLastUpdatedElement(parent, job){
+    var lastUpdated = document.createElement("p");
+    lastUpdated.setAttribute("class", "card-text")
+    var lastUpdatedText = document.createElement("small");
+    lastUpdatedText.setAttribute("class", "text-muted")
+    lastUpdatedText.innerHTML = "Last updated 3 mins ago"
+
+    lastUpdated.appendChild(lastUpdatedText)
+    parent.appendChild(lastUpdated)
+}
+
+function addJobCardEditButton(parent){
+    var editButton = document.createElement("button");
+    editButton.type = "button"
+    editButton.setAttribute("class", "btn btn-light")
+    parent.appendChild(editButton)
+
+    var buttonText = document.createElement("p")
+    buttonText.setAttribute("class", "text-info")
+    buttonText.innerHTML = "edit"
+    editButton.appendChild(buttonText)
+}
+
+function addJobCardDeleteButton(parent){
+    var deleteButton = document.createElement("button");
+    deleteButton.type = "button"
+    deleteButton.setAttribute("class", "btn btn-light")
+    parent.appendChild(deleteButton)
+
+    var buttonText = document.createElement("p")
+    buttonText.setAttribute("class", "text-danger")
+    buttonText.innerHTML = "del"
+    deleteButton.appendChild(buttonText)
+
+    console.log("Delete button has been created")
 }
 
 // appends the element to the job card for each attribute from the job object
@@ -94,17 +226,17 @@ function addStatusElement(elementTag, id, elementContent, card){
     card.appendChild(element)
 }
 
-function setStatusBackgroundColor(element, elementContent){
-    if (elementContent == "Applied"){
-        element.setAttribute("style", "background-color: yellow;");
-    } else if (elementContent == "In Progress"){
-        element.setAttribute("style", "background-color: orange;");
-    } else if (elementContent == "Offer"){
-        element.setAttribute("style", "background-color: green;");
-    } else if (elementContent == "Reject"){
-        element.setAttribute("style", "background-color: red;");
+function setBootstrapStatusBackgroundColor(status){
+    if (status == "Applied"){
+        return "col-sm bg-warning"
+    } else if (status == "In Progress"){
+        return "col-sm bg-primary"
+    } else if (status == "Offer"){
+        return "col-sm bg-success"
+    } else if (status == "Reject"){
+        return "col-sm bg-danger"
     } else {
-        element.setAttribute("style", "background-color: grey;");
+        return "col-sm bg-muted"
     }
 }
 
