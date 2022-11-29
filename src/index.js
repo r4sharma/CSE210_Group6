@@ -48,7 +48,8 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
       jobRole: jobRole,
       doa: doa,
       applicationStatus: applicationStatus,
-      description: description};
+      description: description,
+      lastUpdated: getCurrentDate()};
     database.save(application)
         .then((transaction) => {
           document.getElementById('application-form').reset();
@@ -412,6 +413,19 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
       }
     }
     return val;
+  }
+
+  /**
+   * Returns todays date in yyyy-mm-dd format
+   * @return {String} today's date
+   */
+  function getCurrentDate() {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+    return today;
   }
 
   /**
