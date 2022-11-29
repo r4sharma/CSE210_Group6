@@ -7,13 +7,13 @@ html {
   }
 
 header {
-    background-color: #516FC4;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     height: 5%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    z-index: 10;
 }
 
 body {
@@ -22,7 +22,7 @@ body {
     padding-left: 5%;
 }
 
-ul {
+/* ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -44,46 +44,7 @@ li a {
   text-decoration: none;
 }
 
-/* Change the link color to #111 (black) on hover */
+Change the link color to #111 (black) on hover
 li a:hover {
   background-color: #314478;
-}
-
-.application-form {
-    /* color: #FF7F50; */
-    border: solid;
-    border-radius: 10px;
-    border-width: thin;
-    border-color: #314478;
-    padding: 1em;
-}
-
-.selection-component{
-    background-color: #516FC4;
-    align-items: center;
-}
-
-.btn {
-    color: white;
-    background-color: #516FC4;
-}
-
-/* .body-content {
-    align-items: center;
-    justify-content: center;
-} */
-
-.job-card-stack {
-    justify-content: center;
-}
-
-.job-card {
-    background: #F0F0F0;
-    margin: 10px;
-    padding: 1%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-}
-
-.job-status {
-    width: 100%;
 }

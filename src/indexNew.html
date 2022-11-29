@@ -11,25 +11,110 @@
 <body onload="defaultLoad()">
 
     <header>
-        <!-- <img src=""> -->
-         <nav>
-            <ul id="header-buttons" class="header-buttons btn">
-                <li><a href="./indexNew.html">
-                    AppTrak
-                </a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Login</a></li>
-              </ul>
-         </nav>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <svg width="20" height="20">
+              <rect x="1" y="1" width="10" height="10" stroke="#ADD8E6" stroke-width="1" rx=".5" fill="none" fill-opacity="0.6"/>
+              <rect x="2.5" y="2.5" width="10" height="10" stroke="#FF7F50" stroke-width="1" rx=".5" fill="none" fill-opacity="0.6"/>
+          </svg>
+            AppTrak
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">GitHub Repo</a>
+              </li>
+            </ul>
+            <form class="d-flex">
+              <button class="btn btn-outline-primary" type="submit">Profile</button>
+            </form>
+          </div>
+        </div>
+      </nav>
     </header>
 
     <body-content id="main-content" class="main-content">
 
+      <!-- logo
         <svg width="400" height="110">
             <rect x="10" y="10" width="50" height="50" stroke="#ADD8E6" stroke-width="5" rx="5" fill="none" fill-opacity="0.6"/>
             <rect x="25" y="25" width="50" height="50" stroke="#FF7F50" stroke-width="5" rx="5" fill="none" fill-opacity="0.6"/>
-        </svg>
+        </svg> -->
+
+        <statistic-block id="statistic-block" class="statistic-block">
+            <div class="card mb-3 mx-auto" style="max-width: 750px;">
+              <div class="row g-0">
+                <div class="col-sm">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                      <h5 class=".text-dark">Applied</h5>
+                    </div>
+                 </div>
+                </div>
+                <div class="col-sm">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                      <h5 class=".text-dark">In Progress</h5>
+                    </div>
+                 </div>
+                </div>
+                <div class="col-sm">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                      <h5 class=".text-dark">Offer</h5>
+                    </div>
+                 </div>
+                </div>
+                <div class="col-sm">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                      <h5 class=".text-dark">Reject</h5>
+                    </div>
+                 </div>
+                </div>
+              </div>
+              <div class="row g-0 rounded-right">
+                <div class="col-sm bg-warning">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                      <h5 class="text-light">1</h5>
+                    </div>
+                 </div>
+                </div>
+                <div class="col-sm bg-primary">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                      <h5 class="text-light">2</h5>
+                    </div>
+                 </div>
+                </div>
+                <div class="col-sm bg-success">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                      <h5 class="text-light">3</h5>
+                    </div>
+                 </div>
+                </div>
+                <div class="col-sm bg-danger">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                      <h5 class="text-light">5</h5>
+                    </div>
+                 </div>
+                </div>
+              </div>
+            </div>
+        </statistic-block>
 
      <selection-component class="selection-component">
         <ul>
