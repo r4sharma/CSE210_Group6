@@ -14,10 +14,10 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   'doa,'+
   'applicationStatus,'+
   'description';
-  let appliedCount =0;
-  let inProgressCount=0;
-  let offerCount=0;
-  let rejectCount=0;
+  let appliedCount;
+  let inProgressCount;
+  let offerCount;
+  let rejectCount;
   const database = new Database(name, version);
   database.initialize(fields).then(()=>showAppCards());
   console.log(database);
@@ -82,6 +82,10 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
    */
   function createAppCards(data) {
     if (data!==null && data.length>0) {
+      appliedCount=0;
+      inProgressCount=0;
+      offerCount=0;
+      rejectCount=0;
       data.forEach(createJobCard);
     } else {
       createEmptyAppCard();
@@ -112,12 +116,11 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     createJobCardColumnOne(row, value);
     createJobCardColumnTwo(row, value.applicationStatus);
     createJobCardColumnThree(row, value.key);
-
     switch (value.applicationStatus) {
       case 'applied':
         appliedCount++;
         break;
-      case 'inprogress':
+      case 'inProgress':
         inProgressCount++;
         break;
       case 'offer':

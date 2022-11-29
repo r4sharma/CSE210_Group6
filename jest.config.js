@@ -1,1 +1,0 @@
-testEnvironment: 'jest-environment-jsdom';
