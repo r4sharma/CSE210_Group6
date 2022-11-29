@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
           createAppCards(data);
           console.log(appliedCount, inProgressCount, offerCount, rejectCount);
         },
-    ).catch(() => console.log('error in fetching all records'));
+    ).catch((e) => console.log(e, 'error in fetching all records'));
   }
 
   /**
@@ -92,26 +92,28 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
    * @param {Object} value
    */
   function createJobCard(value) {
-    const {key,
-      jobID,
-      companyName,
-      jobType,
-      jobRole,
-      doa,
-      description,
-      applicationStatus} = value;
+    // const {key,
+    //   jobID,
+    //   companyName,
+    //   jobType,
+    //   jobRole,
+    //   doa,
+    //   description,
+    //   applicationStatus} = value;
     console.log(value);
-    const card = document.createElement('article');
-    card.setAttribute('id', key);
-    card.setAttribute('class', 'job-card');
-    addJobCardElement('h3', 'job-id', jobID, card);
-    addJobCardElement('h3', 'company', companyName, card);
-    addJobCardElement('p', 'job-type', jobType, card);
-    addJobCardElement('p', 'job-role', jobRole, card);
-    addJobCardElement('p', 'date-applied', doa, card);
-    addJobCardElement('p', 'description', description, card);
-    addStatusElement('p', 'job-status', applicationStatus, card);
-    switch (applicationStatus) {
+
+    const card = document.createElement('div');
+    card.setAttribute('class', 'card mb-3 mx-auto');
+    card.style = 'max-width: 750px;';
+
+    const row = document.createElement('div');
+    row.setAttribute('class', 'row g-0');
+    card.appendChild(row);
+    createJobCardColumnOne(row, value);
+    createJobCardColumnTwo(row, value.applicationStatus);
+    createJobCardColumnThree(row, value.key);
+
+    switch (value.applicationStatus) {
       case 'applied':
         appliedCount++;
         break;
@@ -129,52 +131,245 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   }
 
   /**
-  * Appends the element to the job card for each attribute from the job object
-  * @param {String} elementTag
-  * @param {String} id
-  * @param {String} elementContent
-  * @param {HTMLElement} card
+  * Creates a job card with information populated
+  * @param {HTMLElement} parent
+  * @param {Object} value
   * */
-  function addJobCardElement(elementTag, id, elementContent, card) {
-    const element = document.createElement(elementTag);
-    element.setAttribute('id', id);
-    element.setAttribute('class', id);
-    element.appendChild(document.createTextNode(elementContent));
-    card.appendChild(element);
+  function createJobCardColumnOne(parent, value) {
+    const columnOne = document.createElement('div');
+    columnOne.setAttribute('class', 'col-md-8');
+    parent.appendChild(columnOne);
+
+    const bodyOne = document.createElement('div');
+    bodyOne.setAttribute('class', 'card-body');
+    columnOne.appendChild(bodyOne);
+
+    createCompanyNameElement(bodyOne, value.companyName);
+    createJobIDElement(bodyOne, value.jobID);
+    createJobTypeElement(bodyOne, value.jobType);
+    createJobRoleElement(bodyOne, value.jobRole);
+    createDateAppliedElement(bodyOne, value.doa);
+    createDescriptionElement(bodyOne, value.description);
+
+    // createLastUpdatedElement(bodyOne, job)
+  }
+
+  /**
+  * Creates a part of job card with status information
+  * @param {HTMLElement} parent
+  * @param {String} applicationStatus
+  * */
+  function createJobCardColumnTwo(parent, applicationStatus) {
+    const columnTwo = document.createElement('div');
+    columnTwo.setAttribute('class',
+        setStatusBackgroundColor(applicationStatus));
+    parent.appendChild(columnTwo);
+
+    const bodyTwo = document.createElement('div');
+    bodyTwo.setAttribute('class', 'card-body');
+    columnTwo.appendChild(bodyTwo);
+
+    const coloredColumn = document.createElement('div');
+    coloredColumn.setAttribute('class', 'd-flex justify-content-center');
+    bodyTwo.appendChild(coloredColumn);
+
+    const status = document.createElement('h5');
+    status.setAttribute('class', 'text-light');
+    status.innerHTML = applicationStatus;
+    coloredColumn.appendChild(status);
+  }
+
+  /**
+  * Creates a part of job card with edit, delete info
+  * @param {HTMLElement} parent
+  * @param {String} key
+  * */
+  function createJobCardColumnThree(parent, key) {
+    const columnThree = document.createElement('div');
+    columnThree.setAttribute('class', 'col-sm-1 btn-group-vertical btn-block');
+    parent.appendChild(columnThree);
+
+    addJobCardEditButton(columnThree, key);
+    addJobCardDeleteButton(columnThree, key);
+  }
+
+  /**
+ * Creates an entry for company title in job card
+ * @param {HTMLElement} parent
+ * @param {String} cname
+ */
+  function createCompanyNameElement(parent, cname) {
+    const cardTitle = document.createElement('h5');
+    cardTitle.innerHTML = cname; // cannot be null - form check added.
+    parent.appendChild(cardTitle);
+  }
+
+  /**
+ * Creates an entry for jobType in job card
+ * @param {HTMLElement} parent
+ * @param {String} jobID
+ */
+  function createJobIDElement(parent, jobID) {
+    const jobIDElement = document.createElement('p');
+    jobIDElement.setAttribute('class', 'card-text');
+    parent.appendChild(jobIDElement);
+
+    const mutedTextOne = document.createElement('text');
+    mutedTextOne.setAttribute('class', 'text-muted');
+    mutedTextOne.innerHTML = 'Job ID: ';
+    jobIDElement.appendChild(mutedTextOne);
+
+    const regularTextOne = document.createElement('text');
+    regularTextOne.innerHTML = jobID!==undefined ? jobID : '';
+    jobIDElement.appendChild(regularTextOne);
+  }
+
+  /**
+ * Creates an entry for jobType in job card
+ * @param {HTMLElement} parent
+ * @param {String} jobType
+ */
+  function createJobTypeElement(parent, jobType) {
+    const jobTypeElement = document.createElement('p');
+    jobTypeElement.setAttribute('class', 'card-text');
+    parent.appendChild(jobTypeElement);
+
+    const mutedTextOne = document.createElement('text');
+    mutedTextOne.setAttribute('class', 'text-muted');
+    mutedTextOne.innerHTML = 'Job Type: ';
+    jobTypeElement.appendChild(mutedTextOne);
+
+    const regularTextOne = document.createElement('text');
+    regularTextOne.innerHTML = jobType!==undefined ? jobType : '';
+    jobTypeElement.appendChild(regularTextOne);
+  }
+
+  /**
+   * Creates an entry for jobRole in job card
+   * @param {HTMLElement} parent
+   * @param {String} jobRole
+   */
+  function createJobRoleElement(parent, jobRole) {
+    const jobRoleElement = document.createElement('p');
+    jobRoleElement.setAttribute('class', 'card-text');
+    parent.appendChild(jobRoleElement);
+
+    const mutedTextTwo = document.createElement('text');
+    mutedTextTwo.setAttribute('class', 'text-muted');
+    mutedTextTwo.innerHTML = 'Job Role: ';
+    jobRoleElement.appendChild(mutedTextTwo);
+
+    const regularTextTwo = document.createElement('text');
+    regularTextTwo.innerHTML = jobRole!==undefined ? jobRole : '';
+    jobRoleElement.appendChild(regularTextTwo);
   }
   /**
-  * Appends the status to the job card for each attribute from the job object
-  * @param {String} elementTag
-  * @param {String} id
-  * @param {String} elementContent
-  * @param {HTMLElement} card
-  * */
-  function addStatusElement(elementTag, id, elementContent, card) {
-    const element = document.createElement(elementTag);
-    element.setAttribute('id', id);
-    element.setAttribute('class', id);
-    element.appendChild(document.createTextNode(elementContent));
-    setStatusBackgroundColor(element, elementContent);
+   * Creates an entry for description in job card
+   * @param {HTMLElement} parent
+   * @param {String} desc
+   */
+  function createDescriptionElement(parent, desc) {
+    const descElement = document.createElement('p');
+    descElement.setAttribute('class', 'card-text');
+    parent.appendChild(descElement);
 
-    card.appendChild(element);
+    const mutedTextTwo = document.createElement('text');
+    mutedTextTwo.setAttribute('class', 'text-muted');
+    mutedTextTwo.innerHTML = 'Description: ';
+    descElement.appendChild(mutedTextTwo);
+
+    const regularTextTwo = document.createElement('text');
+    regularTextTwo.innerHTML = desc!==undefined ? desc : '';
+    descElement.appendChild(regularTextTwo);
+  }
+  /**
+ * Creates an entry for doa in job card
+ * @param {HTMLElement} parent
+ * @param {String} doa
+ */
+  function createDateAppliedElement(parent, doa) {
+    const dateApplied = document.createElement('p');
+    dateApplied.setAttribute('class', 'card-text');
+    parent.appendChild(dateApplied);
+
+    const mutedTextTwo = document.createElement('text');
+    mutedTextTwo.setAttribute('class', 'text-muted');
+    mutedTextTwo.innerHTML = 'Date Applied: ';
+    dateApplied.appendChild(mutedTextTwo);
+
+    const regularTextTwo = document.createElement('text');
+    regularTextTwo.innerHTML = doa!==undefined ? doa : '';
+    dateApplied.appendChild(regularTextTwo);
+  }
+
+  // TODO: for use later
+  // function createLastUpdatedElement(parent, job) {
+  //   const lastUpdated = document.createElement('p');
+  //   lastUpdated.setAttribute('class', 'card-text');
+  //   const lastUpdatedText = document.createElement('small');
+  //   lastUpdatedText.setAttribute('class', 'text-muted');
+  //   lastUpdatedText.innerHTML = 'Last updated 3 mins ago';
+
+  //   lastUpdated.appendChild(lastUpdatedText);
+  //   parent.appendChild(lastUpdated);
+  // }
+
+  /**
+  * Creates a edit button of job card
+  * @param {HTMLElement} parent
+  *  @param {String} key
+  * */
+  function addJobCardEditButton(parent, key) {
+    const editButton = document.createElement('button');
+    editButton.type = 'button';
+    editButton.setAttribute('class', 'btn btn-light');
+    editButton.setAttribute('id', 'edit-app');
+    parent.appendChild(editButton);
+
+    const buttonText = document.createElement('p');
+    buttonText.setAttribute('class', 'text-info');
+    buttonText.innerHTML = 'edit';
+    editButton.appendChild(buttonText);
+  }
+
+  /**
+  * Creates a delete button of job card
+  * @param {HTMLElement} parent
+  * @param {String} key
+  * */
+  function addJobCardDeleteButton(parent, key) {
+    const deleteButton = document.createElement('button');
+    deleteButton.type = 'button';
+    deleteButton.setAttribute('class', 'btn btn-light');
+    deleteButton.setAttribute('id', 'delete-app');
+    deleteButton.addEventListener('click', function() {
+      deleteApplication(key);
+    });
+    // deleteButton.onclick = deleteApplication(key);
+    parent.appendChild(deleteButton);
+
+    const buttonText = document.createElement('p');
+    buttonText.setAttribute('class', 'text-danger');
+    buttonText.innerHTML = 'del';
+    deleteButton.appendChild(buttonText);
   }
 
   /**
  * To set bg color indicating status of application.
- * @param {String} element
- * @param {String} elementContent
+ * @param {String} status
+ * @return {String}
  */
-  function setStatusBackgroundColor(element, elementContent) {
-    if (elementContent == 'Applied') {
-      element.setAttribute('style', 'background-color: yellow;');
-    } else if (elementContent == 'In Progress') {
-      element.setAttribute('style', 'background-color: orange;');
-    } else if (elementContent == 'Offer') {
-      element.setAttribute('style', 'background-color: green;');
-    } else if (elementContent == 'Reject') {
-      element.setAttribute('style', 'background-color: red;');
+  function setStatusBackgroundColor(status) {
+    if (status == 'applied') {
+      return 'col-sm bg-warning';
+    } else if (status == 'inProgress') {
+      return 'col-sm bg-primary';
+    } else if (status == 'offer') {
+      return 'col-sm bg-success';
+    } else if (status == 'reject') {
+      return 'col-sm bg-danger';
     } else {
-      element.setAttribute('style', 'background-color: grey;');
+      return 'col-sm bg-muted';
     }
   }
 
@@ -214,5 +409,18 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
       }
     }
     return val;
+  }
+
+  /**
+   * Function to succesfully delete the application.
+   * @param {int} key
+   */
+  function deleteApplication(key) {
+    database.remove(key)
+        .then((result) => {
+          showAppCards();
+          console.log(result);
+        })
+        .catch((error) => console.log('error in deleting record!', error));
   }
 });
