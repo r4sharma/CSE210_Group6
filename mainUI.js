@@ -175,3 +175,8 @@ function getLocalJSONJobApplicationObject(){
         "status": "Reject"}
     ]}
 }
+
+// Data Picker Initialization
+$(function() {
+    $('#datepicker').datepicker();
+});

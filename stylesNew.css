@@ -28,7 +28,7 @@ ul {
   padding: 0;
   overflow: hidden;
   background-color: #516FC4;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 
 }
 
@@ -49,14 +49,17 @@ li a:hover {
   background-color: #314478;
 }
 
-.application-form {
-    /* color: #FF7F50; */
+#application-form {
+    /* color: #FF7F50; 
+
     border: solid;
     border-radius: 10px;
     border-width: thin;
     border-color: #314478;
-    padding: 1em;
+
+    padding: 1em; */
 }
+
 
 .selection-component{
     background-color: #516FC4;
@@ -66,6 +69,8 @@ li a:hover {
 .btn {
     color: white;
     background-color: #516FC4;
+    align-items: center;
+    justify-content: center;
 }
 
 /* .body-content {
