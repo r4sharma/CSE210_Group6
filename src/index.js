@@ -463,3 +463,4 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
         .catch((error) => console.log('error in deleting record!', error));
   }
 });
+
