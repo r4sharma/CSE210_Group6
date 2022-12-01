@@ -9,8 +9,6 @@ new_str = ""
 for i in cards_class_name:
     new_str += (i+".")
 cards_class_name = new_str[:-1]
-print(cards_class_name)
-
 
 def testDelete():
     # We add 2 cards and then delete 1 to check
@@ -24,13 +22,14 @@ def testDelete():
     original_number_cards = len(cards)
     print("Original number: " + str(original_number_cards))
     # Now click on the delete button of the first card
-    delete_button = cards[0].find_element(By.ID,'delete-app')
+    delete_button = cards[1].find_element(By.ID,'delete-app')
     driver.execute_script("arguments[0].click();", delete_button)
     
     new_number_cards = len(driver.find_elements(By.CLASS_NAME, cards_class_name))
     print("New number: " + str(new_number_cards))
     time.sleep(2)
     assert(new_number_cards == original_number_cards - 1)
+    print("ALL ASSERTIONS FOR DELETE PASSED")
 
 def main():
     testDelete()

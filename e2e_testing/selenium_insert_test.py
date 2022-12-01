@@ -60,7 +60,7 @@ jobrole_id = "jobrole"
 jobrole_name = "SDE"
 
 date_of_application_id = "doa"
-input_date = "11-30-2022"
+input_date = "30-11-2022"
 input_date_verification = "2022-11-30"
 
 
@@ -140,7 +140,7 @@ def testAddForm(form_saved):
     application_status_verify = (wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="app-card-container"]/div[1]/div/div[2]/div/div/h5')))).text
     assert(application_status_verify == application_status_verification)
 
-    print("ALL ASSERTIONS PASSED")
+    print("ALL ASSERTIONS PASSED FOR INSERT")
 
 def closeDriver():
     driver.quit()
