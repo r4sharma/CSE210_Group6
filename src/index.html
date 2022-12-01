@@ -1,127 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <title>AppTrak</title>
-    <link href ="../styles.css" rel="stylesheet">
-    <link rel="stylesheet" href="libs/bootstrap-5.2.2-dist/css/bootstrap.min.css">
-    <script src="../dist/main.js"></script>
+  <meta charset="utf-8">
+  <title>AppTrak</title>
+  <link href="../styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="libs/bootstrap-5.2.2-dist/css/bootstrap.min.css">
+  <script src="../dist/main.js"></script>
 </head>
 
 <body>
 
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-              <svg width="20" height="20">
-                <rect x="1" y="1" width="10" height="10" stroke="#ADD8E6" stroke-width="1" rx=".5" fill="none" fill-opacity="0.6"/>
-                <rect x="2.5" y="2.5" width="10" height="10" stroke="#FF7F50" stroke-width="1" rx=".5" fill="none" fill-opacity="0.6"/>
-            </svg>
-              AppTrak
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="#">About Us</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">GitHub Repo</a>
-                </li>
-              </ul>
-              <form class="d-flex">
-                <button class="btn btn-outline-primary" type="submit">Profile</button>
-              </form>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <svg width="20" height="20">
+            <rect x="1" y="1" width="10" height="10" stroke="#ADD8E6" stroke-width="1" rx=".5" fill="none"
+              fill-opacity="0.6" />
+            <rect x="2.5" y="2.5" width="10" height="10" stroke="#FF7F50" stroke-width="1" rx=".5" fill="none"
+              fill-opacity="0.6" />
+          </svg>
+          AppTrak
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">GitHub Repo</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <button class="btn btn-outline-primary" type="submit">Profile</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <statistic-block id="statistic-block" class="statistic-block">
+    <div class="card mb-3 mx-auto" style="max-width: 750px;">
+      <div class="row g-0">
+        <div class="col-sm">
+          <h5 class=".text-dark d-flex justify-content-center card-body">Applied</h5>
+        </div>
+        <div class="col-sm">
+          <h5 class=".text-dark d-flex justify-content-center card-body">In Progress</h5>
+        </div>
+        <div class="col-sm">
+          <h5 class=".text-dark d-flex justify-content-center card-body">Offer</h5>
+        </div>
+        <div class="col-sm">
+          <h5 class=".text-dark d-flex justify-content-center card-body">Reject</h5>
+        </div>
+      </div>
+      <div class="row g-0 rounded-right">
+        <div class="col-sm bg-warning">
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+              <h5 class="text-light">1</h5>
             </div>
           </div>
-        </nav>
-      </header>
-
-    <applications id="applications">
-        <h2>Applications</h4>
-
-        <button id="showForm">Show Form</button>
-        <form id="application-form" class="application-form" style="display: none;" name="Application">
-            <label for="jobid">Job ID<i class="redtext">*</i></label> &nbsp; &nbsp;
-            <input type="text" id="jobid" name="Job ID"> <br>
-            <span class="helper-text"></span> <br> <br>
-                                  
-            <label for="cname">Company Name<i class="redtext">*</i></label> <br>
-            <input type="text" id="cname" name="Company Name"> <br> 
-            <span class="helper-text"></span> <br> <br>
-                                  
-            <label for="jobtype">Job Type </label> &nbsp; &nbsp;
-            <input type="radio" name="jobtype" id="jobtype" value="FullTime" checked>Full-Time</input> &nbsp;&nbsp;
-            <input type="radio" name="jobtype" id="jobtype" value="PartTime">Part-Time</input> &nbsp;&nbsp;
-            <input type="radio" name="jobtype" id="jobtype" value="Internship">Internship</input> &nbsp;&nbsp; <br>
-            <span class="helper-text"></span> <br> <br>
-        
-            <label for="jobrole">Job Role </label> &nbsp; &nbsp;
-            <input type="text" id="jobrole" name="JobRole"> <br>
-            <span class="helper-text"></span> <br> <br>
-                                    
-            <label for="DOA">Date of Application <i class="redtext">*</i></label> &nbsp; &nbsp;
-            <input type="date" id="doa" name="DateOfApplication" min="2020-01-01" max="2024-12-31"> <br>
-            <span class="helper-text"></span> <br> <br>
-      
-            <label for="ApplicationStatus">Application Status</label> &nbsp; &nbsp;
-            <select id="status" name="ApplicationStatus">
-            <option value="applied" selected>Applied</option>
-            <option value="inProgress">In Progress</option>
-            <option value="offer">Offer</option>
-            <option value="reject">Reject</option>
-            </select> <br> 
-            <span class="helper-text"></span> <br> <br>
-    
-            <label for="description">Description</label> <br>
-            <input type="text" id="desc" name="Description"> <br>
-            <span class="helper-text"></span> <br> <br>
-    
-            <input id="save" type="submit" value="SAVE">
-            <input id="cancel" type="submit" value="CANCEL"> <br>
-            <span class="helper-text"></span>
-        </form>
-
-        <div id="app-card-container" class="card-text">
-            <p>No applications to show here!</p>
         </div>
+        <div class="col-sm bg-primary">
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+              <h5 class="text-light">2</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm bg-success">
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+              <h5 class="text-light">3</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm bg-danger">
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+              <h5 class="text-light">5</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </statistic-block>
 
-    </applications>
+  <applications id="applications">
+    <h2>Applications</h4>
 
-    <reminders id="reminders">
-        <h2>Reminders</h4>
+      <button id="showForm">Show Form</button>
+      <form id="application-form" class="application-form" style="display: none;" name="Application">
+        <label for="jobid">Job ID<i class="redtext">*</i></label> &nbsp; &nbsp;
+        <input type="text" id="jobid" name="Job ID"> <br>
+        <span class="helper-text"></span> <br> <br>
 
-        <card class="reminder-card">
-            <card-container class="reminder-card-container">
-                <h4>Finish Online Assessment</h4>
-                <p>Due Date: 11/18/2022</p>
-            </card-container>
-        </card>
-    </reminders>
+        <label for="cname">Company Name<i class="redtext">*</i></label> <br>
+        <input type="text" id="cname" name="Company Name"> <br>
+        <span class="helper-text"></span> <br> <br>
 
-    <statistics id="statistics">
-        <h2>Statistics</h4>
-            <table>
-                <tr>
-                  <th>Applied</th>
-                  <th>Interview</th>
-                  <th>Offer</th>
-                  <th>Reject</th>
-                </tr>
-                <tr>
-                  <td>27</td>
-                  <td>12</td>
-                  <td>3</td>
-                  <td>5</td>
-                </tr>
-            </table>
-    </statistics>
+        <label for="jobtype">Job Type </label> &nbsp; &nbsp;
+        <input type="radio" name="jobtype" id="jobtype" value="FullTime" checked>Full-Time</input> &nbsp;&nbsp;
+        <input type="radio" name="jobtype" id="jobtype" value="PartTime">Part-Time</input> &nbsp;&nbsp;
+        <input type="radio" name="jobtype" id="jobtype" value="Internship">Internship</input> &nbsp;&nbsp; <br>
+        <span class="helper-text"></span> <br> <br>
+
+        <label for="jobrole">Job Role </label> &nbsp; &nbsp;
+        <input type="text" id="jobrole" name="JobRole"> <br>
+        <span class="helper-text"></span> <br> <br>
+
+        <label for="DOA">Date of Application <i class="redtext">*</i></label> &nbsp; &nbsp;
+        <input type="date" id="doa" name="DateOfApplication" min="2020-01-01" max="2024-12-31"> <br>
+        <span class="helper-text"></span> <br> <br>
+
+        <label for="ApplicationStatus">Application Status</label> &nbsp; &nbsp;
+        <select id="status" name="ApplicationStatus">
+          <option value="applied" selected>Applied</option>
+          <option value="inProgress">In Progress</option>
+          <option value="offer">Offer</option>
+          <option value="reject">Reject</option>
+        </select> <br>
+        <span class="helper-text"></span> <br> <br>
+
+        <label for="description">Description</label> <br>
+        <input type="text" id="desc" name="Description"> <br>
+        <span class="helper-text"></span> <br> <br>
+
+        <input id="save" type="submit" value="SAVE">
+        <input id="cancel" type="submit" value="CANCEL"> <br>
+        <span class="helper-text"></span>
+      </form>
+
+      <div id="app-card-container" class="card-text">
+        <p>No applications to show here!</p>
+      </div>
+
+  </applications>
+
+  <reminders id="reminders">
+    <h2>Reminders</h4>
+
+      <card class="reminder-card">
+        <card-container class="reminder-card-container">
+          <h4>Finish Online Assessment</h4>
+          <p>Due Date: 11/18/2022</p>
+        </card-container>
+      </card>
+  </reminders>
+
+  <statistics id="statistics">
+    <h2>Statistics</h4>
+      <table>
+        <tr>
+          <th>Applied</th>
+          <th>Interview</th>
+          <th>Offer</th>
+          <th>Reject</th>
+        </tr>
+        <tr>
+          <td>27</td>
+          <td>12</td>
+          <td>3</td>
+          <td>5</td>
+        </tr>
+      </table>
+  </statistics>
 
 </body>
+
 </html>
