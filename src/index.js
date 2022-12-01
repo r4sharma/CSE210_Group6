@@ -321,13 +321,15 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   /**
   * Creates a edit button of job card
   * @param {HTMLElement} parent
-  *  @param {String} key
+  *  @param {int} key
   * */
   function addJobCardEditButton(parent, key) {
     const editButton = document.createElement('button');
     editButton.type = 'button';
     editButton.setAttribute('class', 'btn btn-light');
     editButton.setAttribute('id', 'edit-app');
+    editButton.setAttribute('data-bs-toggle', 'modal');
+    editButton.setAttribute('data-bs-target', '#updateApp');
     parent.appendChild(editButton);
 
     const buttonText = document.createElement('p');
@@ -339,23 +341,43 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   /**
   * Creates a delete button of job card
   * @param {HTMLElement} parent
-  * @param {String} key
+  * @param {int} key
   * */
   function addJobCardDeleteButton(parent, key) {
     const deleteButton = document.createElement('button');
     deleteButton.type = 'button';
     deleteButton.setAttribute('class', 'btn btn-light');
     deleteButton.setAttribute('id', 'delete-app');
-    deleteButton.addEventListener('click', function() {
-      deleteApplication(key);
-    });
-    // deleteButton.onclick = deleteApplication(key);
+    addDelModal(deleteButton, key);
     parent.appendChild(deleteButton);
 
     const buttonText = document.createElement('p');
     buttonText.setAttribute('class', 'text-danger');
     buttonText.innerHTML = 'del';
     deleteButton.appendChild(buttonText);
+  }
+
+  /**
+  * Creates a delete button of job card
+  * @param {HTMLElement} deleteButton
+  * @param {int} key
+  * */
+  function addDelModal(deleteButton, key) {
+    deleteButton.setAttribute('data-bs-toggle', 'modal');
+    deleteButton.setAttribute('data-bs-target', '#deleteApp');
+    const deleteButtonModal = document.querySelector('#deleteAppButton');
+    deleteButtonModal.setAttribute('data-id', key);
+    deleteButtonModal.onclick = deleteViaModal;
+  }
+  /**
+   * Adds delete functionality to delete button in modal
+   * @param {event} event
+   */
+  function deleteViaModal(event) {
+    event.preventDefault();
+    console.log(event.target);
+    const key = Number(event.target.getAttribute('data-id'));
+    deleteApplication(key);
   }
 
   /**
@@ -441,3 +463,4 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
         .catch((error) => console.log('error in deleting record!', error));
   }
 });
+
