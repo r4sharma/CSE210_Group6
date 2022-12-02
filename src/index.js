@@ -7,19 +7,19 @@ import Database from './database/database';
 document.addEventListener('DOMContentLoaded', (loadDB) => {
   const name = 'Applications';
   const version = 1;
-  const fields = 'jobID,'+
-  'companyName,'+
-  'jobType,'+
-  'jobRole,'+
-  'doa,'+
-  'applicationStatus,'+
-  'description';
+  const fields = 'jobID,' +
+    'companyName,' +
+    'jobType,' +
+    'jobRole,' +
+    'doa,' +
+    'applicationStatus,' +
+    'description';
   let appliedCount;
   let inProgressCount;
   let offerCount;
   let rejectCount;
   const database = new Database(name, version);
-  database.initialize(fields).then(()=>showAppCards());
+  database.initialize(fields).then(() => showAppCards());
   console.log(database);
   // save button to save application in database
   document.getElementById('save').onclick = addApplication;
@@ -36,20 +36,22 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     const jobID = document.getElementById('jobid').value;
     const companyName = document.getElementById('cname').value;
     const jobType =
-    findRadioSelectedValue(document.getElementsByName('jobtype'));
+      findRadioSelectedValue(document.getElementsByName('jobtype'));
     const jobRole = document.getElementById('jobrole').value;
     const doa = document.getElementById('doa').value;
     const applicationStatus = document.getElementById('status').value;
     const description = document.getElementById('desc').value;
     // craeting record in db
-    const application = {jobID: jobID,
+    const application = {
+      jobID: jobID,
       companyName: companyName,
       jobType: jobType,
       jobRole: jobRole,
       doa: doa,
       applicationStatus: applicationStatus,
       description: description,
-      lastUpdated: getCurrentDate()};
+      lastUpdated: getCurrentDate(),
+    };
     database.save(application)
         .then((transaction) => {
           document.getElementById('application-form').reset();
@@ -82,11 +84,11 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
    * @param {Array} data
    */
   function createAppCards(data) {
-    if (data!==null && data.length>0) {
-      appliedCount=0;
-      inProgressCount=0;
-      offerCount=0;
-      rejectCount=0;
+    if (data !== null && data.length > 0) {
+      appliedCount = 0;
+      inProgressCount = 0;
+      offerCount = 0;
+      rejectCount = 0;
       data.forEach(createJobCard);
     } else {
       createEmptyAppCard();
@@ -114,9 +116,10 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     const row = document.createElement('div');
     row.setAttribute('class', 'row g-0');
     card.appendChild(row);
+
+    createJobCardHeaderRow(row, value);
     createJobCardColumnOne(row, value);
     createJobCardColumnTwo(row, value.applicationStatus);
-    createJobCardColumnThree(row, value.key);
     switch (value.applicationStatus) {
       case 'applied':
         appliedCount++;
@@ -135,6 +138,35 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   }
 
   /**
+* Creates a job card header with information populated
+* @param {HTMLElement} parent
+* @param {Object} value
+* */
+  function createJobCardHeaderRow(parent, value) {
+    const headerRow = document.createElement('div');
+    headerRow.setAttribute('class', 'row g-0');
+    parent.appendChild(headerRow);
+
+    const navbar = document.createElement('nav');
+    navbar.classList.add('navbar', 'rounded-top',
+        'navbar-expand-lg', 'navbar-light', 'bg-light');
+    headerRow.appendChild(navbar);
+
+    const container = document.createElement('div');
+    container.setAttribute('class', 'container-fluid');
+    navbar.appendChild(container);
+
+    createCompanyNameElement(container, value.companyName);
+
+    const buttons = document.createElement('div');
+    container.appendChild(buttons);
+
+    addJobCardEditButton(buttons, value.key);
+    addJobCardDeleteButton(buttons, value.key);
+  }
+
+
+  /**
   * Creates a job card with information populated
   * @param {HTMLElement} parent
   * @param {Object} value
@@ -148,7 +180,6 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     bodyOne.setAttribute('class', 'card-body');
     columnOne.appendChild(bodyOne);
 
-    createCompanyNameElement(bodyOne, value.companyName);
     createJobIDElement(bodyOne, value.jobID);
     createJobTypeElement(bodyOne, value.jobType);
     createJobRoleElement(bodyOne, value.jobRole);
@@ -184,28 +215,15 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   }
 
   /**
-  * Creates a part of job card with edit, delete info
-  * @param {HTMLElement} parent
-  * @param {String} key
-  * */
-  function createJobCardColumnThree(parent, key) {
-    const columnThree = document.createElement('div');
-    columnThree.setAttribute('class', 'col-sm-1 btn-group-vertical btn-block');
-    parent.appendChild(columnThree);
-
-    addJobCardEditButton(columnThree, key);
-    addJobCardDeleteButton(columnThree, key);
-  }
-
-  /**
  * Creates an entry for company title in job card
  * @param {HTMLElement} parent
  * @param {String} cname
  */
   function createCompanyNameElement(parent, cname) {
-    const cardTitle = document.createElement('h5');
-    cardTitle.innerHTML = cname; // cannot be null - form check added.
-    parent.appendChild(cardTitle);
+    const jobTitle = document.createElement('a');
+    jobTitle.setAttribute('class', 'navbar-brand');
+    jobTitle.innerHTML = cname; // cannot be null - form check added.
+    parent.appendChild(jobTitle);
   }
 
   /**
@@ -224,7 +242,7 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     jobIDElement.appendChild(mutedTextOne);
 
     const regularTextOne = document.createElement('text');
-    regularTextOne.innerHTML = jobID!==undefined ? jobID : '';
+    regularTextOne.innerHTML = jobID !== undefined ? jobID : '';
     jobIDElement.appendChild(regularTextOne);
   }
 
@@ -244,7 +262,7 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     jobTypeElement.appendChild(mutedTextOne);
 
     const regularTextOne = document.createElement('text');
-    regularTextOne.innerHTML = jobType!==undefined ? jobType : '';
+    regularTextOne.innerHTML = jobType !== undefined ? jobType : '';
     jobTypeElement.appendChild(regularTextOne);
   }
 
@@ -264,7 +282,7 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     jobRoleElement.appendChild(mutedTextTwo);
 
     const regularTextTwo = document.createElement('text');
-    regularTextTwo.innerHTML = jobRole!==undefined ? jobRole : '';
+    regularTextTwo.innerHTML = jobRole !== undefined ? jobRole : '';
     jobRoleElement.appendChild(regularTextTwo);
   }
   /**
@@ -283,7 +301,7 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     descElement.appendChild(mutedTextTwo);
 
     const regularTextTwo = document.createElement('text');
-    regularTextTwo.innerHTML = desc!==undefined ? desc : '';
+    regularTextTwo.innerHTML = desc !== undefined ? desc : '';
     descElement.appendChild(regularTextTwo);
   }
   /**
@@ -302,7 +320,7 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     dateApplied.appendChild(mutedTextTwo);
 
     const regularTextTwo = document.createElement('text');
-    regularTextTwo.innerHTML = doa!==undefined ? doa : '';
+    regularTextTwo.innerHTML = doa !== undefined ? doa : '';
     dateApplied.appendChild(regularTextTwo);
   }
 
@@ -317,45 +335,6 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   //   lastUpdated.appendChild(lastUpdatedText);
   //   parent.appendChild(lastUpdated);
   // }
-
-  /**
-  * Creates a edit button of job card
-  * @param {HTMLElement} parent
-  *  @param {int} key
-  * */
-  function addJobCardEditButton(parent, key) {
-    const editButton = document.createElement('button');
-    editButton.type = 'button';
-    editButton.setAttribute('class', 'btn btn-light');
-    editButton.setAttribute('id', 'edit-app');
-    editButton.setAttribute('data-bs-toggle', 'modal');
-    editButton.setAttribute('data-bs-target', '#updateApp');
-    parent.appendChild(editButton);
-
-    const buttonText = document.createElement('p');
-    buttonText.setAttribute('class', 'text-info');
-    buttonText.innerHTML = 'edit';
-    editButton.appendChild(buttonText);
-  }
-
-  /**
-  * Creates a delete button of job card
-  * @param {HTMLElement} parent
-  * @param {int} key
-  * */
-  function addJobCardDeleteButton(parent, key) {
-    const deleteButton = document.createElement('button');
-    deleteButton.type = 'button';
-    deleteButton.setAttribute('class', 'btn btn-light');
-    deleteButton.setAttribute('id', 'delete-app');
-    addDelModal(deleteButton, key);
-    parent.appendChild(deleteButton);
-
-    const buttonText = document.createElement('p');
-    buttonText.setAttribute('class', 'text-danger');
-    buttonText.innerHTML = 'del';
-    deleteButton.appendChild(buttonText);
-  }
 
   /**
   * Creates a delete button of job card
@@ -381,21 +360,54 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   }
 
   /**
+* Creates a edit button of job card
+* @param {HTMLElement} parent
+*  @param {int} key
+* */
+  function addJobCardEditButton(parent, key) {
+    const editButton = document.createElement('button');
+
+    editButton.setAttribute('class', 'btn btn-outline-info btn-sm');
+    editButton.setAttribute('type', 'submit');
+    editButton.innerHTML = 'Edit';
+    editButton.setAttribute('id', 'edit-app');
+    editButton.setAttribute('data-bs-toggle', 'modal');
+    editButton.setAttribute('data-bs-target', '#updateApp');
+    parent.appendChild(editButton);
+  }
+
+  /**
+  * Creates a delete button of job card
+  * @param {HTMLElement} parent
+  * @param {int} key
+  * */
+  function addJobCardDeleteButton(parent, key) {
+    const deleteButton = document.createElement('button');
+    deleteButton.setAttribute('class', 'btn btn-outline-danger btn-sm');
+    deleteButton.setAttribute('type', 'submit');
+    deleteButton.setAttribute('id', 'delete-app');
+    deleteButton.innerHTML = 'Delete';
+
+    addDelModal(deleteButton, key);
+    parent.appendChild(deleteButton);
+  }
+
+  /**
  * To set bg color indicating status of application.
  * @param {String} status
  * @return {String}
  */
   function setStatusBackgroundColor(status) {
     if (status == 'applied') {
-      return 'col-sm bg-warning';
+      return 'col-sm rounded-bottom-right-1 bg-warning';
     } else if (status == 'inProgress') {
-      return 'col-sm bg-primary';
+      return 'col-sm rounded-bottom-right-1 bg-primary';
     } else if (status == 'offer') {
-      return 'col-sm bg-success';
+      return 'col-sm rounded-bottom-right-1 bg-success';
     } else if (status == 'reject') {
-      return 'col-sm bg-danger';
+      return 'col-sm rounded-bottom-right-1 bg-danger';
     } else {
-      return 'col-sm bg-muted';
+      return 'col-sm rounded-bottom-right-1 bg-muted';
     }
   }
 
