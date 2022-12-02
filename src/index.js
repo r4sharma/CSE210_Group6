@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     parent.appendChild(columnTwo);
 
     const bodyTwo = document.createElement('div');
-    bodyTwo.setAttribute('class', 'card-body');
+    bodyTwo.setAttribute('class', 'card-body align-items-center');
     columnTwo.appendChild(bodyTwo);
 
     const coloredColumn = document.createElement('div');
@@ -399,15 +399,19 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
  */
   function setStatusBackgroundColor(status) {
     if (status == 'applied') {
-      return 'col-sm rounded-bottom-right-1 bg-warning';
+      // eslint-disable-next-line max-len
+      return 'col-sm rounded-bottom-right-1 bg-warning d-flex align-items-center';
     } else if (status == 'inProgress') {
-      return 'col-sm rounded-bottom-right-1 bg-primary';
+      // eslint-disable-next-line max-len
+      return 'col-sm rounded-bottom-right-1 bg-primary d-flex align-items-center';
     } else if (status == 'offer') {
-      return 'col-sm rounded-bottom-right-1 bg-success';
+      // eslint-disable-next-line max-len
+      return 'col-sm rounded-bottom-right-1 bg-success d-flex align-items-center';
     } else if (status == 'reject') {
-      return 'col-sm rounded-bottom-right-1 bg-danger';
+      // eslint-disable-next-line max-len
+      return 'col-sm rounded-bottom-right-1 bg-danger d-flex align-items-center';
     } else {
-      return 'col-sm rounded-bottom-right-1 bg-muted';
+      return 'col-sm rounded-bottom-right-1 bg-muted d-flex align-items-center';
     }
   }
 
