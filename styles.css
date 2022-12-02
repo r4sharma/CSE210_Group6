@@ -29,3 +29,15 @@ body {
 .rounded-bottom-left-1 {
   border-bottom-left-radius: .25rem;
 }
+
+.form-group {
+  padding: 1% 0 1% 0;
+}
+
+#save {
+  margin-right: 0.4em;
+}
+
+#cancel {
+  margin-left: 0.4em;
+}
