@@ -360,6 +360,58 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   }
 
   /**
+  * Creates a edit modal of job card
+  * @param {HTMLElement} editButton
+  * @param {int} key
+  */
+  function addEditModal(editButton, key) {
+    editButton.setAttribute('data-bs-toggle', 'modal');
+    editButton.setAttribute('data-bs-target', '#updateApp');
+    editButton.setAttribute('data-id', key);
+    editButton.onclick = populateEditModal;
+    const editButtonModal = document.querySelector('#editAppButton');
+    editButtonModal.setAttribute('data-id', key);
+    editButtonModal.onclick = editViaModal;
+  }
+
+  /**
+   * Adds edit functionality to edit button in modal
+   * @param {event} event
+   */
+  function editViaModal(event) {
+    event.preventDefault();
+    const task = event.currentTarget.closest('.message');
+    console.log(task);
+    const key = Number(event.target.getAttribute('data-id'));
+    editApplication(key);
+  }
+
+  /**
+   * Populate details of a particular record
+   * @param {event} event
+   */
+  function populateEditModal(event) {
+    const key = Number(event.target.getAttribute('data-id'));
+    console.log(key);
+    database.getRecordByKey(key).then((value)=>{
+      document.getElementById('edit-form').reset();
+      console.log(value);
+      document.getElementById('editJobid').setAttribute('value', value.jobID);
+      document.getElementById('editCname')
+          .setAttribute('value', value.companyName);
+      document.getElementById('editJobtype').checked = value.jobType;
+      document.getElementById('editApplicationStatus')
+          .selected =value.applicationStatus;
+      document.getElementById('editJobrole')
+          .setAttribute('value', value.jobRole);
+      document.getElementById('editDoa')
+          .setAttribute('value', value.doa);
+      document.getElementById('editDescription')
+          .setAttribute('value', value.description);
+    });
+  }
+
+  /**
 * Creates a edit button of job card
 * @param {HTMLElement} parent
 *  @param {int} key
@@ -371,8 +423,7 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     editButton.setAttribute('type', 'submit');
     editButton.innerHTML = 'Edit';
     editButton.setAttribute('id', 'edit-app');
-    editButton.setAttribute('data-bs-toggle', 'modal');
-    editButton.setAttribute('data-bs-target', '#updateApp');
+    addEditModal(editButton, key);
     parent.appendChild(editButton);
   }
 
@@ -477,6 +528,40 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
           console.log(result);
         })
         .catch((error) => console.log('error in deleting record!', error));
+  }
+
+  /**
+ * Function to succesfully update the application.
+ * @param {int} key
+ */
+  function editApplication(key) {
+    const jobID = document.getElementById('editJobid').value;
+    const companyName = document.getElementById('editCname').value;
+    const jobType =
+    findRadioSelectedValue(document.getElementsByName('editJobtype'));
+    const jobRole = document.getElementById('editJobrole').value;
+    const doa = document.getElementById('editDoa').value;
+    const applicationStatus =
+      document.getElementById('editApplicationStatus').value;
+    const description = document.getElementById('editDescription').value;
+    // craeting record in db
+    const application = {jobID: jobID,
+      companyName: companyName,
+      jobType: jobType,
+      jobRole: jobRole,
+      doa: doa,
+      applicationStatus: applicationStatus,
+      description: description,
+      lastUpdated: getCurrentDate()};
+    database.update(application)
+        .then((transaction) => {
+          document.getElementById('edit-form').reset();
+          transaction.oncomplete = () => {
+            showAppCards();
+            console.log('updated');
+          };
+        })
+        .catch((error) => console.log('error in updating the record.', error));
   }
 });
 

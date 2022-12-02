@@ -39,7 +39,6 @@
               <a class="nav-link" href="#">GitHub Repo</a>
             </li>
           </ul>
-          <button class="btn btn-outline-primary" type="submit">Profile</button>
         </div>
       </div>
     </nav>
@@ -95,7 +94,7 @@
   </statistic-block>
 
   <applications id="applications">
-    <h2>Applications</h4>
+    <h2 class="text-center">Applications</h4>
 
       <div class="d-grid gap-2 col-2 mx-auto">
         <button id="showForm" type="button" class="btn btn-primary text-center">Add Application</button>
@@ -215,40 +214,40 @@
 
                 <!-- Job ID -->
                 <div class="form-group row">
-                  <label for="jobid" class="col-sm-4 col-form-label">Job ID</label>
+                  <label for="editJobid" class="col-sm-4 col-form-label">Job ID</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="jobid">
+                    <input type="text" class="form-control" id="editJobid">
                   </div>
                 </div>
 
                 <!-- Company Name -->
                 <div class="form-group row">
-                  <label for="cname" class="col-sm-4 col-form-label">Company Name</label>
+                  <label for="editCname" class="col-sm-4 col-form-label">Company Name</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="cname">
+                    <input type="text" class="form-control" id="editCname">
                   </div>
                 </div>
 
                 <!-- Job Type -->
                 <div class="form-group row">
-                  <label for="jobtype" class="col-sm-4 col-form-label">Job Type</label>
+                  <label for="editJobtype" class="col-sm-4 col-form-label">Job Type</label>
                   <div class="col-sm-8">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="Job Type" id="jobtype" value="fulltime"
+                      <input class="form-check-input" type="radio" name="Job Type" id="editJobtype" value="fulltime"
                         checked>
-                      <label class="form-check-label" for="jobtype">
+                      <label class="form-check-label" for="editJobtype">
                         Full-Time
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="Job Type" id="jobtype" value="parttime">
-                      <label class="form-check-label" for="jobtype">
+                      <input class="form-check-input" type="radio" name="Job Type" id="editJobtype" value="parttime">
+                      <label class="form-check-label" for="editJobtype">
                         Part-Time
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="Job Type" id="jobtype" value="internship">
-                      <label class="form-check-label" for="jobtype">
+                      <input class="form-check-input" type="radio" name="Job Type" id="editJobtype" value="internship">
+                      <label class="form-check-label" for="editJobtype">
                         Internship
                       </label>
                     </div>
@@ -257,9 +256,9 @@
 
                 <!-- Application Status -->
                 <div class="form-group row">
-                  <label for="ApplicationStatus" class="col-sm-4 col-form-label">Application Status</label>
+                  <label for="editApplicationStatus" class="col-sm-4 col-form-label">Application Status</label>
                   <div class="col-sm-8">
-                    <select id="ApplicationStatus" class="form-select">
+                    <select id="editApplicationStatus" class="form-select">
                       <option selected>Applied</option>
                       <option>In Progress</option>
                       <option>Offer</option>
@@ -270,33 +269,33 @@
 
                 <!-- Job Role -->
                 <div class="form-group row">
-                  <label for="jobrole" class="col-sm-4 col-form-label">Job Role</label>
+                  <label for="editJobrole" class="col-sm-4 col-form-label">Job Role</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="jobrole">
+                    <input type="text" class="form-control" id="editJobrole">
                   </div>
                 </div>
 
                 <!-- Date of Application -->
                 <div class="form-group row input-with-post-icon datepicker" inline="true">
-                  <label for="example" class="col-sm-4 col-form-label">Date of Application</label>
+                  <label for="editDoa" class="col-sm-4 col-form-label">Date of Application</label>
                   <div class="col-sm-8">
-                    <input type="date" class="form-control" name="date-field">
+                    <input id="editDoa" type="date" class="form-control" name="date-field">
                     <i class="fas fa-calendar input-prefix"></i>
                   </div>
                 </div>
 
                 <!-- Description -->
                 <div class="form-group row">
-                  <label for="description" class="col-sm-4 col-form-label">Description</label>
+                  <label for="editDescription" class="col-sm-4 col-form-label">Description</label>
                   <div class="col-sm-8">
-                    <textarea class="form-control" id="description" rows="3"></textarea>
+                    <textarea class="form-control" id="editDescription" rows="3"></textarea>
                   </div>
                 </div>
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button id="editAppButton" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
             </div>
           </div>
         </div>
