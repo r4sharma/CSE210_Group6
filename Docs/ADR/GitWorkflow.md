@@ -1,4 +1,4 @@
-# Storage ADR
+# GitWorkflow ADR
 
 # Use Gitflow as our Git Workflow Strategy
 
