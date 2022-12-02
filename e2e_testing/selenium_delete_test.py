@@ -58,7 +58,11 @@ def testDelete():
     original_second_card = getCardInfo(cards[2])
     
     # Now click on the delete button of the first card
-    delete_button = cards[1].find_element(By.ID,'delete-app')
+    delete_button_prompt = cards[1].find_element(By.ID,'delete-app')
+    driver.execute_script("arguments[0].click();", delete_button_prompt)
+    time.sleep(2)
+
+    delete_button = driver.find_element(By.ID,'deleteAppButton')
     driver.execute_script("arguments[0].click();", delete_button)
 
     updated_cards = driver.find_elements(By.CLASS_NAME, cards_class_name)
