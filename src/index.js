@@ -53,14 +53,14 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
       lastUpdated: getCurrentDate(),
     };
     database.save(application)
-      .then((transaction) => {
-        document.getElementById('application-form').reset();
-        transaction.oncomplete = () => {
-          showAppCards();
-          console.log('added');
-        };
-      })
-      .catch((error) => console.log('error', error));
+        .then((transaction) => {
+          document.getElementById('application-form').reset();
+          transaction.oncomplete = () => {
+            showAppCards();
+            console.log('added');
+          };
+        })
+        .catch((error) => console.log('error', error));
   }
 
   /**
@@ -72,10 +72,10 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
       appCardContainer.removeChild(appCardContainer.firstChild);
     }
     database.getAllRecords().then(
-      (data) => {
-        createAppCards(data);
-        console.log(appliedCount, inProgressCount, offerCount, rejectCount);
-      },
+        (data) => {
+          createAppCards(data);
+          console.log(appliedCount, inProgressCount, offerCount, rejectCount);
+        },
     ).catch((e) => console.log(e, 'error in fetching all records'));
   }
 
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
 
     const navbar = document.createElement('nav');
     navbar.classList.add('navbar', 'rounded-top',
-      'navbar-expand-lg', 'navbar-light', 'bg-light');
+        'navbar-expand-lg', 'navbar-light', 'bg-light');
     headerRow.appendChild(navbar);
 
     const container = document.createElement('div');
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   function createJobCardColumnTwo(parent, applicationStatus) {
     const columnTwo = document.createElement('div');
     columnTwo.setAttribute('class',
-      setStatusBackgroundColor(applicationStatus));
+        setStatusBackgroundColor(applicationStatus));
     parent.appendChild(columnTwo);
 
     const bodyTwo = document.createElement('div');
@@ -399,12 +399,16 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
  */
   function setStatusBackgroundColor(status) {
     if (status == 'applied') {
+      // eslint-disable-next-line max-len
       return 'col-sm rounded-bottom-right-1 bg-warning d-flex align-items-center';
     } else if (status == 'inProgress') {
+      // eslint-disable-next-line max-len
       return 'col-sm rounded-bottom-right-1 bg-primary d-flex align-items-center';
     } else if (status == 'offer') {
+      // eslint-disable-next-line max-len
       return 'col-sm rounded-bottom-right-1 bg-success d-flex align-items-center';
     } else if (status == 'reject') {
+      // eslint-disable-next-line max-len
       return 'col-sm rounded-bottom-right-1 bg-danger d-flex align-items-center';
     } else {
       return 'col-sm rounded-bottom-right-1 bg-muted d-flex align-items-center';
@@ -468,11 +472,11 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
    */
   function deleteApplication(key) {
     database.remove(key)
-      .then((result) => {
-        showAppCards();
-        console.log(result);
-      })
-      .catch((error) => console.log('error in deleting record!', error));
+        .then((result) => {
+          showAppCards();
+          console.log(result);
+        })
+        .catch((error) => console.log('error in deleting record!', error));
   }
 });
 
