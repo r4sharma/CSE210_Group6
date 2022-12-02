@@ -53,14 +53,14 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
       lastUpdated: getCurrentDate(),
     };
     database.save(application)
-      .then((transaction) => {
-        document.getElementById('application-form').reset();
-        transaction.oncomplete = () => {
-          showAppCards();
-          console.log('added');
-        };
-      })
-      .catch((error) => console.log('error', error));
+        .then((transaction) => {
+          document.getElementById('application-form').reset();
+          transaction.oncomplete = () => {
+            showAppCards();
+            console.log('added');
+          };
+        })
+        .catch((error) => console.log('error', error));
   }
 
   /**
@@ -72,10 +72,10 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
       appCardContainer.removeChild(appCardContainer.firstChild);
     }
     database.getAllRecords().then(
-      (data) => {
-        createAppCards(data);
-        console.log(appliedCount, inProgressCount, offerCount, rejectCount);
-      },
+        (data) => {
+          createAppCards(data);
+          console.log(appliedCount, inProgressCount, offerCount, rejectCount);
+        },
     ).catch((e) => console.log(e, 'error in fetching all records'));
   }
 
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
 
     const navbar = document.createElement('nav');
     navbar.classList.add('navbar', 'rounded-top',
-      'navbar-expand-lg', 'navbar-light', 'bg-light');
+        'navbar-expand-lg', 'navbar-light', 'bg-light');
     headerRow.appendChild(navbar);
 
     const container = document.createElement('div');
@@ -161,17 +161,8 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     const buttons = document.createElement('div');
     container.appendChild(buttons);
 
-    const editButton = document.createElement('button');
-    editButton.setAttribute('class', 'btn btn-outline-info btn-sm');
-    editButton.setAttribute('type', 'submit');
-    editButton.innerHTML = 'Edit';
-    buttons.appendChild(editButton);
-
-    const deleteButton = document.createElement('button');
-    deleteButton.setAttribute('class', 'btn btn-outline-danger btn-sm');
-    deleteButton.setAttribute('type', 'submit');
-    deleteButton.innerHTML = 'Delete';
-    buttons.appendChild(deleteButton);
+    addJobCardEditButton(buttons, value.key);
+    addJobCardDeleteButton(buttons, value.key);
   }
 
 
@@ -206,7 +197,7 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   function createJobCardColumnTwo(parent, applicationStatus) {
     const columnTwo = document.createElement('div');
     columnTwo.setAttribute('class',
-      setStatusBackgroundColor(applicationStatus));
+        setStatusBackgroundColor(applicationStatus));
     parent.appendChild(columnTwo);
 
     const bodyTwo = document.createElement('div');
@@ -369,6 +360,39 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   }
 
   /**
+* Creates a edit button of job card
+* @param {HTMLElement} parent
+*  @param {int} key
+* */
+  function addJobCardEditButton(parent, key) {
+    const editButton = document.createElement('button');
+
+    editButton.setAttribute('class', 'btn btn-outline-info btn-sm');
+    editButton.setAttribute('type', 'submit');
+    editButton.innerHTML = 'Edit';
+    editButton.setAttribute('id', 'edit-app');
+    editButton.setAttribute('data-bs-toggle', 'modal');
+    editButton.setAttribute('data-bs-target', '#updateApp');
+    parent.appendChild(editButton);
+  }
+
+  /**
+  * Creates a delete button of job card
+  * @param {HTMLElement} parent
+  * @param {int} key
+  * */
+  function addJobCardDeleteButton(parent, key) {
+    const deleteButton = document.createElement('button');
+    deleteButton.setAttribute('class', 'btn btn-outline-danger btn-sm');
+    deleteButton.setAttribute('type', 'submit');
+    deleteButton.setAttribute('id', 'delete-app');
+    deleteButton.innerHTML = 'Delete';
+
+    addDelModal(deleteButton, key);
+    parent.appendChild(deleteButton);
+  }
+
+  /**
  * To set bg color indicating status of application.
  * @param {String} status
  * @return {String}
@@ -444,11 +468,11 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
    */
   function deleteApplication(key) {
     database.remove(key)
-      .then((result) => {
-        showAppCards();
-        console.log(result);
-      })
-      .catch((error) => console.log('error in deleting record!', error));
+        .then((result) => {
+          showAppCards();
+          console.log(result);
+        })
+        .catch((error) => console.log('error in deleting record!', error));
   }
 });
 
