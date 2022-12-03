@@ -9,20 +9,23 @@ new_str = ""
 for i in cards_class_name:
     new_str += (i+".")
 cards_class_name = new_str[:-1]
+card_text_class = "card-text"
+delete_button_prompt_id = "delete-app"
+delete_button_id = 'deleteAppButton'
 
 def getCardInfo(card_element):
     # First 5 fields can be accessed using card-text as the class to be searched for
     # No need to be concerned by card-text in other cards since this function searches for card-text within a particular element
-    card_text_elements = card_element.find_elements(By.CLASS_NAME, "card-text")
-    expected = []
+    card_text_elements = card_element.find_elements(By.CLASS_NAME, card_text_class)
+    information = []
     for i in card_text_elements:
-        expected.append(i.find_elements(By.CSS_SELECTOR, "text")[1].text)
+        information.append(i.find_elements(By.CSS_SELECTOR, "text")[1].text)
     
     # Append the company name and application status
-    expected.append(card_element.find_element(By.CLASS_NAME, "card-body").find_element(By.CSS_SELECTOR, "h5").text)
-    expected.append(card_element.find_element(By.CLASS_NAME, "text-light").text)
+    information.append(card_element.find_element(By.CLASS_NAME, "navbar-brand").text)
+    information.append(card_element.find_element(By.CLASS_NAME, "text-light").text)
     
-    return expected
+    return information
 
 def testDelete():
     application1 = {
@@ -58,11 +61,11 @@ def testDelete():
     original_second_card = getCardInfo(cards[2])
     
     # Now click on the delete button of the first card
-    delete_button_prompt = cards[1].find_element(By.ID,'delete-app')
+    delete_button_prompt = cards[1].find_element(By.ID,delete_button_prompt_id)
     driver.execute_script("arguments[0].click();", delete_button_prompt)
     time.sleep(2)
 
-    delete_button = driver.find_element(By.ID,'deleteAppButton')
+    delete_button = driver.find_element(By.ID, delete_button_id)
     driver.execute_script("arguments[0].click();", delete_button)
 
     updated_cards = driver.find_elements(By.CLASS_NAME, cards_class_name)
