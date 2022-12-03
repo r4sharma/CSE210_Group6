@@ -233,20 +233,20 @@
                   <label for="editJobtype" class="col-sm-4 col-form-label">Job Type</label>
                   <div class="col-sm-8">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="Job Type" id="editJobtype" value="fulltime"
+                      <input class="form-check-input" type="radio" name="editJobtype" id="FullTime" value="FullTime"
                         checked>
                       <label class="form-check-label" for="editJobtype">
                         Full-Time
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="Job Type" id="editJobtype" value="parttime">
+                      <input class="form-check-input" type="radio" name="editJobtype" id="PartTime" value="PartTime">
                       <label class="form-check-label" for="editJobtype">
                         Part-Time
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="Job Type" id="editJobtype" value="internship">
+                      <input class="form-check-input" type="radio" name="Job Type" id="Internship" value="Internship">
                       <label class="form-check-label" for="editJobtype">
                         Internship
                       </label>
@@ -259,10 +259,10 @@
                   <label for="editApplicationStatus" class="col-sm-4 col-form-label">Application Status</label>
                   <div class="col-sm-8">
                     <select id="editApplicationStatus" class="form-select">
-                      <option selected>Applied</option>
-                      <option>In Progress</option>
-                      <option>Offer</option>
-                      <option>Reject</option>
+                      <option value="applied" selected>Applied</option>
+                      <option value="inProgress">In Progress</option>
+                      <option value="offer">Offer</option>
+                      <option value="reject">Reject</option>
                     </select>
                   </div>
                 </div>
@@ -318,10 +318,6 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <div id="app-card-container" class="card-text">
-        <p>No applications to show here!</p>
       </div>
 
   </applications>

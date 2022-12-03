@@ -12,6 +12,7 @@ let appCardContainer = null;
 export function getCardContainer() {
   appCardContainer = document.querySelector('#app-card-container');
 }
+
 /**
   * Function to fetch and create all cards from db
   * @param {Array} data
@@ -46,14 +47,6 @@ function createAppCards(data) {
  * @param {Object} value
  */
 function createJobCard(value) {
-  // const {key,
-  //   jobID,
-  //   companyName,
-  //   jobType,
-  //   jobRole,
-  //   doa,
-  //   description,
-  //   applicationStatus} = value;
   console.log(value);
 
   const card = document.createElement('div');
@@ -131,8 +124,6 @@ function createJobCardColumnOne(parent, value) {
   createJobRoleElement(bodyOne, value.jobRole);
   createDateAppliedElement(bodyOne, value.doa);
   createDescriptionElement(bodyOne, value.description);
-
-  // createLastUpdatedElement(bodyOne, job)
 }
 
 /**
@@ -250,6 +241,7 @@ function createDescriptionElement(parent, desc) {
   regularTextTwo.innerHTML = desc !== undefined ? desc : '';
   descElement.appendChild(regularTextTwo);
 }
+
 /**
 * Creates an entry for doa in job card
 * @param {HTMLElement} parent
@@ -269,18 +261,6 @@ function createDateAppliedElement(parent, doa) {
   regularTextTwo.innerHTML = doa !== undefined ? doa : '';
   dateApplied.appendChild(regularTextTwo);
 }
-
-// TODO: for use later
-// function createLastUpdatedElement(parent, job) {
-//   const lastUpdated = document.createElement('p');
-//   lastUpdated.setAttribute('class', 'card-text');
-//   const lastUpdatedText = document.createElement('small');
-//   lastUpdatedText.setAttribute('class', 'text-muted');
-//   lastUpdatedText.innerHTML = 'Last updated 3 mins ago';
-
-//   lastUpdated.appendChild(lastUpdatedText);
-//   parent.appendChild(lastUpdated);
-// }
 
 /**
 * To set bg color indicating status of application.
