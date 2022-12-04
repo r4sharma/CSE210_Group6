@@ -209,7 +209,6 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
     bodyTwo.appendChild(coloredColumn);
 
     const status = document.createElement('h5');
-    status.setAttribute('class', 'text-light');
     status.innerHTML = applicationStatus;
     coloredColumn.appendChild(status);
   }
@@ -367,9 +366,9 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   function addJobCardEditButton(parent, key) {
     const editButton = document.createElement('button');
 
-    editButton.setAttribute('class', 'btn btn-outline-info btn-sm');
+    editButton.setAttribute('class', 'btn');
     editButton.setAttribute('type', 'submit');
-    editButton.innerHTML = 'Edit';
+    editButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
     editButton.setAttribute('id', 'edit-app');
     editButton.setAttribute('data-bs-toggle', 'modal');
     editButton.setAttribute('data-bs-target', '#updateApp');
@@ -383,10 +382,10 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   * */
   function addJobCardDeleteButton(parent, key) {
     const deleteButton = document.createElement('button');
-    deleteButton.setAttribute('class', 'btn btn-outline-danger btn-sm');
+    deleteButton.setAttribute('class', 'btn');
     deleteButton.setAttribute('type', 'submit');
     deleteButton.setAttribute('id', 'delete-app');
-    deleteButton.innerHTML = 'Delete';
+    deleteButton.innerHTML = '<i class="bi bi-trash3"></i>';
 
     addDelModal(deleteButton, key);
     parent.appendChild(deleteButton);
@@ -398,18 +397,18 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
  * @return {String}
  */
   function setStatusBackgroundColor(status) {
-    if (status == 'applied') {
+    if (status == 'inProgress') {
       // eslint-disable-next-line max-len
-      return 'col-sm rounded-bottom-right-1 bg-warning d-flex align-items-center';
-    } else if (status == 'inProgress') {
+      return 'col-sm rounded-bottom-right-1 bg-warning-custom d-flex align-items-center';
+    } else if (status == 'applied') {
       // eslint-disable-next-line max-len
-      return 'col-sm rounded-bottom-right-1 bg-primary d-flex align-items-center';
+      return 'col-sm rounded-bottom-right-1 bg-primary-custom d-flex align-items-center';
     } else if (status == 'offer') {
       // eslint-disable-next-line max-len
-      return 'col-sm rounded-bottom-right-1 bg-success d-flex align-items-center';
+      return 'col-sm rounded-bottom-right-1 bg-success-custom d-flex align-items-center';
     } else if (status == 'reject') {
       // eslint-disable-next-line max-len
-      return 'col-sm rounded-bottom-right-1 bg-danger d-flex align-items-center';
+      return 'col-sm rounded-bottom-right-1 bg-danger-custom d-flex align-items-center';
     } else {
       return 'col-sm rounded-bottom-right-1 bg-muted d-flex align-items-center';
     }
