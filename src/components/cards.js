@@ -23,7 +23,7 @@ export function showAppCards(data) {
     appCardContainer.removeChild(appCardContainer.firstChild);
   }
   createAppCards(data);
-  console.log(appliedCount, inProgressCount, offerCount, rejectCount);
+  updateStatsCard();
 };
 
 /**
@@ -294,5 +294,16 @@ function createEmptyAppCard() {
     text.textContent = 'No applications to show here!';
     appCardContainer.appendChild(text);
   }
+}
+
+/**
+ * getCounts updates the stats at the top of the dashboard
+ */
+function updateStatsCard() {
+  console.log(appliedCount, inProgressCount, offerCount, rejectCount);
+  document.getElementById('appliedCount').innerHTML = appliedCount;
+  document.getElementById('inProgressCount').innerHTML = inProgressCount;
+  document.getElementById('offerCount').innerHTML = offerCount;
+  document.getElementById('rejectCount').innerHTML = rejectCount;
 }
 
