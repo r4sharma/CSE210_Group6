@@ -68,6 +68,29 @@ save_id = "save"
 cancel_id = "cancel"
 form_saved = True
 
+cards_class_name = "card mb-3 mx-auto"
+cards_class_name = cards_class_name.split(" ")
+new_str = ""
+for i in cards_class_name:
+    new_str += (i+".")
+cards_class_name = new_str[:-1]
+card_text_class = "card-text"
+
+
+def getCardInfo(card_element):
+    # First 5 fields can be accessed using card-text as the class to be searched for
+    # No need to be concerned by card-text in other cards since this function searches for card-text within a particular element
+    card_text_elements = card_element.find_elements(By.CLASS_NAME, card_text_class)
+    expected = []
+    for i in card_text_elements:
+        expected.append(i.find_elements(By.CSS_SELECTOR, "text")[1].text)
+    
+    # Append the company name and application status
+    expected.append(card_element.find_element(By.CLASS_NAME, "navbar-brand").text)
+    expected.append(card_element.find_element(By.CLASS_NAME, "text-light").text)
+    
+    return expected
+
 def testAddForm(form_saved, application, checkAssert = True):
     wait = loadForm()
 
@@ -111,26 +134,18 @@ def testAddForm(form_saved, application, checkAssert = True):
     #time.sleep(5)
     if checkAssert == True:
         # Check whether all the fields in the card have the same value as we input
-        jobid_verify = (wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="app-card-container"]/div[1]/div/div[1]/div/p[1]/text[2]')))).text
-        assert(jobid_verify == application['jobid_name'])
+        # Load the first card which has the class
+        cards = driver.find_elements(By.CLASS_NAME, cards_class_name)
+        assert(len(cards) != 0)
 
-        companyname_verify = (wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="app-card-container"]/div[1]/div/div[1]/div/h5')))).text
-        assert(companyname_verify == application['company_name'])
 
-        jobtype_verify = (wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="app-card-container"]/div[1]/div/div[1]/div/p[2]/text[2]')))).text
-        assert(jobtype_verify == application['jobtype_name'])
-
-        jobrole_verify = (wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="app-card-container"]/div[1]/div/div[1]/div/p[3]/text[2]')))).text
-        assert(jobrole_verify == application['jobrole_name'])
-
-        date_of_application_verify = (wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="app-card-container"]/div[1]/div/div[1]/div/p[4]/text[2]')))).text
-        #assert(date_of_application_verify == input_date__verification)
-
-        description_verify = (wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="app-card-container"]/div[1]/div/div[1]/div/p[5]/text[2]')))).text
-        assert(description_verify == application['description_name'])
-
-        application_status_verify = (wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="app-card-container"]/div[1]/div/div[2]/div/div/h5')))).text
-        #assert(application_status_verify == application_status_verification)
+        desired_card = cards[1]
+        obtained_output = getCardInfo(desired_card)
+        expected_output = [application['jobid_name'], application['jobtype_name'], application['jobrole_name'], input_date__verification, application['description_name'], application['company_name'], application_status_verification]
+        assert(len(obtained_output) == len(expected_output))
+        
+        for i in range(len(obtained_output)):
+            assert(obtained_output[i] == expected_output[i])
 
         print("ALL ASSERTIONS PASSED FOR INSERT")
 
