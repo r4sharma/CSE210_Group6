@@ -146,7 +146,6 @@ function createJobCardColumnTwo(parent, applicationStatus) {
   bodyTwo.appendChild(coloredColumn);
 
   const status = document.createElement('h5');
-  status.setAttribute('class', 'text-light');
   status.innerHTML = applicationStatus;
   coloredColumn.appendChild(status);
 }
@@ -268,18 +267,18 @@ function createDateAppliedElement(parent, doa) {
 * @return {String}
 */
 function setStatusBackgroundColor(status) {
-  if (status == 'applied') {
+  if (status == 'inProgress') {
     // eslint-disable-next-line max-len
-    return 'col-sm rounded-bottom-right-1 bg-warning d-flex align-items-center';
-  } else if (status == 'inProgress') {
+    return 'col-sm rounded-bottom-right-1 bg-warning-custom d-flex align-items-center';
+  } else if (status == 'applied') {
     // eslint-disable-next-line max-len
-    return 'col-sm rounded-bottom-right-1 bg-primary d-flex align-items-center';
+    return 'col-sm rounded-bottom-right-1 bg-primary-custom d-flex align-items-center';
   } else if (status == 'offer') {
     // eslint-disable-next-line max-len
-    return 'col-sm rounded-bottom-right-1 bg-success d-flex align-items-center';
+    return 'col-sm rounded-bottom-right-1 bg-success-custom d-flex align-items-center';
   } else if (status == 'reject') {
     // eslint-disable-next-line max-len
-    return 'col-sm rounded-bottom-right-1 bg-danger d-flex align-items-center';
+    return 'col-sm rounded-bottom-right-1 bg-danger-custom d-flex align-items-center';
   } else {
     return 'col-sm rounded-bottom-right-1 bg-muted d-flex align-items-center';
   }
