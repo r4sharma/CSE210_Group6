@@ -1,3 +1,14 @@
+:root {
+  --blue: #cde4fc;
+  --darkblue: #1265c3bc;
+  --green: #bdd4d1;
+  --darkgreen: #1a8678bb;
+  --orange: #f5d9c6;
+  --darkorange: #fa893ed5;
+  --red: #f6cbd0;
+  --darkred: #e55c6cc4;
+}
+
 html {
   font-size: 100%;
   scroll-behavior: smooth;
@@ -28,6 +39,86 @@ body {
 
 .rounded-bottom-left-1 {
   border-bottom-left-radius: .25rem;
+}
+
+.bg-danger-custom-status {
+  background-color: var(--red) !important;
+}
+
+.bg-success-custom-status {
+  background-color: var(--green) !important;
+}
+
+.bg-primary-custom-status {
+  background-color: var(--blue) !important;
+}
+
+.bg-warning-custom-status {
+  background-color: var(--orange) !important;
+}
+
+.bg-danger-custom-status {
+  background-color: var(--red) !important;
+}
+
+.bg-success-custom {
+  background-color: var(--green) !important;
+}
+
+.bg-primary-custom {
+  background-color: var(--blue) !important;
+}
+
+.bg-warning-custom {
+  background-color: var(--orange) !important;
+}
+
+.bg-danger-custom {
+  background-color: var(--red) !important;
+}
+
+.bg-success-custom:hover {
+  background-color: var(--darkgreen) !important;
+  color: white;
+}
+
+.bg-primary-custom:hover {
+  background-color: var(--darkblue) !important;
+  color: white;
+}
+
+.bg-warning-custom:hover {
+  background-color: var(--darkorange) !important;
+  color: white;
+}
+
+.bg-danger-custom:hover {
+  background-color: var(--darkred) !important;
+  color: white;
+}
+
+.bg-dark-primary-custom {
+  background-color: var(--darkblue);
+}
+
+.profile-btn {
+  border-color: black !important;
+  margin-right: 2%;
+}
+
+.profile-btn:hover {
+  background-color: black !important;
+  color: white !important;
+}
+
+.application-btn {
+  background-color: var(--blue) !important;
+  color: black !important;
+}
+
+.application-btn:hover {
+  background-color: var(--darkblue) !important;
+  color: white !important;
 }
 
 .form-group {
