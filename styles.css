@@ -132,3 +132,8 @@ body {
 #cancel {
   margin-left: 0.4em;
 }
+
+#noApplications {
+  padding: 5%;
+  text-align: center;
+}
