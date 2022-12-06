@@ -69,22 +69,24 @@ def testStatsBar():
     applied_count = getAppliedCount()
 
     selenium_edit_test.modifyForm(getCardElement(), getApplication("In Progress"))
+    time.sleep(2)
     assert(getAppliedCount() == applied_count - 1)
     assert(getInProgressCount() == in_progress_count + 1)
-    time.sleep(2)
+    
 
     applied_count = getAppliedCount()
     in_progress_count = getInProgressCount()
 
     selenium_edit_test.modifyForm(getCardElement(), getApplication("Offer"))
+    time.sleep(2)
     assert(getInProgressCount() == in_progress_count - 1)
     assert(getOfferCount() == offer_count + 1)
-    time.sleep(2)
     
     offer_count = getOfferCount()
     in_progress_count = getInProgressCount()
     
     selenium_edit_test.modifyForm(getCardElement(), getApplication("Reject"))
+    time.sleep(2)
     assert(getOfferCount() == offer_count - 1)
     assert(getRejectedCount() == rejected_count + 1)
     
