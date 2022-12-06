@@ -9,7 +9,7 @@ Approach is as follows:
 
 '''
 
-from selenium_insert_test import testAddForm
+from selenium_insert_test import testAddForm, getCardInfo
 from selenium_insert_test import closeDriver
 from selenium_insert_test import driver, By, Select
 import time
@@ -32,20 +32,6 @@ date_of_application_id = "editDoa"
 input_date__verification = "2022-11-30"
 application_status_id = "editApplicationStatus"
 description_id = "editDescription"
-
-def getCardInfo(card_element):
-    # First 5 fields can be accessed using card-text as the class to be searched for
-    # No need to be concerned by card-text in other cards since this function searches for card-text within a particular element
-    card_text_elements = card_element.find_elements(By.CLASS_NAME, "card-text")
-    expected = []
-    for i in card_text_elements:
-        expected.append(i.find_elements(By.CSS_SELECTOR, "text")[1].text)
-    
-    # Append the company name and application status
-    expected.append(card_element.find_element(By.CLASS_NAME, "navbar-brand").text)
-    expected.append(card_element.find_element(By.CLASS_NAME, "text-light").text)
-    
-    return expected
 
 def modifyForm(form_element, updated_application):
     # 7 changes
@@ -126,7 +112,7 @@ def testEdit():
     assert(updated_application['description_name'] == new_first_card[4])
     assert(updated_application['company_name'] == new_first_card[5])
     
-    print("ALL ASSERTIONS FOR EDIT PASSED")
+    print("ALL ASSERTIONS PASSED FOR EDIT")
 
 def main():
     testEdit()
