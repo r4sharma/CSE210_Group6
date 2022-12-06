@@ -31,11 +31,11 @@ export function showAppCards(data) {
  * @param {Array} data
  */
 function createAppCards(data) {
+  appliedCount = 0;
+  inProgressCount = 0;
+  offerCount = 0;
+  rejectCount = 0;
   if (data !== null && data.length>0) {
-    appliedCount = 0;
-    inProgressCount = 0;
-    offerCount = 0;
-    rejectCount = 0;
     data.forEach(createJobCard);
   } else {
     createEmptyAppCard();
