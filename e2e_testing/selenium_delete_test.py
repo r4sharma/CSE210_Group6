@@ -1,4 +1,4 @@
-from selenium_insert_test import testAddForm
+from selenium_insert_test import testAddForm, getCardInfo
 from selenium_insert_test import closeDriver
 from selenium_insert_test import driver, By
 import time
@@ -12,20 +12,6 @@ cards_class_name = new_str[:-1]
 card_text_class = "card-text"
 delete_button_prompt_id = "delete-app"
 delete_button_id = 'deleteAppButton'
-
-def getCardInfo(card_element):
-    # First 5 fields can be accessed using card-text as the class to be searched for
-    # No need to be concerned by card-text in other cards since this function searches for card-text within a particular element
-    card_text_elements = card_element.find_elements(By.CLASS_NAME, card_text_class)
-    information = []
-    for i in card_text_elements:
-        information.append(i.find_elements(By.CSS_SELECTOR, "text")[1].text)
-    
-    # Append the company name and application status
-    information.append(card_element.find_element(By.CLASS_NAME, "navbar-brand").text)
-    information.append(card_element.find_element(By.CLASS_NAME, "text-light").text)
-    
-    return information
 
 def testDelete():
     application1 = {
@@ -68,6 +54,7 @@ def testDelete():
     delete_button = driver.find_element(By.ID, delete_button_id)
     driver.execute_script("arguments[0].click();", delete_button)
 
+    time.sleep(2)
     updated_cards = driver.find_elements(By.CLASS_NAME, cards_class_name)
     new_first_card = getCardInfo(updated_cards[1])
 
@@ -79,7 +66,7 @@ def testDelete():
     for i in range(len(original_second_card)):
         assert(original_second_card[i] == new_first_card[i])
 
-    print("ALL ASSERTIONS FOR DELETE PASSED")
+    print("ALL ASSERTIONS PASSED FOR DELETE")
 
 def main():
     testDelete()

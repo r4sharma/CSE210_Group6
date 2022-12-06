@@ -1,12 +1,14 @@
 import sys
 import subprocess
+import pkg_resources
 # Install selenium and webdriver-manager
 required_libraries = ['selenium', 'webdriver-manager']
+installed_packages = pkg_resources.working_set
+installed_packages_list = [i.key for i in installed_packages]
+
 for library in required_libraries:
-    if(library not in sys.modules):
+    if(library not in installed_packages_list):
         subprocess.check_call([sys.executable, "-m", "pip", "install", library])
-    else:
-        print(library + " is already present")
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -25,7 +27,6 @@ options.add_argument("--disable-software-rasterizer")
 driver = webdriver.Chrome(ChromeDriverManager().install())
 parent_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 if os.name == 'nt':
-    print(parent_path)
     page_link = parent_path + "\src\index.html"
 elif os.name == 'posix':
     page_link = "file:///" + parent_path + "/src/index.html"
@@ -87,7 +88,7 @@ def getCardInfo(card_element):
     
     # Append the company name and application status
     expected.append(card_element.find_element(By.CLASS_NAME, "navbar-brand").text)
-    expected.append(card_element.find_element(By.CLASS_NAME, "text-light").text)
+    expected.append(card_element.find_element(By.CSS_SELECTOR, "h5").text)
     
     return expected
 
