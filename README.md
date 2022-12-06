@@ -35,6 +35,20 @@ The application is local first: when the Internet does not work, events can be r
 | Description   | String      | N        | 5000 chars       | |
 
 ## Testing Strategies
+### Use Jest as TestingFramework 
+- Good, automatically runs tests after each change to ensure they are up to date. Many users report that this reduces development time.
+- Good, automatically mocks any modules not explicitly required in the test file, which can save time during development.
+- Bad, Jest has fewer features straight out of the box comparing with Mocha.
+
+In conclusion, Jest is a better choice becasue it is easy to get started with and doesn’t require learning a new syntax
+
+### Use Selenium as UI Testing
+- Good, a collection of open-source tools that support browser application testing.The community has over 632 contributors and over 140,000 users.
+- Good, Selenium is a solution dedicated to testing applications that run in multiple browsers (Chrome, Firefox, Safari, etc.) on different operating systems (Windows, Linux, and Mac OS)
+- Good, the parallel execution of test suites reduces the elapsed time required to complete application testing.
+- Bad, Selenese is the language used to define Selenium test scripts. It is a high level language that developers need to learn to write and execute Selenium tests. 
+
+In conclusion, Selenium is a better choice becasue developers must test their apps for multiple browsers. Fortunately, our teammate, Mohammad Anas Mudassir, familiarizes it, so we do not have the issue.
 
 ## Coding standards
 - Each functions should have inline comment
