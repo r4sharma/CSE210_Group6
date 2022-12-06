@@ -290,9 +290,15 @@ function setStatusBackgroundColor(status) {
 */
 function createEmptyAppCard() {
   if (!appCardContainer.firstChild) {
+    const card = document.createElement('div');
+    card.setAttribute('class', 'card mb-3 mx-auto');
+    card.setAttribute('id', 'noApplications');
+    card.style = 'max-width: 750px;';
     const text = document.createElement('p');
-    text.textContent = 'No applications to show here!';
-    appCardContainer.appendChild(text);
+    // eslint-disable-next-line max-len
+    text.textContent = 'Looks like you do not have any applications to track! Get started by clicking on the Add Applications button above.';
+    appCardContainer.appendChild(card);
+    card.appendChild(text);
   }
 }
 
