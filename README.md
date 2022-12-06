@@ -2,7 +2,7 @@
 
 ## Introduction
 <strong>AppTrak</strong> - A local first and single-user web app that saves us from the excel sheet management mess and allows us to declutter our application tracking and make it easier. 
-![image info]()
+![image info](./Docs/ADR/homepage.jpg)
 The reason we develop it is that students from various fields of study apply for internships and jobs every year. However, keeping track of the applications and their status gets cumbersome in an Excel sheet. It results in students abandoning their efforts to keep track of their progress, often leading to missed deadlines and poor planning. This overall hinders the student learning experience and adds to their frustration.
 
 ## Features of AppTrak
@@ -14,7 +14,7 @@ The reason we develop it is that students from various fields of study apply for
 The application is local first: when the Internet does not work, events can be read, created, deleted, updated through the application
 
 ## Technology Architecture (Need to be checked)
-![image info](./Docs/ADR/homepage.jpg)
+
 
 ## Database Design
 - Each record is uniquely identified by an auto-incrementing integer key defined as "Card Id".
