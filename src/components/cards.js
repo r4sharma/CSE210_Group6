@@ -123,6 +123,7 @@ function createJobCardColumnOne(parent, value) {
   createJobTypeElement(bodyOne, value.jobType);
   createJobRoleElement(bodyOne, value.jobRole);
   createDateAppliedElement(bodyOne, value.doa);
+  createLastUpdatedElement(bodyOne, value.lastUpdated);
   createDescriptionElement(bodyOne, value.description);
 }
 
@@ -311,5 +312,25 @@ function updateStatsCard() {
   document.getElementById('inProgressCount').innerHTML = inProgressCount;
   document.getElementById('offerCount').innerHTML = offerCount;
   document.getElementById('rejectCount').innerHTML = rejectCount;
+}
+
+/**
+ * Create an entry for last updated date in job card
+ * @param {HTMLElement} parent
+  * @param {String} lastUpdated
+*/
+function createLastUpdatedElement(parent, lastUpdated) {
+  const lastUpdatedElem = document.createElement('p');
+  lastUpdatedElem.setAttribute('class', 'card-text');
+  parent.appendChild(lastUpdatedElem);
+
+  const mutedTextTwo = document.createElement('text');
+  mutedTextTwo.setAttribute('class', 'text-muted');
+  mutedTextTwo.innerHTML = 'Last Updated: ';
+  lastUpdatedElem.appendChild(mutedTextTwo);
+
+  const regularTextTwo = document.createElement('text');
+  regularTextTwo.innerHTML = lastUpdated !== undefined ? lastUpdated : '';
+  lastUpdatedElem.appendChild(regularTextTwo);
 }
 
