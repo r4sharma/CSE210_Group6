@@ -94,7 +94,7 @@ def testEdit():
     assert(len(cards) != 0)
 
     # Now click on the edit button of the first card
-    edit_button_prompt = cards[1].find_element(By.ID, edit_form_button_id)
+    edit_button_prompt = cards[2].find_element(By.ID, edit_form_button_id)
     driver.execute_script("arguments[0].click();", edit_button_prompt)
     time.sleep(2)
 
@@ -103,7 +103,7 @@ def testEdit():
 
     time.sleep(2)
     updated_cards = driver.find_elements(By.CLASS_NAME, cards_class_name)
-    new_first_card = getCardInfo(updated_cards[1])
+    new_first_card = getCardInfo(updated_cards[2])
     
     # DATE and Application status dont match waht I fetch
     assert(updated_application['jobid_name'] == new_first_card[0])

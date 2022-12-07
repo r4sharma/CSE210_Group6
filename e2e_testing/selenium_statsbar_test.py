@@ -47,7 +47,7 @@ def getCardElement():
     assert(len(cards) != 0)
 
     # Now click on the edit button of the first card
-    edit_button_prompt = cards[1].find_element(By.ID, selenium_edit_test.edit_form_button_id)
+    edit_button_prompt = cards[2].find_element(By.ID, selenium_edit_test.edit_form_button_id)
     driver.execute_script("arguments[0].click();", edit_button_prompt)
     time.sleep(2)
 

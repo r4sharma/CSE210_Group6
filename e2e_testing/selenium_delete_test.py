@@ -44,10 +44,10 @@ def testDelete():
 
     # Store the values of the second card
     # After deletion, the value of the new first card should match exactly with the values of the original second card
-    original_second_card = getCardInfo(cards[2])
+    original_second_card = getCardInfo(cards[3])
     
     # Now click on the delete button of the first card
-    delete_button_prompt = cards[1].find_element(By.ID,delete_button_prompt_id)
+    delete_button_prompt = cards[2].find_element(By.ID,delete_button_prompt_id)
     driver.execute_script("arguments[0].click();", delete_button_prompt)
     time.sleep(2)
 
@@ -56,7 +56,7 @@ def testDelete():
 
     time.sleep(2)
     updated_cards = driver.find_elements(By.CLASS_NAME, cards_class_name)
-    new_first_card = getCardInfo(updated_cards[1])
+    new_first_card = getCardInfo(updated_cards[2])
 
     new_number_cards = len(driver.find_elements(By.CLASS_NAME, cards_class_name))
     
