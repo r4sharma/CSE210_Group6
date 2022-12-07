@@ -36,6 +36,7 @@ function createAppCards(data) {
   offerCount = 0;
   rejectCount = 0;
   if (data !== null && data.length>0) {
+    displayTitle();
     data.forEach(createJobCard);
   } else {
     createEmptyAppCard();
@@ -284,6 +285,17 @@ function setStatusBackgroundColor(status) {
   } else {
     return 'col-sm rounded-bottom-right-1 bg-muted d-flex align-items-center';
   }
+}
+
+/**
+* Function to display title
+*/
+function displayTitle() {
+  // const card = document.createElement('div');
+  const text = document.createElement('h4');
+  text.setAttribute('class', 'mb-3 text-center');
+  text.textContent = 'Job Applications';
+  appCardContainer.appendChild(text);
 }
 
 /**
