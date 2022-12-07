@@ -1,6 +1,6 @@
 # UI Testing
 
-# Use Selenium as UI Testing
+## Use Selenium as UI Testing
 
 ## Context and Problem Statement
 

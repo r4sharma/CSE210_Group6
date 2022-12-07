@@ -3,7 +3,7 @@
 ## Introduction
 <strong>AppTrak</strong> - A local first and single-user web app that saves us from the excel sheet management mess and allows us to declutter our application tracking and make it easier. 
 
-<img src="./Docs/ADR/homepage.jpg" alt="drawing" width="600" class="center"/>
+<img src="https://github.com/r4sharma/CSE210_Group6/blob/a0720bcb269cf2b106acb92527b239a2f20de044/Docs/ADR/homepage.jpg?raw=true" alt="drawing" width="600" class="center"/>
 
 The reason we develop it is that students from various fields of study apply for internships and jobs every year. However, keeping track of the applications and their status gets cumbersome in an Excel sheet. It results in students abandoning their efforts to keep track of their progress, often leading to missed deadlines and poor planning. This overall hinders the student learning experience and adds to their frustration.
 
@@ -120,6 +120,7 @@ Thus, the developer can now use the `python e2e_testing/selenium_all_tests.py` c
   - [branch-merge](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/branch-merge.md)
   - [coding-conventions](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/coding-conventions.md)
   - [git-conventions](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/git-conventions.md) 
+  - [jsdoc-conventions](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/jsdoc-conventions.md)
   - [project-management](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/project-management.md) 
 - Meeting Notes
   - [Sprint 1](https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%201)

@@ -1,6 +1,6 @@
 # TestTool ADR
 
-# Use Jest as TestingFramework
+## Use Jest as TestingFramework
 
 ## Context and Problem Statement
 
