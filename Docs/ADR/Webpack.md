@@ -1,7 +1,7 @@
 
 # Webpack ADR
 
-# Use Webpack for bundling the code
+## Use Webpack for bundling the code
 
 ## Context and Problem Statement
 

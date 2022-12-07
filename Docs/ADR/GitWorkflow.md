@@ -1,6 +1,6 @@
 # GitWorkflow ADR
 
-# Use Gitflow as our Git Workflow Strategy
+## Use Gitflow as our Git Workflow Strategy
 
 ## Context and Problem Statement
 

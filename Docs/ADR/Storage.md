@@ -1,6 +1,6 @@
 # Storage ADR
 
-# Use IndexedDB for storage
+## Use IndexedDB for storage
 
 ## Context and Problem Statement
 

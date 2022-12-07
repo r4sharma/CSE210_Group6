@@ -43,8 +43,207 @@
 
 
     <section>
-        <article><h1>CSE210_Group6</h1>
-<p>This is the project repository for team 6</p></article>
+        <article><h1>AppTrak (CSE210_Group6)</h1>
+<h2>Introduction</h2>
+<p><strong>AppTrak</strong> - A local first and single-user web app that saves us from the excel sheet management mess and allows us to declutter our application tracking and make it easier.</p>
+<img src="https://github.com/r4sharma/CSE210_Group6/blob/a0720bcb269cf2b106acb92527b239a2f20de044/Docs/ADR/homepage.jpg?raw=true" alt="drawing" width="600" class="center"/>
+<p>The reason we develop it is that students from various fields of study apply for internships and jobs every year. However, keeping track of the applications and their status gets cumbersome in an Excel sheet. It results in students abandoning their efforts to keep track of their progress, often leading to missed deadlines and poor planning. This overall hinders the student learning experience and adds to their frustration.</p>
+<h2>Features of AppTrak</h2>
+<ul>
+<li>The user can create a new event in the calendar.</li>
+<li>The user can view already created events in the calendar.</li>
+<li>The user can delete an existing event in the calendar.</li>
+<li>The user can update an existing event in the calendar.</li>
+</ul>
+<p>The application is local first: when the Internet does not work, events can be read, created, deleted, updated through the application</p>
+<h2>Technology Architecture (Need to be checked)</h2>
+<h2>Database Design</h2>
+<ul>
+<li>Each record is uniquely identified by an auto-incrementing integer key defined as &quot;Card Id&quot;.</li>
+<li>Duplicate entries for a job are allowed. This is done to relax the mandatory constraint of having to enter jobId which is an overhead for an end user.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Max chars</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Card Id</td>
+<td>Alphanumeric</td>
+<td>Y(Primary Key)</td>
+<td>200 chars</td>
+<td></td>
+</tr>
+<tr>
+<td>Job Id</td>
+<td>Alphanumeric</td>
+<td>N</td>
+<td>200 chars</td>
+<td></td>
+</tr>
+<tr>
+<td>Company Name</td>
+<td>String</td>
+<td>Y</td>
+<td>200 chars</td>
+<td></td>
+</tr>
+<tr>
+<td>Date</td>
+<td>Date</td>
+<td>Y</td>
+<td>NA</td>
+<td></td>
+</tr>
+<tr>
+<td>Last Updated Date</td>
+<td>Date</td>
+<td>Automatic-System Date</td>
+<td>NA</td>
+<td></td>
+</tr>
+<tr>
+<td>Job Type</td>
+<td>Enum  (FullTime, PartTime, Internship)</td>
+<td>N</td>
+<td></td>
+<td>FullTime</td>
+</tr>
+<tr>
+<td>Job Role</td>
+<td>String</td>
+<td>N</td>
+<td>500 chars</td>
+<td></td>
+</tr>
+<tr>
+<td>Status</td>
+<td>Enum (Applied, InProgress, Offer, Reject)</td>
+<td>N</td>
+<td></td>
+<td>Applied</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>String</td>
+<td>N</td>
+<td>5000 chars</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Testing Strategies</h2>
+<h3>Use Jest as TestingFramework</h3>
+<ul>
+<li>Good, automatically runs tests after each change to ensure they are up to date. Many users report that this reduces development time.</li>
+<li>Good, automatically mocks any modules not explicitly required in the test file, which can save time during development.</li>
+<li>Bad, Jest has fewer features straight out of the box comparing with Mocha.</li>
+</ul>
+<p>In conclusion, Jest is a better choice becasue it is easy to get started with and doesn’t require learning a new syntax</p>
+<h3>Use Selenium as UI Testing</h3>
+<ul>
+<li>Good, a collection of open-source tools that support browser application testing.The community has over 632 contributors and over 140,000 users.</li>
+<li>Good, Selenium is a solution dedicated to testing applications that run in multiple browsers (Chrome, Firefox, Safari, etc.) on different operating systems (Windows, Linux, and Mac OS)</li>
+<li>Good, the parallel execution of test suites reduces the elapsed time required to complete application testing.</li>
+<li>Bad, Selenese is the language used to define Selenium test scripts. It is a high level language that developers need to learn to write and execute Selenium tests.</li>
+</ul>
+<p>In conclusion, Selenium is a better choice because developers must test their apps for multiple browsers.</p>
+<p>From the developer's point of view, the Selenium tests are helpful in simulating the interaction of the user. Thus, these tests are grouped together in the folder called <strong>e2e_testing</strong>.</p>
+<p>In this project, we understand that it is impractical to expect the developers to install the libraries required to run the tests manually. But we do operate under the assumption that the developer has installed Python correctly which would mean the library <strong>setuptools</strong> is available as a default library, similar to how the more known <strong>os</strong> library is. The presence of the library enables us to write the code that automatically checks whether the required libraries are present, and installs them automatically if they aren't.</p>
+<p>Moving on to the execution of the tests, we have created a new Selenium test for each functionality. If the developer is working in the root directory, then they can execute the individual test by typing the following command in the terminal: <code>python e2e_testing/test_file_name.py</code> where <strong>test_file_name.py</strong> refers to the name of the test file present in the directory. For example, to execute the test for inserting an application, we type <code>python e2e_testing/selenium_insert_test.py</code> in the terminal.</p>
+<p>However, there might be instances where a developer wishes to run a single file that executes all the other tests. For this, the developer can execute the following command in the terminal: <code>python e2e_testing/selenium_all_tests.py</code> which executes each test one after the other. If a developer creates a new test file called <strong>new_test.py</strong> and wants this to run together with other tests, then they need to add the following code at the bottom of <strong>selenium_all_tests.py</strong>:
+<code>os.system(&quot;python &quot; + tests_directory_path + &quot;new_test.py&quot;)</code></p>
+<p>The modified <strong>selenium_all_tests.py</strong> file will then look like this:</p>
+<p><code>os.system(&quot;python &quot; + tests_directory_path + &quot;test1.py&quot;)</code><br>
+<code>os.system(&quot;python &quot; + tests_directory_path + &quot;test2.py&quot;)</code><br>
+<code>.</code><br>
+<code>.</code><br>
+<code>.</code><br>
+<code>os.system(&quot;python &quot; + tests_directory_path + &quot;new_test.py&quot;)</code></p>
+<p>Thus, the developer can now use the <code>python e2e_testing/selenium_all_tests.py</code> command in the terminal to run the entire test suite which now includes the Selenium test file they created.</p>
+<h2>Coding standards</h2>
+<ul>
+<li>Each functions should have inline comment</li>
+<li>Each function and variable should named using Camel case</li>
+<li>Use VSCode</li>
+<li>Install the VSCode extension for ESLint to help lint your code</li>
+<li>Use the following format for naming git branches:
+<ul>
+<li>uthor_name/feature_description</li>
+<li>E.g., ripunjay/configure_jsdocs</li>
+</ul>
+</li>
+</ul>
+<h2>Steps to Run the Project</h2>
+<ol>
+<li>
+<p>Clone this project (or a fork of this project)</p>
+<p><code>git clone https://github.com/r4sharma/CSE210_Group6.git</code></p>
+</li>
+<li>
+<p>Open the repository in a terminal</p>
+<p><code>cd CSE210_Group6 </code></p>
+</li>
+<li>
+<p>Install node modules</p>
+<p><code>npm install</code></p>
+</li>
+<li>
+<p>Build the project</p>
+<p><code>npm run build</code></p>
+</li>
+<li>
+<p>Start the application by opening dist/index.html in a browser</p>
+</li>
+<li>
+<p>Repeat step 4 after any changes to the application</p>
+</li>
+<li>
+<p>To run unit tests the application</p>
+<p><code>npm run test</code></p>
+</li>
+<li>
+<p>To run integration tests the application</p>
+<p><code>python e2e_testing/integration.py</code></p>
+</li>
+</ol>
+<h2>Relevant Documents</h2>
+<ul>
+<li>ADR
+<ul>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/AsynchronousCodeStrategy.md">AsynchronousCodeStrategy</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/Storage.md">Database</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/DatabaseTesting.md">DatabaseTesting</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/UITesting.md">UITesting</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/Webpack.md">Webpack</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/GitWorkflow.md">GitWorkflow</a></li>
+</ul>
+</li>
+<li>Developing Guildline
+<ul>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/branch-merge.md">branch-merge</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/coding-conventions.md">coding-conventions</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/git-conventions.md">git-conventions</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/jsdoc-conventions.md">jsdoc-conventions</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/project-management.md">project-management</a></li>
+</ul>
+</li>
+<li>Meeting Notes
+<ul>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%201">Sprint 1</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%202">Sprint 2</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%203">Sprint 3</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%204">Sprint 4</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%205">Sprint 5</a></li>
+</ul>
+</li>
+</ul></article>
     </section>
 
 
@@ -52,123 +251,16 @@
 
 
 
-
-
-
-<section>
-
-<header>
-    
-        <h2>sample-index.js</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>sample-index.js is the root file for this example app</p></div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>007s</li>
-        </ul>
-    </dd>
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sample-index.js.html">sample-index.js</a>, <a href="sample-index.js.html#line3">line 3</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://github.com/r4sharma/CSE210_Group6">CSE 210 group 6</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
-
-
-
-
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-calculator.html">calculator</a></li></ul><h3>Classes</h3><ul><li><a href="Person.html">Person</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-coding-conventions.html">coding-conventions</a></li><li><a href="tutorial-git-conventions.html">git-conventions</a></li><li><a href="tutorial-project-management.html">project-management</a></li></ul><h3>Global</h3><ul><li><a href="global.html#calculateTax">calculateTax</a></li><li><a href="global.html#calculator">calculator</a></li><li><a href="global.html#grades">grades</a></li><li><a href="global.html#person1">person1</a></li><li><a href="global.html#student">student</a></li><li><a href="global.html#studentName">studentName</a></li><li><a href="global.html#todo">todo</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-branch-merge.html">branch-merge</a></li><li><a href="tutorial-coding-conventions.html">coding-conventions</a></li><li><a href="tutorial-git-conventions.html">git-conventions</a></li><li><a href="tutorial-jsdoc-conventions.html">jsdoc-conventions</a></li><li><a href="tutorial-project-management.html">project-management</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addApplication">addApplication</a></li><li><a href="global.html#addJobCardDeleteButton">addJobCardDeleteButton</a></li><li><a href="global.html#addJobCardEditButton">addJobCardEditButton</a></li><li><a href="global.html#checkIfEmpty">checkIfEmpty</a></li><li><a href="global.html#convertToCSV">convertToCSV</a></li><li><a href="global.html#createAppCards">createAppCards</a></li><li><a href="global.html#createCompanyNameElement">createCompanyNameElement</a></li><li><a href="global.html#createDateAppliedElement">createDateAppliedElement</a></li><li><a href="global.html#createDeleteModal">createDeleteModal</a></li><li><a href="global.html#createDescriptionElement">createDescriptionElement</a></li><li><a href="global.html#createEditModal">createEditModal</a></li><li><a href="global.html#createEmptyAppCard">createEmptyAppCard</a></li><li><a href="global.html#createJobCard">createJobCard</a></li><li><a href="global.html#createJobCardColumnOne">createJobCardColumnOne</a></li><li><a href="global.html#createJobCardColumnTwo">createJobCardColumnTwo</a></li><li><a href="global.html#createJobCardHeaderRow">createJobCardHeaderRow</a></li><li><a href="global.html#createJobIDElement">createJobIDElement</a></li><li><a href="global.html#createJobRoleElement">createJobRoleElement</a></li><li><a href="global.html#createJobTypeElement">createJobTypeElement</a></li><li><a href="global.html#createLastUpdatedElement">createLastUpdatedElement</a></li><li><a href="global.html#dbShowAppCards">dbShowAppCards</a></li><li><a href="global.html#deleteApplication">deleteApplication</a></li><li><a href="global.html#deleteViaModal">deleteViaModal</a></li><li><a href="global.html#displayTitle">displayTitle</a></li><li><a href="global.html#editApplication">editApplication</a></li><li><a href="global.html#editViaModal">editViaModal</a></li><li><a href="global.html#exportApplications">exportApplications</a></li><li><a href="global.html#findRadioSelectedValue">findRadioSelectedValue</a></li><li><a href="global.html#getCardContainer">getCardContainer</a></li><li><a href="global.html#getCurrentDate">getCurrentDate</a></li><li><a href="global.html#hideApplicationForm">hideApplicationForm</a></li><li><a href="global.html#isEmpty">isEmpty</a></li><li><a href="global.html#setInvalid">setInvalid</a></li><li><a href="global.html#setStatusBackgroundColor">setStatusBackgroundColor</a></li><li><a href="global.html#setValid">setValid</a></li><li><a href="global.html#showAppCards">showAppCards</a></li><li><a href="global.html#showApplicationForm">showApplicationForm</a></li><li><a href="global.html#updateStatsCard">updateStatsCard</a></li><li><a href="global.html#validateForm">validateForm</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Mon Nov 21 2022 09:36:03 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Wed Dec 07 2022 13:29:53 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

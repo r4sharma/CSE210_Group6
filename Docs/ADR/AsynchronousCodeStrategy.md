@@ -1,6 +1,6 @@
 # Asynchronous Code Strategy ADR
 
-# Use Promise for Asynchronous Code
+## Use Promise for Asynchronous Code
 
 ## Context and Problem Statement
 
