@@ -140,8 +140,7 @@ def testAddForm(form_saved, application, checkAssert = True):
         cards = driver.find_elements(By.CLASS_NAME, cards_class_name)
         assert(len(cards) != 0)
 
-
-        desired_card = cards[1]
+        desired_card = cards[2]
         obtained_output = getCardInfo(desired_card)
         expected_output = [application['jobid_name'], application['jobtype_name'], application['jobrole_name'], input_date__verification, application['description_name'], application['company_name'], application_status_verification]
         assert(len(obtained_output) == len(expected_output))
