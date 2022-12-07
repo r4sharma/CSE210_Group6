@@ -26,7 +26,74 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   document.getElementById('save').onclick = addApplication;
   // show form to call function to display form
   document.getElementById('showForm').onclick = showApplicationForm;
+  // Hide Application form on clicking
+  document.getElementById('cancel').onclick = hideApplicationForm;
+  // Form Validation
+  document.getElementById('cname').addEventListener('focusout', (event) => {
+    checkIfEmpty(event.target);
+  });
 });
+
+/**
+ * Check if a field in a form is empty
+ * @param {String} value
+ * @return {boolean}
+ */
+function isEmpty(value) {
+  if (value===null || value==='') {
+    return true;
+  } return false;
+}
+
+/**
+ * Set a field in the form invalid
+ * @param {HTMLElement} field
+ * @param {string} message
+*/
+function setInvalid(field, message) {
+  // field.setAttribute('class', 'border border-danger');
+  field.setAttribute('class', 'form-control border-danger');
+  document.getElementById('validation-message').innerHTML = message;
+  document.getElementById('validation-message').style.color = '#F44336';
+}
+
+/**
+ * Set a field in the form invalid
+ * @param {HTMLElement} field
+ * @param {string} message
+*/
+function setValid(field) {
+  field.classList.remove('border-danger');
+  document.getElementById('validation-message').innerHTML = '';
+}
+
+/**
+ * Set a field in the form invalid
+ * @param {HTMLElement} field
+ * @param {string} message
+ * @return {boolean} isValid
+*/
+function checkIfEmpty(field) {
+  if (isEmpty(field.value.trim())) {
+    // set field invalid
+    setInvalid(field, `Please enter the ${field.name}`);
+    return true;
+  } else {
+    setValid(field);
+    return false;
+  }
+}
+
+/**
+ * Validate the form
+ * @return {boolean} isValid
+ */
+function validateForm() {
+  const companyName = document.getElementById('cname');
+  if (checkIfEmpty(companyName)) {
+    return false;
+  } return true;
+}
 
 /**
 * Add Application Function
@@ -42,23 +109,26 @@ function addApplication(event) {
   const doa = document.getElementById('doa').value;
   const applicationStatus = document.getElementById('status').value;
   const description = document.getElementById('desc').value;
-  // craeting record in db
-  const application = {jobID: jobID,
-    companyName: companyName,
-    jobType: jobType,
-    jobRole: jobRole,
-    doa: doa,
-    applicationStatus: applicationStatus,
-    description: description,
-    lastUpdated: getCurrentDate()};
-  database.save(application)
-      .then((transaction) => {
-        document.getElementById('application-form').reset();
-        transaction.oncomplete = () => {
-          dbShowAppCards();
-        };
-      })
-      .catch((error) => console.log('error', error));
+  // creating record in db
+  if (validateForm()) {
+    const application = {jobID: jobID,
+      companyName: companyName,
+      jobType: jobType,
+      jobRole: jobRole,
+      doa: doa,
+      applicationStatus: applicationStatus,
+      description: description,
+      lastUpdated: getCurrentDate()};
+    database.save(application)
+        .then((transaction) => {
+          // document.getElementById('application-form').reset();
+          hideApplicationForm(event);
+          transaction.oncomplete = () => {
+            dbShowAppCards();
+          };
+        })
+        .catch((error) => console.log('error', error));
+  }
 }
 
 /**
@@ -78,8 +148,23 @@ function showApplicationForm(event) {
   event.preventDefault();
   // enable the display of app form
   console.log('Application Form Has Been Activated');
-  document.getElementById('application-form').style.display = '';
+  document.getElementById('application-form-container').style.display = '';
 }
+
+/**
+ * Hide Application Form
+ * @param {*} event
+ */
+function hideApplicationForm(event) {
+  event.preventDefault();
+  // reset form details
+  document.getElementById('application-form').reset();
+  console.log('Hiding Application Form');
+  document.getElementById('application-form-container').style.display = 'none';
+  // clear form validation errors
+  setValid(document.getElementById('cname'));
+}
+
 
 /**
 * Add Listener to the delete button
