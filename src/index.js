@@ -166,135 +166,135 @@ function addApplication(event) {
         })
         .catch((error) => console.log('error', error));
   }
+}
 
-  /**
+/**
 * Add Listener to the delete button
 */
-  document.addEventListener('click', function(e) {
-    const deleteBtn = e.target.closest('#delete-app'); // Or any other selector.
-    if (deleteBtn) {
-      createDeleteModal(e);
-    }
-  });
+document.addEventListener('click', function(e) {
+  const deleteBtn = e.target.closest('#delete-app'); // Or any other selector.
+  if (deleteBtn) {
+    createDeleteModal(e);
+  }
+});
 
-  /**
+/**
 * Function to create modal for delete
 * @param {event} event
 */
-  function createDeleteModal(event) {
-    const key = Number(event.target.getAttribute('data-id'));
-    const deleteButtonModal = document.querySelector('#deleteAppButton');
-    deleteButtonModal.setAttribute('data-id', key);
-    deleteButtonModal.onclick = deleteViaModal;
-  }
+function createDeleteModal(event) {
+  const key = Number(event.target.getAttribute('data-id'));
+  const deleteButtonModal = document.querySelector('#deleteAppButton');
+  deleteButtonModal.setAttribute('data-id', key);
+  deleteButtonModal.onclick = deleteViaModal;
+}
 
-  /**
+/**
  * Adds delete functionality to delete button in modal
  * @param {event} event
  */
-  function deleteViaModal(event) {
-    event.preventDefault();
-    const key = Number(event.target.getAttribute('data-id'));
-    deleteApplication(key);
-  }
+function deleteViaModal(event) {
+  event.preventDefault();
+  const key = Number(event.target.getAttribute('data-id'));
+  deleteApplication(key);
+}
 
-  /**
+/**
  * Function to succesfully delete the application.
  * @param {int} key
  */
-  function deleteApplication(key) {
-    database.remove(key)
-        .then((result) => {
-          dbShowAppCards();
-          console.log(result);
-        })
-        .catch((error) => console.log('error in deleting record!', error));
-  }
+function deleteApplication(key) {
+  database.remove(key)
+      .then((result) => {
+        dbShowAppCards();
+        console.log(result);
+      })
+      .catch((error) => console.log('error in deleting record!', error));
+}
 
-  /**
+/**
  * Add Listener to the edit button
  */
-  document.addEventListener('click', function(e) {
-    const editBtn = e.target.closest(`#edit-app`);
-    if (editBtn) {
-      createEditModal(e);
-    }
-  });
+document.addEventListener('click', function(e) {
+  const editBtn = e.target.closest(`#edit-app`);
+  if (editBtn) {
+    createEditModal(e);
+  }
+});
 
-  /**
+/**
  * Populate details of a particular record
  * @param {event} event
  */
-  function createEditModal(event) {
-    const key = Number(event.target.getAttribute('data-id'));
-    console.log(`Edit`);
-    console.log(key);
-    database.getRecordByKey(key).then((value)=>{
-      document.getElementById('edit-form').reset();
-      console.log(value);
-      document.getElementById('editJobid').setAttribute('value', value.jobID);
-      document.getElementById('editCname')
-          .setAttribute('value', value.companyName);
-      document.getElementById(value.jobType).checked = true;
-      // eslint-disable-next-line max-len
-      for (const option of document.getElementById('editApplicationStatus').options) {
-        if (option.value === value.applicationStatus) {
-          option.selected = true;
-        }
+function createEditModal(event) {
+  const key = Number(event.target.getAttribute('data-id'));
+  console.log(`Edit`);
+  console.log(key);
+  database.getRecordByKey(key).then((value)=>{
+    document.getElementById('edit-form').reset();
+    console.log(value);
+    document.getElementById('editJobid').setAttribute('value', value.jobID);
+    document.getElementById('editCname')
+        .setAttribute('value', value.companyName);
+    document.getElementById(value.jobType).checked = true;
+    // eslint-disable-next-line max-len
+    for (const option of document.getElementById('editApplicationStatus').options) {
+      if (option.value === value.applicationStatus) {
+        option.selected = true;
       }
-      document.getElementById('editJobrole')
-          .setAttribute('value', value.jobRole);
-      document.getElementById('editDoa')
-          .setAttribute('value', value.doa);
-      document.getElementById('editDescription')
-          .innerHTML=value.description;
-    });
+    }
+    document.getElementById('editJobrole')
+        .setAttribute('value', value.jobRole);
+    document.getElementById('editDoa')
+        .setAttribute('value', value.doa);
+    document.getElementById('editDescription')
+        .innerHTML=value.description;
+  });
 
-    const editSaveButtonModal = document.querySelector('#editAppButton');
-    editSaveButtonModal.setAttribute('data-id', key);
-    editSaveButtonModal.onclick = editViaModal;
-  }
+  const editSaveButtonModal = document.querySelector('#editAppButton');
+  editSaveButtonModal.setAttribute('data-id', key);
+  editSaveButtonModal.onclick = editViaModal;
+}
 
-  /**
+/**
  * Adds edit functionality to edit button in modal
  * @param {event} event
  */
-  function editViaModal(event) {
-    event.preventDefault();
-    const key = Number(event.target.getAttribute('data-id'));
-    editApplication(key);
-  }
+function editViaModal(event) {
+  event.preventDefault();
+  const key = Number(event.target.getAttribute('data-id'));
+  editApplication(key);
+}
 
-  /**
+/**
  * Function to succesfully update the application.
  * @param {int} key
  */
-  function editApplication(key) {
-    const jobID = document.getElementById('editJobid').value;
-    const companyName = document.getElementById('editCname').value;
-    const jobType =
+function editApplication(key) {
+  const jobID = document.getElementById('editJobid').value;
+  const companyName = document.getElementById('editCname').value;
+  const jobType =
   findRadioSelectedValue(document.getElementsByName('editJobtype'));
-    const jobRole = document.getElementById('editJobrole').value;
-    const doa = document.getElementById('editDoa').value;
-    const applicationStatus =
+  const jobRole = document.getElementById('editJobrole').value;
+  const doa = document.getElementById('editDoa').value;
+  const applicationStatus =
     document.getElementById('editApplicationStatus').value;
-    const description = document.getElementById('editDescription').value;
-    // craeting record in db
-    const application = {
-      key: key,
-      jobID: jobID,
-      companyName: companyName,
-      jobType: jobType,
-      jobRole: jobRole,
-      doa: doa,
-      applicationStatus: applicationStatus,
-      description: description,
-      lastUpdated: getCurrentDate()};
-    database.update(application)
-        .then((transaction) => {
-          document.getElementById('edit-form').reset();
-          dbShowAppCards();
-        })
-        .catch((error) => console.log('error in updating the record.', error));
-  }
-};
+  const description = document.getElementById('editDescription').value;
+  // craeting record in db
+  const application = {
+    key: key,
+    jobID: jobID,
+    companyName: companyName,
+    jobType: jobType,
+    jobRole: jobRole,
+    doa: doa,
+    applicationStatus: applicationStatus,
+    description: description,
+    lastUpdated: getCurrentDate()};
+  database.update(application)
+      .then((transaction) => {
+        document.getElementById('edit-form').reset();
+        dbShowAppCards();
+      })
+      .catch((error) => console.log('error in updating the record.', error));
+}
