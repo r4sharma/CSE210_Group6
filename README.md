@@ -48,7 +48,27 @@ In conclusion, Jest is a better choice becasue it is easy to get started with an
 - Good, the parallel execution of test suites reduces the elapsed time required to complete application testing.
 - Bad, Selenese is the language used to define Selenium test scripts. It is a high level language that developers need to learn to write and execute Selenium tests. 
 
-In conclusion, Selenium is a better choice becasue developers must test their apps for multiple browsers. Fortunately, our teammate, Mohammad Anas Mudassir, familiarizes it, so we do not have the issue.
+In conclusion, Selenium is a better choice because developers must test their apps for multiple browsers.
+
+From the developer's point of view, the Selenium tests are helpful in simulating the interaction of the user. Thus, these tests are grouped together in the folder called **e2e_testing**.
+
+In this project, we understand that it is impractical to expect the developers to install the libraries required to run the tests manually. But we do operate under the assumption that the developer has installed Python correctly which would mean the library **setuptools** is available as a default library, similar to how the more known **os** library is. The presence of the library enables us to write the code that automatically checks whether the required libraries are present, and installs them automatically if they aren't.
+
+Moving on to the execution of the tests, we have created a new Selenium test for each functionality. If the developer is working in the root directory, then they can execute the individual test by typing the following command in the terminal: `python e2e_testing/test_file_name.py` where **test_file_name.py** refers to the name of the test file present in the directory. For example, to execute the test for inserting an application, we type `python e2e_testing/selenium_insert_test.py` in the terminal.
+
+However, there might be instances where a developer wishes to run a single file that executes all the other tests. For this, the developer can execute the following command in the terminal: `python e2e_testing/selenium_all_tests.py` which executes each test one after the other. If a developer creates a new test file called **new_test.py** and wants this to run together with other tests, then they need to add the following code at the bottom of **selenium_all_tests.py**:
+`os.system("python " + tests_directory_path + "new_test.py")`
+
+The modified **selenium_all_tests.py** file will then look like this:
+
+`os.system("python " + tests_directory_path + "test1.py")`  
+`os.system("python " + tests_directory_path + "test2.py")`  
+`.`  
+`.`  
+`.`  
+`os.system("python " + tests_directory_path + "new_test.py")`
+
+Thus, the developer can now use the `python e2e_testing/selenium_all_tests.py` command in the terminal to run the entire test suite which now includes the Selenium test file they created.
 
 ## Coding standards
 - Each functions should have inline comment
