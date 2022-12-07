@@ -1,6 +1,8 @@
 import Database from './database/database';
 import {showAppCards, getCardContainer} from './components/cards';
-import {getCurrentDate, findRadioSelectedValue} from './components/utils';
+import {getCurrentDate,
+  findRadioSelectedValue,
+  convertToCSV} from './components/utils';
 
 let database = null;
 
@@ -27,7 +29,7 @@ function showApplicationForm(event) {
 
 /**
 * Hide Application Form
-* @param {*} event
+* @param {event} event
 */
 function hideApplicationForm(event) {
   event.preventDefault();
@@ -69,8 +71,20 @@ document.addEventListener('DOMContentLoaded', (loadDB) => {
   document.getElementById('cname').addEventListener('focusout', (event) => {
     checkIfEmpty(event.target);
   });
+  // export button action
+  document.getElementById('export').onclick = exportApplications;
 });
 
+/**
+ * Function to export applications to a csv file.
+ * @param {event} event
+ */
+function exportApplications(event) {
+  event.preventDefault();
+  database.getAllRecords().then((data) => {
+    convertToCSV(data);
+  }).catch((e) => console.log(e, 'error in fetching all records'));
+}
 /**
  * Check if a field in a form is empty
  * @param {String} value
