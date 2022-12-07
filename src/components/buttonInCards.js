@@ -7,6 +7,7 @@ export function addJobCardEditButton(parent, key) {
   const editButton = document.createElement('button');
 
   editButton.setAttribute('class', 'btn btn-outline-info btn-sm');
+  editButton.setAttribute('style', 'margin-right: 0.4em;');
   editButton.setAttribute('type', 'submit');
   editButton.innerHTML = 'Edit';
   editButton.setAttribute('id', 'edit-app');
