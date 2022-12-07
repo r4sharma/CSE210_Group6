@@ -6,6 +6,13 @@ let offerCount;
 let rejectCount;
 let appCardContainer = null;
 
+const ApplicationStatus = {
+  Applied: 'Applied',
+  InProgress: 'In Progress',
+  Offer: 'Offer',
+  Reject: 'Reject',
+};
+
 /**
   * Function gets the element containing all job cards
   */
@@ -61,16 +68,16 @@ function createJobCard(value) {
   createJobCardColumnOne(row, value);
   createJobCardColumnTwo(row, value.applicationStatus);
   switch (value.applicationStatus) {
-    case 'applied':
+    case ApplicationStatus.Applied:
       appliedCount++;
       break;
-    case 'inProgress':
+    case ApplicationStatus.InProgress:
       inProgressCount++;
       break;
-    case 'offer':
+    case ApplicationStatus.Offer:
       offerCount++;
       break;
-    case 'reject':
+    case ApplicationStatus.Reject:
       rejectCount++;
       break;
   }
@@ -270,16 +277,16 @@ function createDateAppliedElement(parent, doa) {
 * @return {String}
 */
 function setStatusBackgroundColor(status) {
-  if (status == 'inProgress') {
+  if (status == ApplicationStatus.InProgress) {
     // eslint-disable-next-line max-len
     return 'col-sm rounded-bottom-right-1 bg-warning-custom-status d-flex align-items-center';
-  } else if (status == 'applied') {
+  } else if (status == ApplicationStatus.Applied) {
     // eslint-disable-next-line max-len
     return 'col-sm rounded-bottom-right-1 bg-primary-custom-status d-flex align-items-center';
-  } else if (status == 'offer') {
+  } else if (status == ApplicationStatus.Offer) {
     // eslint-disable-next-line max-len
     return 'col-sm rounded-bottom-right-1 bg-success-custom-status d-flex align-items-center';
-  } else if (status == 'reject') {
+  } else if (status == ApplicationStatus.Reject) {
     // eslint-disable-next-line max-len
     return 'col-sm rounded-bottom-right-1 bg-danger-custom-status d-flex align-items-center';
   } else {
