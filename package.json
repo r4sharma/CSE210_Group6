@@ -11,6 +11,10 @@
     "doc": "jsdoc -c jsdoc.json",
     "build": "webpack --config webpack.config.js"
   },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": ["./src/database/**"]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/r4sharma/CSE210_Group6.git"
