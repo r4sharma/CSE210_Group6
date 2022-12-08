@@ -25,6 +25,7 @@ function showApplicationForm(event) {
   // enable the display of app form
   console.log('Application Form Has Been Activated');
   document.getElementById('application-form-container').style.display = '';
+  document.getElementById('doa').setAttribute('max', getCurrentDate());
 }
 
 /**
@@ -261,6 +262,8 @@ function createEditModal(event) {
         .setAttribute('value', value.jobRole);
     document.getElementById('editDoa')
         .setAttribute('value', value.doa);
+    document.getElementById('editDoa')
+        .setAttribute('max', getCurrentDate());
     document.getElementById('editDescription')
         .innerHTML=value.description;
   });
