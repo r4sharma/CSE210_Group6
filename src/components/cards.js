@@ -131,8 +131,8 @@ function createJobCardColumnOne(parent, value) {
   createJobTypeElement(bodyOne, value.jobType);
   createJobRoleElement(bodyOne, value.jobRole);
   createDateAppliedElement(bodyOne, value.doa);
-  createLastUpdatedElement(bodyOne, value.lastUpdated);
   createDescriptionElement(bodyOne, value.description);
+  createLastUpdatedElement(bodyOne, value.lastUpdated);
 }
 
 /**
@@ -343,12 +343,13 @@ function createLastUpdatedElement(parent, lastUpdated) {
   lastUpdatedElem.setAttribute('class', 'card-text');
   parent.appendChild(lastUpdatedElem);
 
-  const mutedTextTwo = document.createElement('text');
+  const mutedTextTwo = document.createElement('sub');
   mutedTextTwo.setAttribute('class', 'text-muted');
   mutedTextTwo.innerHTML = 'Last Updated: ';
   lastUpdatedElem.appendChild(mutedTextTwo);
 
-  const regularTextTwo = document.createElement('text');
+  const regularTextTwo = document.createElement('sub');
+  regularTextTwo.setAttribute('class', 'text-muted');
   regularTextTwo.innerHTML = lastUpdated !== undefined ? lastUpdated : '';
   lastUpdatedElem.appendChild(regularTextTwo);
 }
