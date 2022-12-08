@@ -22,7 +22,7 @@ def testFormValidation():
 
     # Assert the error shows when company name isn't entered
     assert(driver.find_element(By.ID, "validation-message").text == company_name_error)
-    print("ALL ASSERTS PASSED FOR FORM VALIDATION")
+    print("ALL ASSERTIONS PASSED FOR FORM VALIDATION")
 
 def main():
     testFormValidation()
