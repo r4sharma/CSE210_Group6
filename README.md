@@ -11,24 +11,31 @@
 8. [Relevant Documents](#documents)
 
 ## Introduction <a name="introduction"></a>
+Every year, students from various fields of study apply for internships and jobs. However, keeping track of the applications and their status gets cumbersome in an Excel sheet, looking something like:
+
+<img src="Docs/ADR/OldAppTrak.png" alt="drawing" width="600" class="center"/>
+
+This usually results in students abandoning their efforts to keep track of their progress, often leading to missed deadlines and poor planning. This overall hinders the student learning experience and adds to their frustration.
+
+To tackle this problem, we propose a solution – 
+
 <strong>AppTrak</strong> - A local first and single-user web app that saves us from the excel sheet management mess and allows us to declutter our application tracking and make it easier. 
 
-<img src="https://github.com/r4sharma/CSE210_Group6/blob/a0720bcb269cf2b106acb92527b239a2f20de044/Docs/ADR/homepage.jpg?raw=true" alt="drawing" width="600" class="center"/>
-
-The reason we develop it is that students from various fields of study apply for internships and jobs every year. However, keeping track of the applications and their status gets cumbersome in an Excel sheet. It results in students abandoning their efforts to keep track of their progress, often leading to missed deadlines and poor planning. This overall hinders the student learning experience and adds to their frustration.
+<img src="Docs/ADR/homepage.jpg" alt="drawing" width="600" class="center"/>
 
 ## Features of AppTrak <a name="features"></a>
 - The user can create a new application in the dashboard.
 - The user can view already created application in the dashboard.
 - The user can delete an existing application in the dashboard.
 - The user can update an existing application in the dashboard.
-- The user can see the statistical data of application.
-- The user can download applications' detail into a CSV file.
+- The user can see the statistical data of applications.
+- The user can download the applications in format of a CSV file.
 
-The application is local first: when the Internet does not work, events can be read, created, deleted, updated through the application
+The application is local first: when the Internet does not work, events can still be read, created, deleted, updated through the application
 
 ## Technology Architecture <a name="architecture"></a>
 AppTrak is Front-end only web application with both client-side rendering and server-side rendering. Server-side rendering is run once when the initial page is loaded. Then, the UI change is rendered on client-side based on user interaction.
+
 <img src="./Docs/ADR/rendering.jpg" alt="drawing" width="600" class="center"/>
 
 
@@ -131,6 +138,7 @@ Thus, the developer can now use the `python e2e_testing/selenium_all_tests.py` c
   - [UITesting](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/UITesting.md)
   - [Webpack](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/Webpack.md)
   - [GitWorkflow](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/GitWorkflow.md)
+  - [UI](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/UI.md)
 - Developing Guildline              
   - [branch-merge](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/branch-merge.md)
   - [coding-conventions](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/coding-conventions.md)
@@ -143,3 +151,16 @@ Thus, the developer can now use the `python e2e_testing/selenium_all_tests.py` c
   - [Sprint 3](https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%203)
   - [Sprint 4](https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%204)
   - [Sprint 5](https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%205) 
+
+## Owners
+This project is created by:
+
+- [Alex Martakis](https://github.com/Sikatram)
+- [Mohammad Anas Mudassir](https://github.com/Anas-7)
+- [Purva Kothari](https://github.com/pk38)
+- [Ripunjay Sharma](https://github.com/r4sharma)
+- [Savani Suranglikar](https://github.com/savani12)
+- [Siddharth Bagdi](https://github.com/sidbagdi)
+- [Yinchao He](https://github.com/CSE210YinchaoHe)
+
+Please reach out in case of queries.
