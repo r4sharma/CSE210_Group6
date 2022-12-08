@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Tutorial: Selenium Development Guide</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Tutorial: Selenium Development Guide</h1>
+
+    <section>
+
+<header>
+    
+
+    <h2>Selenium Development Guide</h2>
+</header>
+
+<article>
+    <h1>Selenium Documentation</h1>
+<h2>Context</h2>
+<p>Writing unit tests for HTML code may become unfeasible, for example, due to lack of functions that return a variable. Thus we took the professor's advice where he suggested that tools like Puppeteer, Playwright, or Selenium could be used. In our project, Selenium has been utilized for end-to-end testing of the HTML code. This document explains the process of writing the test in the Selenium</p>
+<h2>Approach</h2>
+<p>Selenium simulates a web-browser interaction by using a .exe file called the &quot;WebDriver&quot; to open a new window and then the page to be tested in that window. The WebDriver differs for each browser, and for each version of the chosen browser as well.</p>
+<p>To ensure consistency, we assume that everyone has Google Chrome on their computers. In addition, a library called &quot;webdriver-management&quot; is used to ensure that the correct WebDriver is installed corresponding to the version of Google Chrome on each developer's machine.</p>
+<p>The approach can be summarized in the following points:</p>
+<ul>
+<li>Initialize the driver which loads and tracks the changes in the webpage</li>
+<li>Access the elements to be tested</li>
+<li>Modify the elements to be tested</li>
+<li>Check that the changes made in the elements correspond with the expected behaviour</li>
+</ul>
+<h3>1. Initializing the driver</h3>
+<p>Simply put, the driver is our means of communicating with the elements present in the webpage. It is used to access the elements in our tests and it is used to execute any custom JS code if we wish so. In this project, we use Python for writing the scripts.</p>
+<p><code>driver  = webdriver.Chrome(ChromeDriverManager().install())</code>
+The above line establishes the connection of the script with the executable file for our test Chrome environment. This is followed by the <code>get()</code> method that loads the webpage in the simulated browser:
+<code>driver.get(page_link)</code>
+Here, the page_link can either be a reference to HTML file on local computer or any https or http link.
+At this stage, our driver for accessing the elements is ready.</p>
+<h3>2. Accessing the elements</h3>
+<p>Before jumping straight to the methods, it is important to understand and prioritize the criteria for accessing the elements in the HTML code. The suggestions below are written in decreasing priority order, with the required explanation.</p>
+<ul>
+<li>ID: Since id is used for specifying a unique HTML element, it is always preferred that the elements to be tested are accessible using id. This ensures greater flexibility for the developer writing the HTML too, as it means they can change the position, class, name or any other attribute of the element without worrying about breaking the test. This is especially <strong>useful for accessing buttons and input fields</strong>.</li>
+<li>Class: At times, there are requirements where a list or group of elements need to be accessed, and the size of such lists can change dynamically. For example, consider the job application tracker where adding a new application increases the size of the list. In such cases, if all the job cards have a common class, which should be the case if ideal HTML practices are adhered to, then the <strong>class name can be used to access the list of elements.</strong></li>
+<li>CSS Selector: In some cases, an element may not have an id and accessing by class name would return a lot of elements. The developer would then have to hardcode the index of the element they want which isn't ideal. However, <strong>sometimes</strong> there are attributes which are unique to the element, such as &quot;name=&quot; or the &quot;value=&quot;. In such cases, using the CSS Selector is helpful</li>
+<li>XPATH: This should be the last resort, as it <strong>relies on the exact position of the element</strong>. For example, if the desired element is present within two other div tags, then the query could look like <code>\body\div[1]\div\element</code>. As you may have inferred, using the exact location of the element makes the code extremely susceptible to any changes in the HTML code as any minor shift may cause the element to not be found.</li>
+</ul>
+<p>Now that there is a general understanding of which selectors to be used depending on the requirements, lets dive into some of the code examples.</p>
+<p>The driver is our primary tool to access elements, however we will see later how to access elements within an element itself only.</p>
+<p>With the latest version of Selenium, we thankfully have to contend with only three methods:</p>
+<ul>
+<li><code>driver.find_element(parameter1, parameter2)</code></li>
+<li><code>driver.find_elements(parameter1, parameter2)</code></li>
+<li><code>get_attribute()</code></li>
+</ul>
+<p>The utility of the second function is for accessing group of elements that share a common attribute such as a class name, while the first method finds the unique or the first occurence of the attribute. The third function is best understood by example as we'll see at the end of this section.</p>
+<p>parameter1 refers to the attribute <strong>by</strong> which we need to access the element. The Selenium library requires a module called 'By' to be imported.
+parameter2 is the string which we expect the attribute to have as the value.</p>
+<p>Consider a button, that has the <strong>id</strong> as &quot;saveButton&quot;, then the query for such an element will be:
+<code>save_button = driver.find_element(By.ID, &quot;saveButton&quot;)</code>
+An alternative approach is to use the 'Expected Conditions' module called <strong>EC</strong> in Python which has the <code>presence_of_element_located</code> method to search for an element. This is optional, but can come in handy when the website is sluggish and new elements take time to load. This method thus needs to <strong>wait</strong>, and the code for the above scenario is as follows:
+<code>wait = WebDriverWait(driver, 10) #Here 10 is the time interval in seconds save_btn = wait.until(EC.presence_of_element_located((By.ID,&quot;saveButton&quot;)))</code></p>
+<p>However, in this document I will use the <code>find_element()</code> or <code>find_elements()</code> to avoid confusion.</p>
+<p>Now, if we want to get a group of elements using class, an example can look like this:
+<code>class_elements = driver.find_elements(By.CLASS_NAME, &quot;class_name&quot;)</code></p>
+<p>Keep in mind, if the HTML looks like <code>class = &quot;class1 class2 class3&quot;</code> then the query in Selenium will need to be formatted as follows
+<code>driver.find_elements(By.CLASS_NAME, &quot;class1.class2.class3&quot;</code></p>
+<p>To show how to use CSS selector and demonstrate our final case of accessing element within an elements, consider the HTML snippet below:
+<code>&lt;div class=&quot;class1&gt; 	&lt;div class=&quot;class2&quot; 		&lt;text value=&quot;abc&quot;&gt; ABC &lt;/text&gt; 	&lt;/div&gt; 	&lt;div class=&quot;class2&quot; 		&lt;text value=&quot;xyz&quot;&gt; XYZ &lt;/text&gt; 	&lt;/div&gt; &lt;\div&gt;</code>
+Assume that we have to access the text fields of all elements that have class as &quot;class2&quot;, as well as the text of the attribute &quot;value=&quot;</p>
+<p>Our first step can be as follows:
+<code>list_elements = driver.find_elements(By.CLASS_NAME, &quot;class2&quot;)</code>
+However,an alternative could be to use CSS selector as the criteria. Observe the query below carefully:
+<code>list_elements = driver.find_elements(By.CSS_SELECTOR, &quot;div[class='class2']&quot;)</code>
+There are three things to unpack here:</p>
+<ul>
+<li>The tag is mentioned in the string first. In this case, it is the 'div' tag.</li>
+<li>The square brackets contain the values to be matched</li>
+<li>The values, here it is class2, are written in single quotes</li>
+</ul>
+<p>Once we have the list of WebElements, we iterate over them to store text in a list called 'stored_text' and the text of the value attribute as 'stored_values' as follows:
+<code>stored_text = [] stored_values = [] for element in list_elements: 	text_tag = element.find_element(By.CSS_SELECTOR, &quot;text&quot;) 	stored_text.append(text_tag.text)  	stored_values.append(element.get_attribute(&quot;value&quot;))</code>
+The lists will look like this after the code has executed:
+<code>stored_text = [ABC, XYZ] stored_values = [abc, xyz]</code>
+The '.text' feature is elaborated in the next section, however I hope the utility of the <code>get_attribute()</code> function was clear, i.e., <strong>it accesses the other attributes present within the tag itself</strong>, and not what exists in the substructure of the HTML code.</p>
+<h3>3. Modifying the elements</h3>
+<p>There are quite a few methods or attributes present, but let's focus on those which have the most utility:</p>
+<ul>
+<li>send_keys()</li>
+<li>click()</li>
+<li>text</li>
+</ul>
+<p>If we have accessed a text field in a variable called 'input_name' for example, then to send the data to the field we use the <code>send_keys()</code> method. Let's say if I want to add the name Alex to the text field, the code will be:
+<code>input_name = driver.find_element(By.ID, &quot;name&quot;)</code>
+<code>input_name.send_keys(&quot;Alex&quot;)</code></p>
+<p>On the other hand, there might be a scenario where we have a button called 'save_button' and we want to simulate a click action after filling the form. This can be done as follows:
+<code>save_button = driver.find_element(By.ID, &quot;saveButton&quot;)</code>
+<code>save_button.click()</code></p>
+<p>However, this approach sometimes gives the error &quot;element could not be found&quot;. In such cases, I would recommend using the following code:
+<code>save_button = driver.find_element(By.ID, &quot;saveButton&quot;)</code>
+<code>driver.execute_script(&quot;arguments[0].click();&quot;, save_button)</code></p>
+<p>The <code>execute_script()</code> method performs a Javascript code on the element that we have passed, since we passed only one argument called save_button, the code executes the click method on that. Unfortunately, this is a quirk of Selenium where there is no definite reason as to why the default <code>click()</code> method fails sometimes.</p>
+<p>Finally, sometimes if we access an element, we want to obtain the text that is present, i.e., if there is HTML tag <code>&lt;div id=&quot;companyName&quot;&gt; Amazon &lt;/div&gt;</code>, then we access the text 'Amazon' as follows:
+<code>company_name_element = driver.find_element(By.ID, &quot;companyName&quot;)</code>
+<code>company_name = company_name_element.text</code></p>
+<p>These are the main methods that are required for writing majority of the tests in Selenium. Refer to documentation for more specific methods.</p>
+<h3>4. Check that the changes made in the elements correspond with expected outcome</h3>
+<p>After having understood Selenium, and how to access and modify the data, the last step is to verify the changes made in the test environment correspond with expected behaviour. In Python, simply use the <code>assert</code> function to ensure that, for example, the data inserted using the form matches the input data.</p>
+<h2>Summary</h2>
+<p>The entire process can be summarized as follows:</p>
+<ul>
+<li>Identify the function you want to test and make a separate file for it</li>
+<li>Identify the elements that a user interacts with during the test</li>
+<li>Attempt to access the elements in the priority order specified above</li>
+<li>Use the driver or WebElement specific method to either obtain the information or to send information (for example sending data in text field)</li>
+<li>Assert that the changes made are in-line with the expected behaviour</li>
+</ul>
+</article>
+
+</section>
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-Selenium Development Guide.html">Selenium Development Guide</a></li><li><a href="tutorial-branch-merge.html">branch-merge</a></li><li><a href="tutorial-coding-conventions.html">coding-conventions</a></li><li><a href="tutorial-git-conventions.html">git-conventions</a></li><li><a href="tutorial-jsdoc-conventions.html">jsdoc-conventions</a></li><li><a href="tutorial-project-management.html">project-management</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addApplication">addApplication</a></li><li><a href="global.html#addJobCardDeleteButton">addJobCardDeleteButton</a></li><li><a href="global.html#addJobCardEditButton">addJobCardEditButton</a></li><li><a href="global.html#checkIfEmpty">checkIfEmpty</a></li><li><a href="global.html#convertToCSV">convertToCSV</a></li><li><a href="global.html#createAppCards">createAppCards</a></li><li><a href="global.html#createCompanyNameElement">createCompanyNameElement</a></li><li><a href="global.html#createDateAppliedElement">createDateAppliedElement</a></li><li><a href="global.html#createDeleteModal">createDeleteModal</a></li><li><a href="global.html#createDescriptionElement">createDescriptionElement</a></li><li><a href="global.html#createEditModal">createEditModal</a></li><li><a href="global.html#createEmptyAppCard">createEmptyAppCard</a></li><li><a href="global.html#createJobCard">createJobCard</a></li><li><a href="global.html#createJobCardColumnOne">createJobCardColumnOne</a></li><li><a href="global.html#createJobCardColumnTwo">createJobCardColumnTwo</a></li><li><a href="global.html#createJobCardHeaderRow">createJobCardHeaderRow</a></li><li><a href="global.html#createJobIDElement">createJobIDElement</a></li><li><a href="global.html#createJobRoleElement">createJobRoleElement</a></li><li><a href="global.html#createJobTypeElement">createJobTypeElement</a></li><li><a href="global.html#createLastUpdatedElement">createLastUpdatedElement</a></li><li><a href="global.html#dbShowAppCards">dbShowAppCards</a></li><li><a href="global.html#deleteApplication">deleteApplication</a></li><li><a href="global.html#deleteViaModal">deleteViaModal</a></li><li><a href="global.html#displayTitle">displayTitle</a></li><li><a href="global.html#editApplication">editApplication</a></li><li><a href="global.html#editViaModal">editViaModal</a></li><li><a href="global.html#exportApplications">exportApplications</a></li><li><a href="global.html#findRadioSelectedValue">findRadioSelectedValue</a></li><li><a href="global.html#getCardContainer">getCardContainer</a></li><li><a href="global.html#getCurrentDate">getCurrentDate</a></li><li><a href="global.html#hideApplicationForm">hideApplicationForm</a></li><li><a href="global.html#isEmpty">isEmpty</a></li><li><a href="global.html#setInvalid">setInvalid</a></li><li><a href="global.html#setStatusBackgroundColor">setStatusBackgroundColor</a></li><li><a href="global.html#setValid">setValid</a></li><li><a href="global.html#showAppCards">showAppCards</a></li><li><a href="global.html#showApplicationForm">showApplicationForm</a></li><li><a href="global.html#updateStatsCard">updateStatsCard</a></li><li><a href="global.html#validateForm">validateForm</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Wed Dec 07 2022 19:23:27 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
