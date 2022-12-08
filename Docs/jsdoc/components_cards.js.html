@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/cards.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/cards.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {addJobCardEditButton, addJobCardDeleteButton} from './buttonInCards';
+
+let appliedCount;
+let inProgressCount;
+let offerCount;
+let rejectCount;
+let appCardContainer = null;
+
+const ApplicationStatus = {
+  Applied: 'Applied',
+  InProgress: 'In Progress',
+  Offer: 'Offer',
+  Reject: 'Reject',
+};
+
+/**
+  * Function gets the element containing all job cards
+  */
+export function getCardContainer() {
+  appCardContainer = document.querySelector('#app-card-container');
+}
+
+/**
+  * Function to fetch and create all cards from db
+  * @param {Array} data
+  */
+export function showAppCards(data) {
+// Leave the div for card container empty
+  while (appCardContainer.firstChild) {
+    appCardContainer.removeChild(appCardContainer.firstChild);
+  }
+  createAppCards(data);
+  updateStatsCard();
+};
+
+/**
+ * Create app cards for all records in db
+ * @param {Array} data
+ */
+function createAppCards(data) {
+  appliedCount = 0;
+  inProgressCount = 0;
+  offerCount = 0;
+  rejectCount = 0;
+  if (data !== null &amp;&amp; data.length>0) {
+    displayTitle();
+    data.forEach(createJobCard);
+  } else {
+    createEmptyAppCard();
+  }
+}
+
+/**
+ * Function to create Empty card in case of no applications
+ * @param {Object} value
+ */
+function createJobCard(value) {
+  console.log(value);
+
+  const card = document.createElement('div');
+  card.setAttribute('class', 'card mb-3 mx-auto');
+  card.style = 'max-width: 750px;';
+
+  const row = document.createElement('div');
+  row.setAttribute('class', 'row g-0');
+  card.appendChild(row);
+  createJobCardHeaderRow(row, value);
+  createJobCardColumnOne(row, value);
+  createJobCardColumnTwo(row, value.applicationStatus);
+  switch (value.applicationStatus) {
+    case ApplicationStatus.Applied:
+      appliedCount++;
+      break;
+    case ApplicationStatus.InProgress:
+      inProgressCount++;
+      break;
+    case ApplicationStatus.Offer:
+      offerCount++;
+      break;
+    case ApplicationStatus.Reject:
+      rejectCount++;
+      break;
+  }
+  appCardContainer.appendChild(card);
+}
+
+/**
+* Creates a job card header with information populated
+* @param {HTMLElement} parent
+* @param {Object} value
+* */
+function createJobCardHeaderRow(parent, value) {
+  const headerRow = document.createElement('div');
+  headerRow.setAttribute('class', 'row g-0');
+  parent.appendChild(headerRow);
+
+  const navbar = document.createElement('nav');
+  navbar.classList.add('navbar', 'rounded-top',
+      'navbar-expand-lg', 'navbar-light', 'bg-light');
+  headerRow.appendChild(navbar);
+
+  const container = document.createElement('div');
+  container.setAttribute('class', 'container-fluid');
+  navbar.appendChild(container);
+
+  createCompanyNameElement(container, value.companyName);
+
+  const buttons = document.createElement('div');
+  container.appendChild(buttons);
+
+  addJobCardEditButton(buttons, value.key);
+  addJobCardDeleteButton(buttons, value.key);
+}
+
+
+/**
+  * Creates a job card with information populated
+  * @param {HTMLElement} parent
+  * @param {Object} value
+  * */
+function createJobCardColumnOne(parent, value) {
+  const columnOne = document.createElement('div');
+  columnOne.setAttribute('class', 'col-md-8');
+  parent.appendChild(columnOne);
+
+  const bodyOne = document.createElement('div');
+  bodyOne.setAttribute('class', 'card-body');
+  columnOne.appendChild(bodyOne);
+
+  createJobIDElement(bodyOne, value.jobID);
+  createJobTypeElement(bodyOne, value.jobType);
+  createJobRoleElement(bodyOne, value.jobRole);
+  createDateAppliedElement(bodyOne, value.doa);
+  createLastUpdatedElement(bodyOne, value.lastUpdated);
+  createDescriptionElement(bodyOne, value.description);
+}
+
+/**
+* Creates a part of job card with status information
+* @param {HTMLElement} parent
+* @param {String} applicationStatus
+* */
+function createJobCardColumnTwo(parent, applicationStatus) {
+  const columnTwo = document.createElement('div');
+  columnTwo.setAttribute('class',
+      setStatusBackgroundColor(applicationStatus));
+  parent.appendChild(columnTwo);
+
+  const bodyTwo = document.createElement('div');
+  bodyTwo.setAttribute('class', 'card-body align-items-center');
+  columnTwo.appendChild(bodyTwo);
+
+  const coloredColumn = document.createElement('div');
+  coloredColumn.setAttribute('class', 'd-flex justify-content-center');
+  bodyTwo.appendChild(coloredColumn);
+
+  const status = document.createElement('h5');
+  status.setAttribute('class', 'text');
+  status.innerHTML = applicationStatus;
+  coloredColumn.appendChild(status);
+}
+
+/**
+ * Creates an entry for company title in job card
+ * @param {HTMLElement} parent
+ * @param {String} cname
+ */
+function createCompanyNameElement(parent, cname) {
+  const jobTitle = document.createElement('a');
+  jobTitle.setAttribute('class', 'navbar-brand');
+  jobTitle.innerHTML = cname; // cannot be null - form check added.
+  parent.appendChild(jobTitle);
+}
+
+/**
+ * Creates an entry for jobType in job card
+ * @param {HTMLElement} parent
+ * @param {String} jobID
+ */
+function createJobIDElement(parent, jobID) {
+  const jobIDElement = document.createElement('p');
+  jobIDElement.setAttribute('class', 'card-text');
+  parent.appendChild(jobIDElement);
+
+  const mutedTextOne = document.createElement('text');
+  mutedTextOne.setAttribute('class', 'text-muted');
+  mutedTextOne.innerHTML = 'Job ID: ';
+  jobIDElement.appendChild(mutedTextOne);
+
+  const regularTextOne = document.createElement('text');
+  regularTextOne.innerHTML = jobID !== undefined ? jobID : '';
+  jobIDElement.appendChild(regularTextOne);
+}
+
+/**
+ * Creates an entry for jobType in job card
+ * @param {HTMLElement} parent
+ * @param {String} jobType
+ */
+function createJobTypeElement(parent, jobType) {
+  const jobTypeElement = document.createElement('p');
+  jobTypeElement.setAttribute('class', 'card-text');
+  parent.appendChild(jobTypeElement);
+
+  const mutedTextOne = document.createElement('text');
+  mutedTextOne.setAttribute('class', 'text-muted');
+  mutedTextOne.innerHTML = 'Job Type: ';
+  jobTypeElement.appendChild(mutedTextOne);
+
+  const regularTextOne = document.createElement('text');
+  regularTextOne.innerHTML = jobType !== undefined ? jobType : '';
+  jobTypeElement.appendChild(regularTextOne);
+}
+
+/**
+   * Creates an entry for jobRole in job card
+   * @param {HTMLElement} parent
+   * @param {String} jobRole
+*/
+function createJobRoleElement(parent, jobRole) {
+  const jobRoleElement = document.createElement('p');
+  jobRoleElement.setAttribute('class', 'card-text');
+  parent.appendChild(jobRoleElement);
+
+  const mutedTextTwo = document.createElement('text');
+  mutedTextTwo.setAttribute('class', 'text-muted');
+  mutedTextTwo.innerHTML = 'Job Role: ';
+  jobRoleElement.appendChild(mutedTextTwo);
+
+  const regularTextTwo = document.createElement('text');
+  regularTextTwo.innerHTML = jobRole !== undefined ? jobRole : '';
+  jobRoleElement.appendChild(regularTextTwo);
+}
+
+/** Creates an entry for description in job card
+* @param {HTMLElement} parent
+* @param {String} desc
+*/
+function createDescriptionElement(parent, desc) {
+  const descElement = document.createElement('p');
+  descElement.setAttribute('class', 'card-text');
+  parent.appendChild(descElement);
+
+  const mutedTextTwo = document.createElement('text');
+  mutedTextTwo.setAttribute('class', 'text-muted');
+  mutedTextTwo.innerHTML = 'Description: ';
+  descElement.appendChild(mutedTextTwo);
+
+  const regularTextTwo = document.createElement('text');
+  regularTextTwo.innerHTML = desc !== undefined ? desc : '';
+  descElement.appendChild(regularTextTwo);
+}
+
+/**
+* Creates an entry for doa in job card
+* @param {HTMLElement} parent
+* @param {String} doa
+*/
+function createDateAppliedElement(parent, doa) {
+  const dateApplied = document.createElement('p');
+  dateApplied.setAttribute('class', 'card-text');
+  parent.appendChild(dateApplied);
+
+  const mutedTextTwo = document.createElement('text');
+  mutedTextTwo.setAttribute('class', 'text-muted');
+  mutedTextTwo.innerHTML = 'Date Applied: ';
+  dateApplied.appendChild(mutedTextTwo);
+
+  const regularTextTwo = document.createElement('text');
+  regularTextTwo.innerHTML = doa !== undefined ? doa : '';
+  dateApplied.appendChild(regularTextTwo);
+}
+
+/**
+* To set bg color indicating status of application.
+* @param {String} status
+* @return {String}
+*/
+function setStatusBackgroundColor(status) {
+  if (status == ApplicationStatus.InProgress) {
+    // eslint-disable-next-line max-len
+    return 'col-sm rounded-bottom-right-1 bg-warning-custom-status d-flex align-items-center';
+  } else if (status == ApplicationStatus.Applied) {
+    // eslint-disable-next-line max-len
+    return 'col-sm rounded-bottom-right-1 bg-primary-custom-status d-flex align-items-center';
+  } else if (status == ApplicationStatus.Offer) {
+    // eslint-disable-next-line max-len
+    return 'col-sm rounded-bottom-right-1 bg-success-custom-status d-flex align-items-center';
+  } else if (status == ApplicationStatus.Reject) {
+    // eslint-disable-next-line max-len
+    return 'col-sm rounded-bottom-right-1 bg-danger-custom-status d-flex align-items-center';
+  } else {
+    return 'col-sm rounded-bottom-right-1 bg-muted d-flex align-items-center';
+  }
+}
+
+/**
+* Function to display title
+*/
+function displayTitle() {
+  // const card = document.createElement('div');
+  const text = document.createElement('h4');
+  text.setAttribute('class', 'mb-3 text-center');
+  text.textContent = 'Job Applications';
+  appCardContainer.appendChild(text);
+}
+
+/**
+* Function to create Empty card in case of no applications
+*/
+function createEmptyAppCard() {
+  if (!appCardContainer.firstChild) {
+    const card = document.createElement('div');
+    card.setAttribute('class', 'card mb-3 mx-auto');
+    card.setAttribute('id', 'noApplications');
+    card.style = 'max-width: 750px;';
+    const text = document.createElement('p');
+    // eslint-disable-next-line max-len
+    text.textContent = 'Looks like you do not have any applications to track! Get started by clicking on the Add Applications button above.';
+    appCardContainer.appendChild(card);
+    card.appendChild(text);
+  }
+}
+
+/**
+ * getCounts updates the stats at the top of the dashboard
+ */
+function updateStatsCard() {
+  console.log(appliedCount, inProgressCount, offerCount, rejectCount);
+  document.getElementById('appliedCount').innerHTML = appliedCount;
+  document.getElementById('inProgressCount').innerHTML = inProgressCount;
+  document.getElementById('offerCount').innerHTML = offerCount;
+  document.getElementById('rejectCount').innerHTML = rejectCount;
+}
+
+/**
+ * Create an entry for last updated date in job card
+ * @param {HTMLElement} parent
+  * @param {String} lastUpdated
+*/
+function createLastUpdatedElement(parent, lastUpdated) {
+  const lastUpdatedElem = document.createElement('p');
+  lastUpdatedElem.setAttribute('class', 'card-text');
+  parent.appendChild(lastUpdatedElem);
+
+  const mutedTextTwo = document.createElement('text');
+  mutedTextTwo.setAttribute('class', 'text-muted');
+  mutedTextTwo.innerHTML = 'Last Updated: ';
+  lastUpdatedElem.appendChild(mutedTextTwo);
+
+  const regularTextTwo = document.createElement('text');
+  regularTextTwo.innerHTML = lastUpdated !== undefined ? lastUpdated : '';
+  lastUpdatedElem.appendChild(regularTextTwo);
+}
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-branch-merge.html">branch-merge</a></li><li><a href="tutorial-coding-conventions.html">coding-conventions</a></li><li><a href="tutorial-git-conventions.html">git-conventions</a></li><li><a href="tutorial-jsdoc-conventions.html">jsdoc-conventions</a></li><li><a href="tutorial-project-management.html">project-management</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addApplication">addApplication</a></li><li><a href="global.html#addJobCardDeleteButton">addJobCardDeleteButton</a></li><li><a href="global.html#addJobCardEditButton">addJobCardEditButton</a></li><li><a href="global.html#checkIfEmpty">checkIfEmpty</a></li><li><a href="global.html#convertToCSV">convertToCSV</a></li><li><a href="global.html#createAppCards">createAppCards</a></li><li><a href="global.html#createCompanyNameElement">createCompanyNameElement</a></li><li><a href="global.html#createDateAppliedElement">createDateAppliedElement</a></li><li><a href="global.html#createDeleteModal">createDeleteModal</a></li><li><a href="global.html#createDescriptionElement">createDescriptionElement</a></li><li><a href="global.html#createEditModal">createEditModal</a></li><li><a href="global.html#createEmptyAppCard">createEmptyAppCard</a></li><li><a href="global.html#createJobCard">createJobCard</a></li><li><a href="global.html#createJobCardColumnOne">createJobCardColumnOne</a></li><li><a href="global.html#createJobCardColumnTwo">createJobCardColumnTwo</a></li><li><a href="global.html#createJobCardHeaderRow">createJobCardHeaderRow</a></li><li><a href="global.html#createJobIDElement">createJobIDElement</a></li><li><a href="global.html#createJobRoleElement">createJobRoleElement</a></li><li><a href="global.html#createJobTypeElement">createJobTypeElement</a></li><li><a href="global.html#createLastUpdatedElement">createLastUpdatedElement</a></li><li><a href="global.html#dbShowAppCards">dbShowAppCards</a></li><li><a href="global.html#deleteApplication">deleteApplication</a></li><li><a href="global.html#deleteViaModal">deleteViaModal</a></li><li><a href="global.html#displayTitle">displayTitle</a></li><li><a href="global.html#editApplication">editApplication</a></li><li><a href="global.html#editViaModal">editViaModal</a></li><li><a href="global.html#exportApplications">exportApplications</a></li><li><a href="global.html#findRadioSelectedValue">findRadioSelectedValue</a></li><li><a href="global.html#getCardContainer">getCardContainer</a></li><li><a href="global.html#getCurrentDate">getCurrentDate</a></li><li><a href="global.html#hideApplicationForm">hideApplicationForm</a></li><li><a href="global.html#isEmpty">isEmpty</a></li><li><a href="global.html#setInvalid">setInvalid</a></li><li><a href="global.html#setStatusBackgroundColor">setStatusBackgroundColor</a></li><li><a href="global.html#setValid">setValid</a></li><li><a href="global.html#showAppCards">showAppCards</a></li><li><a href="global.html#showApplicationForm">showApplicationForm</a></li><li><a href="global.html#updateStatsCard">updateStatsCard</a></li><li><a href="global.html#validateForm">validateForm</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Wed Dec 07 2022 16:19:52 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
