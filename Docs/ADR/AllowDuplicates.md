@@ -6,7 +6,7 @@ As a user of AppTrak, I want to add applications using the add user feature.
 The user can add any number of applications. Each application has several fields, however not all of them are mandatory.
 This brings up a question whether the app should allow duplicate entries of the application.
 
-In our discussion with the TA, we received feedback for enforcing checking and preventing duplicates. We agree to the points made, and initially also had the same database schema in mind. Refer xxx. 
+In our discussion with the TA, we received feedback for enforcing checking and preventing duplicates. We agree to the points made, and initially also had the same database schema in mind. Refer to [this commit](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/meeting-notes/Sprint%202/Nov%2011.md). 
 
 In this ADR, we provide the reasoning of why we believe preventing duplicates is not a good choice in the context of this project.
 
