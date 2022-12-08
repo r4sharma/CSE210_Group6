@@ -1,24 +1,38 @@
 # AppTrak (CSE210_Group6)
 
-## Introduction
+# Table of contents
+1. [Introduction](#introduction)
+2. [Features of AppTrak](#features)
+3. [Technology Architecture](#architecture)
+4. [Database Design](#database)
+5. [Testing Strategies](#testing)
+6. [Coding standards](#coding)
+7. [Steps to Run the Project](#run)
+8. [Relevant Documents](#documents)
+
+## Introduction <a name="introduction"></a>
 <strong>AppTrak</strong> - A local first and single-user web app that saves us from the excel sheet management mess and allows us to declutter our application tracking and make it easier. 
 
 <img src="./Docs/ADR/homepage.jpg" alt="drawing" width="600" class="center"/>
 
 The reason we develop it is that students from various fields of study apply for internships and jobs every year. However, keeping track of the applications and their status gets cumbersome in an Excel sheet. It results in students abandoning their efforts to keep track of their progress, often leading to missed deadlines and poor planning. This overall hinders the student learning experience and adds to their frustration.
 
-## Features of AppTrak
-- The user can create a new event in the calendar.
-- The user can view already created events in the calendar.
-- The user can delete an existing event in the calendar.
-- The user can update an existing event in the calendar.
+## Features of AppTrak <a name="features"></a>
+- The user can create a new application in the dashboard.
+- The user can view already created application in the dashboard.
+- The user can delete an existing application in the dashboard.
+- The user can update an existing application in the dashboard.
+- The user can see the statistical data of application.
+- The user can download applications' detail into a CSV file.
 
 The application is local first: when the Internet does not work, events can be read, created, deleted, updated through the application
 
-## Technology Architecture (Need to be checked)
+## Technology Architecture <a name="architecture"></a>
+AppTrak is Front-end only web application with both client-side rendering and server-side rendering. Server-side rendering is run once when the initial page is loaded. Then, the UI change is rendered on client-side based on user interaction.
+<img src="./Docs/ADR/rendering.jpg" alt="drawing" width="300" class="center"/>
 
 
-## Database Design
+## Database Design <a name="database"></a>
 - Each record is uniquely identified by an auto-incrementing integer key defined as "Card Id".
 - Duplicate entries for a job are allowed. This is done to relax the mandatory constraint of having to enter jobId which is an overhead for an end user.
 
@@ -34,7 +48,7 @@ The application is local first: when the Internet does not work, events can be r
 | Status   | Enum (Applied, InProgress, Offer, Reject)       | N        |        | Applied|
 | Description   | String      | N        | 5000 chars       | |
 
-## Testing Strategies
+## Testing Strategies <a name="testing"></a>
 ### Use Jest as TestingFramework 
 - Good, automatically runs tests after each change to ensure they are up to date. Many users report that this reduces development time.
 - Good, automatically mocks any modules not explicitly required in the test file, which can save time during development.
@@ -42,7 +56,7 @@ The application is local first: when the Internet does not work, events can be r
 
 In conclusion, Jest is a better choice becasue it is easy to get started with and doesn’t require learning a new syntax
 
-### Use Selenium as UI Testing
+### Use Selenium as UI Testing 
 - Good, a collection of open-source tools that support browser application testing.The community has over 632 contributors and over 140,000 users.
 - Good, Selenium is a solution dedicated to testing applications that run in multiple browsers (Chrome, Firefox, Safari, etc.) on different operating systems (Windows, Linux, and Mac OS)
 - Good, the parallel execution of test suites reduces the elapsed time required to complete application testing.
@@ -50,7 +64,7 @@ In conclusion, Jest is a better choice becasue it is easy to get started with an
 
 In conclusion, Selenium is a better choice becasue developers must test their apps for multiple browsers. Fortunately, our teammate, Mohammad Anas Mudassir, familiarizes it, so we do not have the issue.
 
-## Coding standards
+## Coding standards <a name="coding"></a>
 - Each functions should have inline comment
 - Each function and variable should named using Camel case
 - Use VSCode
@@ -59,7 +73,7 @@ In conclusion, Selenium is a better choice becasue developers must test their ap
   - uthor_name/feature_description
   - E.g., ripunjay/configure_jsdocs
 
-## Steps to Run the Project
+## Steps to Run the Project <a name="run"></a>
 1. Clone this project (or a fork of this project)
 
     ```git clone https://github.com/r4sharma/CSE210_Group6.git```
@@ -88,7 +102,7 @@ In conclusion, Selenium is a better choice becasue developers must test their ap
 
     ```python e2e_testing/integration.py```
 
-## Relevant Documents
+## Relevant Documents <a name="documents"></a>
 - ADR                                       
   - [AsynchronousCodeStrategy](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/AsynchronousCodeStrategy.md)
   - [Database](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/Storage.md)
