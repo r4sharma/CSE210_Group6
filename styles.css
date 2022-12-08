@@ -121,6 +121,26 @@ body {
   color: white !important;
 }
 
+.delete-btn {
+  background-color: var(--red) !important;
+  color: black !important;
+}
+
+.delete-btn:hover {
+  background-color: var(--darkred) !important;
+  color: white !important;
+}
+
+.save-btn {
+  background-color: var(--green) !important;
+  color: black !important;
+}
+
+.save-btn:hover {
+  background-color: var(--darkgreen) !important;
+  color: white !important;
+}
+
 .form-group {
   padding: 1% 0 1% 0;
 }
