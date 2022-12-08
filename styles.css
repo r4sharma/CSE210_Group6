@@ -101,12 +101,12 @@ body {
   background-color: var(--darkblue);
 }
 
-.profile-btn {
+.export-btn {
   border-color: black !important;
   margin-right: 2%;
 }
 
-.profile-btn:hover {
+.export-btn:hover {
   background-color: black !important;
   color: white !important;
 }
