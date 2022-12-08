@@ -6,7 +6,7 @@
 export function addJobCardEditButton(parent, key) {
   const editButton = document.createElement('button');
 
-  editButton.setAttribute('class', 'btn btn-outline-info btn-sm');
+  editButton.setAttribute('class', 'btn btn-outline-secondary btn-sm');
   editButton.setAttribute('style', 'margin-right: 0.4em;');
   editButton.setAttribute('type', 'submit');
   editButton.innerHTML = 'Edit';
@@ -25,7 +25,7 @@ export function addJobCardEditButton(parent, key) {
 export function addJobCardDeleteButton(parent, key) {
   const deleteButton = document.createElement('button');
   deleteButton.classList.add('btn',
-      'btn-outline-danger',
+      'btn-outline-secondary',
       'btn-sm');
   deleteButton.setAttribute('type', 'submit');
   deleteButton.setAttribute('id', 'delete-app');
