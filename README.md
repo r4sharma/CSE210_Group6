@@ -29,7 +29,7 @@ The application is local first: when the Internet does not work, events can be r
 
 ## Technology Architecture <a name="architecture"></a>
 AppTrak is Front-end only web application with both client-side rendering and server-side rendering. Server-side rendering is run once when the initial page is loaded. Then, the UI change is rendered on client-side based on user interaction.
-<img src="./Docs/ADR/rendering.jpg" alt="drawing" width="300" class="center"/>
+<img src="./Docs/ADR/rendering.jpg" alt="drawing" width="600" class="center"/>
 
 
 ## Database Design <a name="database"></a>
