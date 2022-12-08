@@ -13,7 +13,7 @@
 ## Introduction <a name="introduction"></a>
 Every year, students from various fields of study apply for internships and jobs. However, keeping track of the applications and their status gets cumbersome in an Excel sheet, looking something like:
 
-<img src="Docs/ADR/OldAppTrak.png" alt="drawing" width="600" class="center"/>
+<img src="https://github.com/r4sharma/CSE210_Group6/blob/f10fa3761de43fc6730db711ff9fa93187137392/Docs/ADR/OldAppTrak.png?raw=true" alt="drawing" width="600" class="center"/>
 
 This usually results in students abandoning their efforts to keep track of their progress, often leading to missed deadlines and poor planning. This overall hinders the student learning experience and adds to their frustration.
 
@@ -21,7 +21,7 @@ To tackle this problem, we propose a solution –
 
 <strong>AppTrak</strong> - A local first and single-user web app that saves us from the excel sheet management mess and allows us to declutter our application tracking and make it easier. 
 
-<img src="Docs/ADR/homepage.jpg" alt="drawing" width="600" class="center"/>
+<img src="https://github.com/r4sharma/CSE210_Group6/blob/f10fa3761de43fc6730db711ff9fa93187137392/Docs/ADR/homepage.jpg?raw=true" alt="drawing" width="600" class="center"/>
 
 ## Features of AppTrak <a name="features"></a>
 - The user can create a new application in the dashboard.
@@ -36,7 +36,7 @@ The application is local first: when the Internet does not work, events can stil
 ## Technology Architecture <a name="architecture"></a>
 AppTrak is Front-end only web application with both client-side rendering and server-side rendering. Server-side rendering is run once when the initial page is loaded. Then, the UI change is rendered on client-side based on user interaction.
 
-<img src="./Docs/ADR/rendering.jpg" alt="drawing" width="600" class="center"/>
+<img src="https://github.com/r4sharma/CSE210_Group6/blob/f10fa3761de43fc6730db711ff9fa93187137392/Docs/ADR/rendering.jpg?raw=true" alt="drawing" width="600" class="center"/>
 
 
 ## Database Design <a name="database"></a>
@@ -112,22 +112,36 @@ Thus, the developer can now use the `python e2e_testing/selenium_all_tests.py` c
 3. Install node modules
 
     ```npm install```
+    
+4. To run unit tests
 
-4. Build the project
+    ```npm run test```
+    
+5. To run integration tests
+
+    ```python e2e_testing/selenium_all_tests.py```
+    
+6. To run lint check
+
+    ```npm run lint```
+
+7. To fix lint errors (if any)
+
+    ```npm run lint-fix```
+
+8. Compile the JSDoc
+
+    ```npm run doc```
+
+9. Build the project
 
     ```npm run build```
 
-5. Start the application by opening dist/index.html in a browser
+10. Start the application by opening src/index.html in a browser
 
-6. Repeat step 4 after any changes to the application
+11. Access the JSDoc by opening docs/jsdoc/index.html in a browser
 
-7. To run unit tests the application
-
-    ```npm run test```
-
-8. To run integration tests the application
-
-    ```python e2e_testing/integration.py```
+12. Repeat steps 4 to 9 after any changes to the application
 
 ## Relevant Documents <a name="documents"></a>
 - ADR                                       

@@ -11,19 +11,33 @@
 3. Install node modules
 
     ```npm install```
+    
+4. To run unit tests
 
-4. Build the project
+    ```npm run test```
+    
+5. To run integration tests
+
+    ```python e2e_testing/selenium_all_tests.py```
+    
+6. To run lint check
+
+    ```npm run lint```
+
+7. To fix lint errors (if any)
+
+    ```npm run lint-fix```
+
+8. Compile the JSDoc
+
+    ```npm run doc```
+
+9. Build the project
 
     ```npm run build```
 
-5. Start the application by opening dist/index.html in a browser
+10. Start the application by opening src/index.html in a browser
 
-6. Repeat step 4 after any changes to the application
+11. Access the JSDoc by opening docs/jsdoc/index.html in a browser
 
-7. To run unit tests the application
-
-    ```npm run test```
-
-8. To run integration tests the application
-
-    ```python e2e_testing/integration.py```
+12. Repeat steps 4 to 9 after any changes to the application
