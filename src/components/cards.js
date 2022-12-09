@@ -14,7 +14,7 @@ const ApplicationStatus = {
 };
 
 /**
-  * Function gets the element containing all job cards
+  * Function to get the element containing all job cards
   */
 export function getCardContainer() {
   appCardContainer = document.querySelector('#app-card-container');
@@ -34,7 +34,7 @@ export function showAppCards(data) {
 };
 
 /**
- * Create app cards for all records in db
+ * Function to create app cards for all records in db
  * @param {Array} data
  */
 function createAppCards(data) {
@@ -51,12 +51,10 @@ function createAppCards(data) {
 }
 
 /**
- * Function to create Empty card in case of no applications
+ * Function to create a single job card
  * @param {Object} value
  */
 function createJobCard(value) {
-  console.log(value);
-
   const card = document.createElement('div');
   card.setAttribute('class', 'card mb-3 mx-auto');
   card.style = 'max-width: 750px;';
@@ -114,7 +112,7 @@ function createJobCardHeaderRow(parent, value) {
 
 
 /**
-  * Creates a job card with information populated
+  * Function to creates a job card with information populated
   * @param {HTMLElement} parent
   * @param {Object} value
   * */
@@ -136,7 +134,7 @@ function createJobCardColumnOne(parent, value) {
 }
 
 /**
-* Creates a part of job card with status information
+* Function to create a part of job card with status information
 * @param {HTMLElement} parent
 * @param {String} applicationStatus
 * */
@@ -161,7 +159,7 @@ function createJobCardColumnTwo(parent, applicationStatus) {
 }
 
 /**
- * Creates an entry for company title in job card
+ * Function to create an entry for company title in job card
  * @param {HTMLElement} parent
  * @param {String} cname
  */
@@ -173,7 +171,7 @@ function createCompanyNameElement(parent, cname) {
 }
 
 /**
- * Creates an entry for jobType in job card
+ * Function to create an entry for jobType in job card
  * @param {HTMLElement} parent
  * @param {String} jobID
  */
@@ -193,7 +191,7 @@ function createJobIDElement(parent, jobID) {
 }
 
 /**
- * Creates an entry for jobType in job card
+ * Function to create an entry for jobType in job card
  * @param {HTMLElement} parent
  * @param {String} jobType
  */
@@ -213,7 +211,7 @@ function createJobTypeElement(parent, jobType) {
 }
 
 /**
-   * Creates an entry for jobRole in job card
+   * Function to create an entry for jobRole in job card
    * @param {HTMLElement} parent
    * @param {String} jobRole
 */
@@ -232,7 +230,7 @@ function createJobRoleElement(parent, jobRole) {
   jobRoleElement.appendChild(regularTextTwo);
 }
 
-/** Creates an entry for description in job card
+/** Function to create an entry for description in job card
 * @param {HTMLElement} parent
 * @param {String} desc
 */
@@ -252,7 +250,7 @@ function createDescriptionElement(parent, desc) {
 }
 
 /**
-* Creates an entry for doa in job card
+* Function to create an entry for date of application in job card
 * @param {HTMLElement} parent
 * @param {String} doa
 */
@@ -272,7 +270,7 @@ function createDateAppliedElement(parent, doa) {
 }
 
 /**
-* To set bg color indicating status of application.
+* Function To set background color indicating status of application.
 * @param {String} status
 * @return {String}
 */
@@ -323,10 +321,10 @@ function createEmptyAppCard() {
 }
 
 /**
- * getCounts updates the stats at the top of the dashboard
+ * Function to get counts of each status type and updates the statsbar
+ *  at the top of the dashboard
  */
 function updateStatsCard() {
-  console.log(appliedCount, inProgressCount, offerCount, rejectCount);
   document.getElementById('appliedCount').innerHTML = appliedCount;
   document.getElementById('inProgressCount').innerHTML = inProgressCount;
   document.getElementById('offerCount').innerHTML = offerCount;
@@ -334,7 +332,7 @@ function updateStatsCard() {
 }
 
 /**
- * Create an entry for last updated date in job card
+ * Function to create an entry for last updated date in job card
  * @param {HTMLElement} parent
   * @param {String} lastUpdated
 */

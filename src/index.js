@@ -87,7 +87,7 @@ function exportApplications(event) {
   }).catch((e) => console.log(e, 'error in fetching all records'));
 }
 /**
- * Check if a field in a form is empty
+ * Function to check if a field in a form is empty
  * @param {String} value
  * @return {boolean}
  */
@@ -98,7 +98,7 @@ function isEmpty(value) {
 }
 
 /**
- * Set a field in the form invalid
+ * Function to set a field in the form invalid
  * @param {HTMLElement} field
  * @param {string} message
 */
@@ -110,7 +110,7 @@ function setInvalid(field, message) {
 }
 
 /**
- * Set a field in the form invalid
+ * Function to set a field in the form invalid
  * @param {HTMLElement} field
  * @param {string} message
 */
@@ -120,7 +120,7 @@ function setValid(field) {
 }
 
 /**
- * Set a field in the form invalid
+ * Function to set a field in the form invalid
  * @param {HTMLElement} field
  * @param {string} message
  * @return {boolean} isValid
@@ -137,7 +137,7 @@ function checkIfEmpty(field) {
 }
 
 /**
- * Validate the form
+ * Function to validate the form
  * @return {boolean} isValid
  */
 function validateForm() {
@@ -148,7 +148,7 @@ function validateForm() {
 }
 
 /**
-* Add Application Function
+* Function to Add Application
 * @param {event} event
 */
 function addApplication(event) {
@@ -205,7 +205,7 @@ function createDeleteModal(event) {
 }
 
 /**
- * Adds delete functionality to delete button in modal
+ * Function to delete via button in modal
  * @param {event} event
  */
 function deleteViaModal(event) {
@@ -215,8 +215,8 @@ function deleteViaModal(event) {
 }
 
 /**
- * Function to succesfully delete the application.
- * @param {int} key
+ * Function to succesfully delete an application by key
+ * @param {int} key Key for which a record needs to be deleted
  */
 function deleteApplication(key) {
   database.remove(key)
@@ -274,7 +274,7 @@ function createEditModal(event) {
 }
 
 /**
- * Adds edit functionality to edit button in modal
+ * Function to add edit functionality to edit button in modal
  * @param {event} event
  */
 function editViaModal(event) {
@@ -284,7 +284,7 @@ function editViaModal(event) {
 }
 
 /**
- * Function to succesfully update the application.
+ * Function to succesfully update the application by key
  * @param {int} key
  */
 function editApplication(key) {
