@@ -1,5 +1,5 @@
 /**
- * Returns todays date in yyyy-mm-dd format
+ * Function to return todays date in yyyy-mm-dd format
  * @return {String} today's date
  */
 function getCurrentDate() {

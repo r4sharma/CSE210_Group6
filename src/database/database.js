@@ -1,5 +1,6 @@
 /**
- * Database module
+ * Database module exposes all the APIs for performing CRUD operations on the
+ * instance of the indexedDB database.
  */
 class Database {
   /**
@@ -13,8 +14,8 @@ class Database {
     this.database = indexedDB.open(name, version);
   }
   /**
-   * Initialize DB
-   * @param {string} fields Fields of indexedDB instance
+   * Function to initialize or upgrade the database in indexedDB
+   * @param {string} fields Fields of database instance
    * @return {Promise} promise
    */
   initialize(fields) {
@@ -33,7 +34,6 @@ class Database {
       };
 
       this.database.onsuccess = (event) => {
-        console.log(`Database ${this.name}: created successfully`);
         this.indexedDB = this.database.result;
         resolve(this.indexedDB);
       };
@@ -44,9 +44,9 @@ class Database {
   }
 
   /**
-   * Save a record to DB
-   * @param {Object} record Application object to be saved
-   * @return {Promise} promise
+   * Function to save a record to the database
+   * @param {Object} record Application object to be saved to the database
+   * @return {Promise} Promise
    */
   save(record) {
     return new Promise((resolve, reject) => {
@@ -65,7 +65,7 @@ class Database {
     });
   }
   /**
-   * getCursor
+   * Function to return a cursor that can be used to iterate over the database
    * @return {Cursor} Cursor
    */
   getCursor() {
@@ -82,9 +82,9 @@ class Database {
     });
   }
   /**
-   * Get Record By Key
-   * @param {int} key
-   * @return {Object} record
+   * Function to Get a Record from the database by Key
+   * @param {int} key The key for which we want to search a record
+   * @return {Object} The record corresponding to the key passed
    */
   getRecordByKey(key) {
     return new Promise((resolve, reject) => {
@@ -101,7 +101,7 @@ class Database {
     });
   }
   /**
-   * get all records in db
+   * Function to fetch all records in the dataset and stores it as a list
    * @return {Promise}
    */
   getAllRecords() {
@@ -125,9 +125,9 @@ class Database {
     });
   }
   /**
-   * Updates a record in DB
-   * @param {Object} record
-   * @return {Promise} promise
+   * Function to update a record in the DB (by key in the record)
+   * @param {Object} record New record for replacing the old record
+   * @return {Promise} Promise
    */
   update(record) {
     return new Promise((resolve, reject) => {
@@ -136,7 +136,6 @@ class Database {
         const transaction = this.indexedDB.transaction([this.name], 'readwrite');
         const objectStore = transaction.objectStore(this.name);
         const request = objectStore.put(record);
-        console.log('Update type', typeof(request));
         request.onsuccess = () => {
           resolve(request.result);
         };
@@ -150,9 +149,9 @@ class Database {
   }
 
   /**
-   * Delete Record by Key
-   * @param {int} key
-   * @return {Promise} promise
+   * Function to delete a record in database by key
+   * @param {int} key Key for which the record in db needs to be deleted
+   * @return {Promise} Promise
    */
   remove(key) {
     return new Promise((resolve, reject) => {
