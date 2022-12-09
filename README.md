@@ -21,7 +21,7 @@ To tackle this problem, we propose a solution –
 
 <strong>AppTrak</strong> - A local first and single-user web app that saves us from the excel sheet management mess and allows us to declutter our application tracking and make it easier. 
 
-<img src="https://github.com/r4sharma/CSE210_Group6/blob/f10fa3761de43fc6730db711ff9fa93187137392/Docs/ADR/homepage.jpg?raw=true" alt="drawing" width="600" class="center"/>
+<img src="https://github.com/r4sharma/CSE210_Group6/blob/ad51b03be02cbac454892c55b7cee977ae199907/Docs/ADR/homepage.jpg?raw=true" alt="drawing" width="600" class="center"/>
 
 ## Features of AppTrak <a name="features"></a>
 - The user can create a new application in the dashboard.
