@@ -6,7 +6,7 @@
 3. [Technology Architecture](#architecture)
 4. [Database Design](#database)
 5. [Testing Strategies](#testing)
-6. [Coding standards](#coding)
+6. [Development standards](#coding)
 7. [Steps to Run the Project](#run)
 8. [Relevant Documents](#documents)
 
@@ -33,7 +33,22 @@ To tackle this problem, we propose a solution –
 
 The application is local first: when the Internet does not work, events can still be read, created, deleted, updated through the application
 
+Through our discussions with the stakeholders, we were suggested additional requirements. We could implement some of them while had classify some of them as out of scope([Allow Duplicates](https://github.com/r4sharma/CSE210_Group6/blob/Yinchao/ReadMe/Docs/ADR/AllowDuplicates.md), [No Login](https://github.com/r4sharma/CSE210_Group6/blob/Yinchao/ReadMe/Docs/ADR/NoLogin.md)).
+
 ## Technology Architecture <a name="architecture"></a>
+
+<img src="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/Technical%20Design/Architecture%20Diagram.png?raw=true" alt="drawing" width="600" class="center"/>
+
+* Presentation Layer : It consists of the HTML pages with CSS styling that are responsible for displaying the various interactable components of the application. The presentation layer uses the very popular Bootstrap library([ADR](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/UI.md)) that allows the page to be aesthetic, easy to organize and responsive. 
+
+* Integration Layer: This layer is mainly responsible for integrating the front end with back end of the product. For example, this layer would fetch details from the HTML page, validate it and pack it into data structures that the backend can understand. The layer is decomposed into multiple modules based on utility which allows clean code and modularity. The integration layer listens to events in the presentation layer to trigger the corresponding actions.
+
+* Data Access Layer: This layer is responsible for communicating asynchronously with the data store. Contrary to the integration layer, the data access layer is agnostic of the domain of the application. This means that the implementation can work for any domain by exposing the same APIs. This also means that the data access layer is abstracted away from the integration code. We can completely change the actual database being used while still exposing the same APIs. This demonstrates abstraction and separation of concerns.
+
+* Data Store: IndexedDB ([ADR](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/Storage.md)) is browser based key-value store. The data access layer sends CRUD requests to indexedDB and it returns a response back to the data access layer.
+
+* Bundler: The integration layer and database layer dependencies are bundled together by using webpack([ADR](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/Webpack.md)). Webpack allows pre-compiling of dependencies and thus eliminates the need for having a live server to host the application. 
+
 AppTrak is Front-end only web application with both client-side rendering and server-side rendering. Server-side rendering is run once when the initial page is loaded. Then, the UI change is rendered on client-side based on user interaction.
 
 <img src="https://github.com/r4sharma/CSE210_Group6/blob/f10fa3761de43fc6730db711ff9fa93187137392/Docs/ADR/rendering.jpg?raw=true" alt="drawing" width="600" class="center"/>
@@ -50,9 +65,9 @@ AppTrak is Front-end only web application with both client-side rendering and se
 | Company Name   | String        | Y        | 200 chars        | |
 | Date   | Date        | Y       | NA       |  |
 | Last Updated Date   | Date        | Automatic-System Date        | NA       | 
-| Job Type   | Enum  (FullTime, PartTime, Internship)      | N        |        |FullTime |
+| Job Type   | Enum  (FullTime, PartTime, Internship)      | Y        |        |FullTime |
 | Job Role   | String        | N        | 500 chars        | |
-| Status   | Enum (Applied, InProgress, Offer, Reject)       | N        |        | Applied|
+| Status   | Enum (Applied, InProgress, Offer, Reject)       | Y        |        | Applied|
 | Description   | String      | N        | 5000 chars       | |
 
 ## Testing Strategies <a name="testing"></a>
@@ -85,14 +100,18 @@ The modified **selenium_all_tests.py** file will then look like this:
 
 Thus, the developer can now use the `python e2e_testing/selenium_all_tests.py` command in the terminal to run the entire test suite which now includes the Selenium test file they created.
 
-## Coding standards <a name="coding"></a>
-- Each functions should have inline comment
-- Each function and variable should named using Camel case
-- Use VSCode
-- Install the VSCode extension for ESLint to help lint your code
-- Use the following format for naming git branches:
-  - uthor_name/feature_description
-  - E.g., ripunjay/configure_jsdocs
+## Development standards <a name="coding"></a>
+Throughout the development of the project, we established and followed high standards of development. This helped greatly in managing complexity and prevented things getting out of hand. 
+
+* Some standards were enforced by the [CICD](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/CICD.md) pipeline like linting and automated tests. Other standards included not only coding conventions, but also good documentation, project management, github workflow, PR formats, e2e-testing etc. 
+
+* Any new tool was documented as a tutorial. We established these standards very early in our project phases and designed them as [guidelines](https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/guidelines) for all developers.
+
+* All key decisions were documented as [ADRs](https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/ADR).
+
+* The team met twice every week (and additionally on need basis) and made it a point to record (meeting notes)[https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes].
+
+
 
 ## Steps to Run the Project <a name="run"></a>
 1. Clone this project (or a fork of this project)
@@ -103,9 +122,11 @@ Thus, the developer can now use the `python e2e_testing/selenium_all_tests.py` c
 
     ```cd CSE210_Group6 ```
 
-3. Install node modules
+3. Install node modules 
 
     ```npm install```
+
+    If you wish to only use the app (and not make changes/run tests), you can skip to step 9.
     
 4. To run unit tests
 
@@ -131,7 +152,7 @@ Thus, the developer can now use the `python e2e_testing/selenium_all_tests.py` c
 
     ```npm run build```
 
-10. Start the application by opening src/index.html in a browser
+10. Start the application by opening **src/index.html** in a browser
 
 11. Access the JSDoc by opening docs/jsdoc/index.html in a browser
 
