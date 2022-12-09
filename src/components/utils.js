@@ -57,7 +57,7 @@ function convertToCSV(arr) {
       item.jobRole,
       item.doa,
       item.applicationStatus,
-      item.description,
+      item.description.replace(/\n/g, ' '),
       item.lastUpdated,
     ]),
   ].map((e) => e.join(','))
