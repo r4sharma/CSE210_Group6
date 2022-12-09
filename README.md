@@ -160,6 +160,8 @@ Throughout the development of the project, we established and followed high stan
 
 12. Repeat steps 4 to 9 after any changes to the application
 
+*Note : Our app is tested and developed in **Google Chrome** as of now.*
+
 ## Steps to use the App <a name="use"></a>
 
 1. **Add Application** - The steps to add an application are as follows: 
@@ -180,6 +182,8 @@ Throughout the development of the project, we established and followed high stan
 4. **View Statistics** - On top of the main page, we can view the count of applications in different stages of application tracking to be aware of our application progress.
 
 5. **Export Applications** - To export all the applications into a CSV file for ease of access, there is an **Export** button on the top right corner of the main page, which will generate and download the exported CSV file.
+
+*Note : Our app is tested and developed in **Google Chrome** as of now.*
 
 ## Relevant Documents <a name="documents"></a>
 - ADR                                       
