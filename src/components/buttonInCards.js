@@ -35,36 +35,3 @@ export function addJobCardDeleteButton(parent, key) {
   deleteButton.setAttribute('data-id', key);
   parent.appendChild(deleteButton);
 }
-
-// /**
-//    * Function to create modal for delete
-//    * @param {event} event
-//    */
-// function createDeleteModal(event) {
-//   const key = Number(event.target.getAttribute('data-id'));
-//   const deleteButtonModal = document.querySelector('#deleteAppButton');
-//   deleteButtonModal.setAttribute('data-id', key);
-//   deleteButtonModal.onclick = deleteViaModal;
-// }
-// /**
-//  * Adds delete functionality to delete button in modal
-//  * @param {event} event
-//  */
-// function deleteViaModal(event) {
-//   event.preventDefault();
-//   const key = Number(event.target.getAttribute('data-id'));
-//   deleteApplication(key);
-// }
-
-// /**
-//    * Function to succesfully delete the application.
-//    * @param {int} key
-//    */
-// function deleteApplication(key) {
-//   database.remove(key)
-//       .then((result) => {
-//         showAppCards();
-//         console.log(result);
-//       })
-//       .catch((error) => console.log('error in deleting record!', error));
-// }

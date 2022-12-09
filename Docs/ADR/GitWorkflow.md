@@ -26,7 +26,7 @@ The main problems that we want addressed are :
 
 Chosen option: <b>"Git Flow"</b>
 
-![image info](gitflow_instruction.jpg)
+![image info](../pics4README/gitflow_instruction.jpg)
 
 ### Consequences
 
@@ -38,4 +38,4 @@ Chosen option: <b>"Git Flow"</b>
 However, these two bad situations could be avoided because we do not need to release the project once a week and we do not have a lot of pull requests.
 
 ### Gitflow Command Diagram 
-![image info](gitflow.png)
+![image info](../pics4README/gitflow.png)
