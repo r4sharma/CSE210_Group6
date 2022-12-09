@@ -1,0 +1,18 @@
+{
+  "source": {
+    "include": ["src"],
+    "includePattern": ".js$",
+    "excludePattern": "(node_modules/|docs|coverage/|.DS_Store/|libs/)"
+  },
+  "plugins": ["plugins/markdown"],
+  "templates": {
+    "cleverLinks": true,
+    "monospaceLinks": true
+  },
+  "opts": {
+    "recurse": true,
+    "destination": "./docs/jsdoc/",
+    "tutorials": "./docs/guidelines/",
+    "readme": "./README.md"
+  }
+}

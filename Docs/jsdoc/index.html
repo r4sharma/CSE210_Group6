@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>AppTrak (CSE210_Group6)</h1>
+<h1>Table of contents</h1>
+<ol>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#features">Features of AppTrak</a></li>
+<li><a href="#architecture">Technology Architecture</a></li>
+<li><a href="#database">Database Design</a></li>
+<li><a href="#testing">Testing Strategies</a></li>
+<li><a href="#coding">Development standards</a></li>
+<li><a href="#run">Steps to Run the Project</a></li>
+<li><a href="#use">Steps to Use the App</a></li>
+<li><a href="#documents">Relevant Documents</a></li>
+<li><a href="#owners">Owners</a></li>
+</ol>
+<h2>Introduction <a name="introduction"></a></h2>
+<p>Every year, students from various fields of study apply for internships and jobs. However, keeping track of the applications and their status gets cumbersome in an Excel sheet, looking something like:</p>
+<img src="https://github.com/r4sharma/CSE210_Group6/blob/f10fa3761de43fc6730db711ff9fa93187137392/Docs/ADR/OldAppTrak.png?raw=true" alt="drawing" width="600" class="center"/>
+<p>This usually results in students abandoning their efforts to keep track of their progress, often leading to missed deadlines and poor planning. This overall hinders the student learning experience and adds to their frustration.</p>
+<p>To tackle this problem, we propose a solution –</p>
+<p><strong>AppTrak</strong> - A local first and single-user web app that saves us from the excel sheet management mess and allows us to declutter our application tracking and make it easier.</p>
+<img src="https://github.com/r4sharma/CSE210_Group6/blob/ad51b03be02cbac454892c55b7cee977ae199907/Docs/ADR/homepage.jpg?raw=true" alt="drawing" width="600" class="center"/>
+<h2>Features of AppTrak <a name="features"></a></h2>
+<ul>
+<li>The user can create a new application in the dashboard.</li>
+<li>The user can view already created application in the dashboard.</li>
+<li>The user can delete an existing application in the dashboard.</li>
+<li>The user can update an existing application in the dashboard.</li>
+<li>The user can see the statistical data of applications.</li>
+<li>The user can download the applications in format of a CSV file.</li>
+</ul>
+<p>The application is local first: when the Internet does not work, events can still be read, created, deleted, updated through the application</p>
+<p>Through our discussions with the stakeholders, we were suggested additional requirements. We could implement some of them while had classify some of them as out of scope(<a href="https://github.com/r4sharma/CSE210_Group6/blob/Yinchao/ReadMe/Docs/ADR/AllowDuplicates.md">Allow Duplicates</a>, <a href="https://github.com/r4sharma/CSE210_Group6/blob/Yinchao/ReadMe/Docs/ADR/NoLogin.md">No Login</a>).</p>
+<h2>Technology Architecture <a name="architecture"></a></h2>
+<img src="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/Technical%20Design/Architecture%20Diagram.png?raw=true" alt="drawing" width="600" class="center"/>
+<ul>
+<li>
+<p>Presentation Layer : It consists of the HTML pages with CSS styling that are responsible for displaying the various interactable components of the application. The presentation layer uses the very popular Bootstrap library(<a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/UI.md">ADR</a>) that allows the page to be aesthetic, easy to organize and responsive.</p>
+</li>
+<li>
+<p>Integration Layer: This layer is mainly responsible for integrating the front end with back end of the product. For example, this layer would fetch details from the HTML page, validate it and pack it into data structures that the backend can understand. The layer is decomposed into multiple modules based on utility which allows clean code and modularity. The integration layer listens to events in the presentation layer to trigger the corresponding actions.</p>
+</li>
+<li>
+<p>Data Access Layer: This layer is responsible for communicating asynchronously with the data store. Contrary to the integration layer, the data access layer is agnostic of the domain of the application. This means that the implementation can work for any domain by exposing the same APIs. This also means that the data access layer is abstracted away from the integration code. We can completely change the actual database being used while still exposing the same APIs. This demonstrates abstraction and separation of concerns.</p>
+</li>
+<li>
+<p>Data Store: IndexedDB (<a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/Storage.md">ADR</a>) is browser based key-value store. The data access layer sends CRUD requests to indexedDB and it returns a response back to the data access layer.</p>
+</li>
+<li>
+<p>Bundler: The integration layer and database layer dependencies are bundled together by using webpack(<a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/Webpack.md">ADR</a>). Webpack allows pre-compiling of dependencies and thus eliminates the need for having a live server to host the application.</p>
+</li>
+</ul>
+<p>AppTrak is Front-end only web application with both client-side rendering and server-side rendering. Server-side rendering is run once when the initial page is loaded. Then, the UI change is rendered on client-side based on user interaction.</p>
+<img src="https://github.com/r4sharma/CSE210_Group6/blob/f10fa3761de43fc6730db711ff9fa93187137392/Docs/ADR/rendering.jpg?raw=true" alt="drawing" width="600" class="center"/>
+<h2>Database Design <a name="database"></a></h2>
+<ul>
+<li>Each record is uniquely identified by an auto-incrementing integer key defined as &quot;Card Id&quot;.</li>
+<li>Duplicate entries for a job are allowed. This is done to relax the mandatory constraint of having to enter jobId which is an overhead for an end user.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Max chars</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Card Id</td>
+<td>Alphanumeric</td>
+<td>Y(Primary Key)</td>
+<td>200 chars</td>
+<td></td>
+</tr>
+<tr>
+<td>Job Id</td>
+<td>Alphanumeric</td>
+<td>N</td>
+<td>200 chars</td>
+<td></td>
+</tr>
+<tr>
+<td>Company Name</td>
+<td>String</td>
+<td>Y</td>
+<td>200 chars</td>
+<td></td>
+</tr>
+<tr>
+<td>Date</td>
+<td>Date</td>
+<td>Y</td>
+<td>NA</td>
+<td></td>
+</tr>
+<tr>
+<td>Last Updated Date</td>
+<td>Date</td>
+<td>Automatic-System Date</td>
+<td>NA</td>
+<td></td>
+</tr>
+<tr>
+<td>Job Type</td>
+<td>Enum  (FullTime, PartTime, Internship)</td>
+<td>Y</td>
+<td></td>
+<td>FullTime</td>
+</tr>
+<tr>
+<td>Job Role</td>
+<td>String</td>
+<td>N</td>
+<td>500 chars</td>
+<td></td>
+</tr>
+<tr>
+<td>Status</td>
+<td>Enum (Applied, InProgress, Offer, Reject)</td>
+<td>Y</td>
+<td></td>
+<td>Applied</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>String</td>
+<td>N</td>
+<td>5000 chars</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Testing Strategies <a name="testing"></a></h2>
+<h3>Use Jest as TestingFramework</h3>
+<ul>
+<li>Good, automatically runs tests after each change to ensure they are up to date. Many users report that this reduces development time.</li>
+<li>Good, automatically mocks any modules not explicitly required in the test file, which can save time during development.</li>
+<li>Bad, Jest has fewer features straight out of the box comparing with Mocha.</li>
+</ul>
+<p>In conclusion, Jest is a better choice becasue it is easy to get started with and doesn’t require learning a new syntax</p>
+<h3>Use Selenium as UI Testing</h3>
+<p>While unit tests are able to determine whether the code is fit to use, it isn't able to simulate user interaction with the software or project. Thus we have used Selenium, an open source browser automation tool that helps us in writing tests that simulate the dynamic changes in the HTML caused by user interaction. This would allow the developer to write tests with regards to HTML elements and check whether the application exhibits the expected behaviour from the user's perspective. Selenium can be used for multiple browsers, and in this project the tests are written in Python and simulated on Google Chrome. Further justification for utilizing Selenium can be found <a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/UITesting.md">on this page</a></p>
+<p>In this project these tests are grouped together in the folder called <strong>e2e_testing</strong>. We understand that it is impractical to expect the developers to install the libraries required to run the tests manually. But we do operate under the assumption that the developer has installed Python correctly, which means that the library <strong>setuptools</strong> is available as a default library, similar to how the more known <strong>os</strong> library is. The presence of this library enables us to write the code that checks whether the required libraries are present, and installs them automatically if they aren't.</p>
+<p>Moving on to the execution of the tests, we have created a new Selenium test for each functionality. If the developer is working in the root directory, then they can execute the individual test by typing the following command in the terminal: <code>python e2e_testing/test_file_name.py</code> where <strong>test_file_name.py</strong> refers to the name of the test file present in the directory. For example, to execute the test for inserting an application, we type <code>python e2e_testing/selenium_insert_test.py</code> in the terminal.</p>
+<p>However, there might be instances where a developer wishes to run a single file that executes all the other tests. For this, the developer can execute the following command in the terminal: <code>python e2e_testing/selenium_all_tests.py</code> which executes each test one after the other. If a developer creates a new test file called <strong>new_test.py</strong> and wants this to run together with other tests, then they need to add the following code at the bottom of <strong>selenium_all_tests.py</strong>:
+<code>os.system(&quot;python &quot; + tests_directory_path + &quot;new_test.py&quot;)</code></p>
+<p>The modified <strong>selenium_all_tests.py</strong> file will then look like this:</p>
+<p><code>os.system(&quot;python &quot; + tests_directory_path + &quot;test1.py&quot;)</code><br>
+<code>os.system(&quot;python &quot; + tests_directory_path + &quot;test2.py&quot;)</code><br>
+<code>.</code><br>
+<code>.</code><br>
+<code>.</code><br>
+<code>os.system(&quot;python &quot; + tests_directory_path + &quot;new_test.py&quot;)</code></p>
+<p>Thus, the developer can now use the <code>python e2e_testing/selenium_all_tests.py</code> command in the terminal to run the entire test suite which now includes the Selenium test file they created.</p>
+<h2>Development standards <a name="coding"></a></h2>
+<p>Throughout the development of the project, we established and followed high standards of development. This helped greatly in managing complexity and prevented things getting out of hand.</p>
+<ul>
+<li>
+<p>Some standards were enforced by the <a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/CICD.md">CICD</a> pipeline like linting and automated tests. Other standards included not only coding conventions, but also good documentation, project management, github workflow, PR formats, e2e-testing etc.</p>
+</li>
+<li>
+<p>Any new tool was documented as a tutorial. We established these standards very early in our project phases and designed them as <a href="https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/guidelines">guidelines</a> for all developers.</p>
+</li>
+<li>
+<p>All key decisions were documented as <a href="https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/ADR">ADRs</a>.</p>
+</li>
+<li>
+<p>The team met twice every week (and additionally on need basis) and made it a point to record (meeting notes)[https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes].</p>
+</li>
+</ul>
+<h2>Steps to Run the Project <a name="run"></a></h2>
+<ol>
+<li>
+<p>Clone this project (or a fork of this project)</p>
+<p><code>git clone https://github.com/r4sharma/CSE210_Group6.git</code></p>
+</li>
+<li>
+<p>Open the repository in a terminal</p>
+<p><code>cd CSE210_Group6 </code></p>
+</li>
+<li>
+<p>Install node modules</p>
+<p><code>npm install</code></p>
+<p>If you wish to only use the app (and not make changes/run tests), you can skip to step 9.</p>
+</li>
+<li>
+<p>To run unit tests</p>
+<p><code>npm run test</code></p>
+</li>
+<li>
+<p>To run integration tests</p>
+<p><code>python e2e_testing/selenium_all_tests.py</code></p>
+</li>
+<li>
+<p>To run lint check</p>
+<p><code>npm run lint</code></p>
+</li>
+<li>
+<p>To fix lint errors (if any)</p>
+<p><code>npm run lint-fix</code></p>
+</li>
+<li>
+<p>Compile the JSDoc</p>
+<p><code>npm run doc</code></p>
+</li>
+<li>
+<p>Build the project</p>
+<p><code>npm run build</code></p>
+</li>
+<li>
+<p>Start the application by opening <strong>src/index.html</strong> in a browser</p>
+</li>
+<li>
+<p>Access the JSDoc by opening docs/jsdoc/index.html in a browser</p>
+</li>
+<li>
+<p>Repeat steps 4 to 9 after any changes to the application</p>
+</li>
+</ol>
+<p><em>Note : Our app is tested and developed in <strong>Google Chrome</strong> as of now.</em></p>
+<h2>Steps to use the App <a name="use"></a></h2>
+<ol>
+<li>
+<p><strong>Add Application</strong> - The steps to add an application are as follows:</p>
+<ul>
+<li>Click on the Add Applications Button on the main page of the app.</li>
+<li>Add Application Form will appear to add all the details of new application.</li>
+<li>After adding all required details, hit Save button.</li>
+<li>The new application card will appear pertaining to the application added.</li>
+</ul>
+</li>
+<li>
+<p><strong>Edit Application</strong> - The steps to edit an application are as follows:</p>
+<ul>
+<li>Go to the Application card of the application to be edited and click on the <strong>Edit</strong> button of that particular card.</li>
+<li>Edit Modal will pop up with all the details of the current application populated.</li>
+<li>Edit the required details and hit the <strong>Save</strong> button.</li>
+<li>The last updated date field will be automatically updated based on the last change made to the application.</li>
+<li>View the changed application in the application card.</li>
+</ul>
+</li>
+<li>
+<p><strong>Delete Application</strong> - Go to the Application card of the application to be edited and click on the <strong>Delete</strong> button of that particular card. The corresponding application will be deleted from all application cards after confimation of delete from delete modal.</p>
+</li>
+<li>
+<p><strong>View Statistics</strong> - On top of the main page, we can view the count of applications in different stages of application tracking to be aware of our application progress.</p>
+</li>
+<li>
+<p><strong>Export Applications</strong> - To export all the applications into a CSV file for ease of access, there is an <strong>Export</strong> button on the top right corner of the main page, which will generate and download the exported CSV file.</p>
+</li>
+</ol>
+<p><em>Note : Our app is tested and developed in <strong>Google Chrome</strong> as of now.</em></p>
+<h2>Relevant Documents <a name="documents"></a></h2>
+<ul>
+<li>ADR
+<ul>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/Yinchao/ReadMe/Docs/ADR/AllowDuplicates.md">AllowDuplicates</a> - Why we didn't check for duplicates?</li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/AsynchronousCodeStrategy.md">AsynchronousCodeStrategy</a> - Why we used Promise for Asynchronous Code?</li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/CICD.md">CICD</a> -  Why we used GitHub Actions for configuring CICD pipeline?</li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/Yinchao/ReadMe/Docs/ADR/NoLogin.md">NoLogin</a> - Why we don't have a profile login page?</li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/Storage.md">Database</a> - Why we used IndexedDB for storage?</li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/DatabaseTesting.md">DatabaseTesting</a> - Why we used Jest as TestingFramework?</li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/UITesting.md">UITesting</a> - Why we used Selenium for e2e testing?</li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/Webpack.md">Webpack</a> - Why we used WebPack as our integration layer?</li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/GitWorkflow.md">GitWorkflow</a> - Why we used Gitflow as our Git Workflow Strategy?</li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/UI.md">UI</a> - Why we made certain design decisions pertaining to UI?</li>
+</ul>
+</li>
+<li>Developing Guildline
+<ul>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/branch-merge.md">branch-merge</a> - How to merge branches safely?</li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/coding-conventions.md">coding-conventions</a> - What are the proper coding conventions to follow?</li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/git-conventions.md">git-conventions</a> - What are git conventions to follow to commit in this repository?</li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/jsdoc-conventions.md">jsdoc-conventions</a> - What are the JSDoc conventions?</li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/project-management.md">project-management</a>  - What is the Project Management workflow for this project?</li>
+</ul>
+</li>
+<li>Meeting Notes
+<ul>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%201">Sprint 1</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%202">Sprint 2</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%203">Sprint 3</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%204">Sprint 4</a></li>
+<li><a href="https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%205">Sprint 5</a></li>
+</ul>
+</li>
+</ul>
+<h2>Owners <a name="owners"></a></h2>
+<p>This project is created by:</p>
+<ul>
+<li><a href="https://github.com/Sikatram">Alex Martakis</a></li>
+<li><a href="https://github.com/Anas-7">Mohammad Anas Mudassir</a></li>
+<li><a href="https://github.com/pk38">Purva Kothari</a></li>
+<li><a href="https://github.com/r4sharma">Ripunjay Sharma</a></li>
+<li><a href="https://github.com/savani12">Savani Suranglikar</a></li>
+<li><a href="https://github.com/sidbagdi">Siddharth Bagdi</a></li>
+<li><a href="https://github.com/CSE210YinchaoHe">Yinchao He</a></li>
+</ul>
+<p>Please reach out in case of queries.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-Selenium Development Guide.html">Selenium Development Guide</a></li><li><a href="tutorial-branch-merge.html">branch-merge</a></li><li><a href="tutorial-coding-conventions.html">coding-conventions</a></li><li><a href="tutorial-git-conventions.html">git-conventions</a></li><li><a href="tutorial-jsdoc-conventions.html">jsdoc-conventions</a></li><li><a href="tutorial-project-management.html">project-management</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addApplication">addApplication</a></li><li><a href="global.html#addJobCardDeleteButton">addJobCardDeleteButton</a></li><li><a href="global.html#addJobCardEditButton">addJobCardEditButton</a></li><li><a href="global.html#checkIfEmpty">checkIfEmpty</a></li><li><a href="global.html#convertToCSV">convertToCSV</a></li><li><a href="global.html#createAppCards">createAppCards</a></li><li><a href="global.html#createCompanyNameElement">createCompanyNameElement</a></li><li><a href="global.html#createDateAppliedElement">createDateAppliedElement</a></li><li><a href="global.html#createDeleteModal">createDeleteModal</a></li><li><a href="global.html#createDescriptionElement">createDescriptionElement</a></li><li><a href="global.html#createEditModal">createEditModal</a></li><li><a href="global.html#createEmptyAppCard">createEmptyAppCard</a></li><li><a href="global.html#createJobCard">createJobCard</a></li><li><a href="global.html#createJobCardColumnOne">createJobCardColumnOne</a></li><li><a href="global.html#createJobCardColumnTwo">createJobCardColumnTwo</a></li><li><a href="global.html#createJobCardHeaderRow">createJobCardHeaderRow</a></li><li><a href="global.html#createJobIDElement">createJobIDElement</a></li><li><a href="global.html#createJobRoleElement">createJobRoleElement</a></li><li><a href="global.html#createJobTypeElement">createJobTypeElement</a></li><li><a href="global.html#createLastUpdatedElement">createLastUpdatedElement</a></li><li><a href="global.html#dbShowAppCards">dbShowAppCards</a></li><li><a href="global.html#deleteApplication">deleteApplication</a></li><li><a href="global.html#deleteViaModal">deleteViaModal</a></li><li><a href="global.html#displayTitle">displayTitle</a></li><li><a href="global.html#editApplication">editApplication</a></li><li><a href="global.html#editViaModal">editViaModal</a></li><li><a href="global.html#exportApplications">exportApplications</a></li><li><a href="global.html#findRadioSelectedValue">findRadioSelectedValue</a></li><li><a href="global.html#getCardContainer">getCardContainer</a></li><li><a href="global.html#getCurrentDate">getCurrentDate</a></li><li><a href="global.html#hideApplicationForm">hideApplicationForm</a></li><li><a href="global.html#isEmpty">isEmpty</a></li><li><a href="global.html#setInvalid">setInvalid</a></li><li><a href="global.html#setStatusBackgroundColor">setStatusBackgroundColor</a></li><li><a href="global.html#setValid">setValid</a></li><li><a href="global.html#showAppCards">showAppCards</a></li><li><a href="global.html#showApplicationForm">showApplicationForm</a></li><li><a href="global.html#updateStatsCard">updateStatsCard</a></li><li><a href="global.html#validateForm">validateForm</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Fri Dec 09 2022 01:53:53 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,17 +1,18 @@
 {
     "env": {
         "browser": true,
-        "commonjs": true,
         "es2021": true,
         "jest": true
     },
     "plugins": ["jest"],
-    "extends": "standard",
+    "extends": "google",
     "overrides": [
     ],
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": "latest",
+        "sourceType": "module"
     },
+    "ignorePatterns": ["**/libs/**/*.js", "**/docs/**/*.js", "dist/main.js"],
     "rules": {
     }
 }

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>AppTrak</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link href="../styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="libs/bootstrap-5.2.2-dist/css/bootstrap.min.css">
+  <script src="../dist/main.js"></script>
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand">
+          <svg class="header-logo" width="20" height="25">
+            <rect x="1" y="1" width="15" height="15" stroke="#ADD8E6" stroke-width="1.5" rx=".5" fill="none"
+              fill-opacity="0.6" />
+            <rect x="4" y="4" width="15" height="15" stroke="#FF7F50" stroke-width="1.5" rx=".5" fill="none"
+              fill-opacity="0.6" />
+          </svg>
+          AppTrak
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/r4sharma/CSE210_Group6">GitHub Repo</a>
+            </li>
+          </ul>
+            <button class="btn export-btn" id="export" data-toggle="tooltip" data-placement="bottom" title="Download CSV"><svg width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+              <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+            </svg> Export</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div id="statistic-block" class="statistic-block">
+    <div class="card mb-3 mx-auto" style="max-width: 750px;">
+      <div class="row g-0">
+        <div class="col-sm">
+          <h5 class=".text-dark d-flex justify-content-center card-body">Applied</h5>
+        </div>
+        <div class="col-sm">
+          <h5 class=".text-dark d-flex justify-content-center card-body">In Progress</h5>
+        </div>
+        <div class="col-sm">
+          <h5 class=".text-dark d-flex justify-content-center card-body">Offer</h5>
+        </div>
+        <div class="col-sm">
+          <h5 class=".text-dark d-flex justify-content-center card-body">Reject</h5>
+        </div>
+      </div>
+      <div class="row g-0 rounded-right">
+        <div class="col-sm bg-primary-custom rounded-bottom-left-1">
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+              <h5 class="text" id="appliedCount">0</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm bg-warning-custom">
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+              <h5 class="text"  id="inProgressCount">0</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm bg-success-custom">
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+              <h5 class="text"  id="offerCount">0</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm bg-danger-custom rounded-bottom-right-1">
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+              <h5 class="text"  id="rejectCount">0</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="applications">
+
+      <div class="d-grid gap-2 col-2 mx-auto">
+        <button id="showForm" type="button" class="btn application-btn text-center">Add Application</button>
+      </div>
+      <br>
+
+      <!-- APPLICATION FORM -->
+
+      <div id="application-form-container" class="card mb-3 mx-auto" style="display: none; max-width: 750px;">
+          <form id="application-form" name="Application" class="p-3">
+
+          <!-- Job ID -->
+          <div class="form-group row">
+            <label for="jobid" class="col-sm-4 col-form-label">Job ID</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="jobid" name="Job ID" placeholder="Eg. R0123" autocomplete="off">
+            </div>
+          </div>
+
+          <!-- Company Name -->
+          <div class="form-group row">
+            <label for="cname" class="col-sm-4 col-form-label">Company Name <i style="color:red;">*</i></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="cname" name="Company Name" placeholder="Eg. Amazon, Google" autocomplete="off" required>
+              <span id="validation-message" class="col-sm-8"></span>
+            </div>
+          </div>
+
+          <!-- Job Type -->
+          <div class="form-group row">
+            <label for="jobtype" class="col-sm-4 col-form-label">Job Type</label>
+            <div class="col-sm-8">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="jobtype" id="jobtype" value="FullTime" checked>
+                <label class="form-check-label" for="jobtype">
+                  Full-Time
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="jobtype" id="jobtype" value="PartTime">
+                <label class="form-check-label" for="jobtype">
+                  Part-Time
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="jobtype" id="jobtype" value="Internship">
+                <label class="form-check-label" for="jobtype">
+                  Internship
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Job Role -->
+          <div class="form-group row">
+            <label for="jobrole" class="col-sm-4 col-form-label">Job Role</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="jobrole" name="JobRole" placeholder="Eg. SDE II" autocomplete="off">
+            </div>
+          </div>
+
+          <!-- Date of Application -->
+          <div class="form-group row input-with-post-icon datepicker" inline="true">
+            <label for="DOA" class="col-sm-4 col-form-label">Date of Application</label>
+            <div class="col-sm-8">
+              <input id="doa" type="date" class="form-control" name="DateOfApplication">
+              <i class="fas fa-calendar input-prefix"></i>
+            </div>
+          </div>
+
+          <!-- Application Status -->
+          <div class="form-group row">
+            <label for="ApplicationStatus" class="col-sm-4 col-form-label">Application Status</label>
+            <div class="col-sm-8">
+              <select id="status" class="form-select">
+                <option value="Applied" selected>Applied</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Offer">Offer</option>
+                <option value="Reject">Reject</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group row">
+            <label for="description" class="col-sm-4 col-form-label">Description</label>
+            <div class="col-sm-8">
+              <textarea class="form-control" id="desc" name="Description" rows="3" placeholder="Eg. Job posting link, Company website, notes, etc." autocomplete="off"></textarea>
+            </div>
+          </div>
+
+          <!-- Save, Cancel Buttons -->
+          <div class="form-group row justify-content-center align-items-center">
+            <button id="save" type="submit" class="btn application-btn text-center col-sm-2">Save</button>
+            <button id="cancel" type="submit" class="btn application-btn text-center col-sm-2">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="app-card-container" class="card-text">
+      </div>
+
+      <!-- Modals -->
+
+      <!-- Update Modal -->
+      <div id="updateApp" class="modal fade" tabindex="-1" aria-labelledby="updateApp" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Edit Job Application</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Application Form -->
+              <form id="edit-form" name="Application" class="p-3">
+
+                <!-- Job ID -->
+                <div class="form-group row">
+                  <label for="editJobid" class="col-sm-4 col-form-label">Job ID</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="editJobid" placeholder="Eg. R0123" autocomplete="off">
+                  </div>
+                </div>
+
+                <!-- Company Name -->
+                <div class="form-group row">
+                  <label for="editCname" class="col-sm-4 col-form-label">Company Name <i style="color:red;">*</i></label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="editCname" placeholder="Eg. Amazon, Google" autocomplete="off">
+                  </div>
+                </div>
+
+                <!-- Job Type -->
+                <div class="form-group row">
+                  <label for="editJobtype" class="col-sm-4 col-form-label">Job Type</label>
+                  <div class="col-sm-8">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="editJobtype" id="FullTime" value="FullTime"
+                        checked>
+                      <label class="form-check-label" for="editJobtype">
+                        Full-Time
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="editJobtype" id="PartTime" value="PartTime">
+                      <label class="form-check-label" for="editJobtype">
+                        Part-Time
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="editJobtype" id="Internship" value="Internship">
+                      <label class="form-check-label" for="editJobtype">
+                        Internship
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Application Status -->
+                <div class="form-group row">
+                  <label for="editApplicationStatus" class="col-sm-4 col-form-label">Application Status</label>
+                  <div class="col-sm-8">
+                    <select id="editApplicationStatus" class="form-select">
+                      <option value="Applied" selected>Applied</option>
+                      <option value="In Progress">In Progress</option>
+                      <option value="Offer">Offer</option>
+                      <option value="Reject">Reject</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Job Role -->
+                <div class="form-group row">
+                  <label for="editJobrole" class="col-sm-4 col-form-label">Job Role</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="editJobrole" placeholder="Eg. SDE II" autocomplete="off">
+                  </div>
+                </div>
+
+                <!-- Date of Application -->
+                <div class="form-group row input-with-post-icon datepicker" inline="true">
+                  <label for="editDoa" class="col-sm-4 col-form-label">Date of Application</label>
+                  <div class="col-sm-8">
+                    <input id="editDoa" type="date" class="form-control" name="date-field" required pattern="\d{4}-\d{2}-\d{2}">
+                    <i class="fas fa-calendar input-prefix"></i>
+                  </div>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group row">
+                  <label for="editDescription" class="col-sm-4 col-form-label">Description</label>
+                  <div class="col-sm-8">
+                    <textarea class="form-control" id="editDescription" rows="3" placeholder="Eg. Job posting link, Company website, notes, etc." autocomplete="off"></textarea>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn application-btn text-center" data-bs-dismiss="modal">Cancel</button>
+              <button id="editAppButton" type="button" class="btn save-btn text-center" data-bs-dismiss="modal">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete Modal -->
+      <div id="deleteApp" class="modal fade" tabindex="-1" aria-labelledby="deleteApp" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Delete Job Application</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you wish to delete this job application?</p>
+            </div>
+            <div class="modal-footer">
+              
+              <button type="button" class="btn application-btn text-center" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" id="deleteAppButton" data-bs-dismiss="modal" class="btn delete-btn text-center">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  <script src="libs/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

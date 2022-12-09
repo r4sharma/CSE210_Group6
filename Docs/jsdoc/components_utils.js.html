@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/utils.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/utils.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Function to return todays date in yyyy-mm-dd format
+ * @return {String} today's date
+ */
+function getCurrentDate() {
+  let today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const yyyy = today.getFullYear();
+  today = yyyy + '-' + mm + '-' + dd;
+  return today;
+}
+
+/**
+       * find the value selected in Radio button
+       * @param {HTMLElement} elements
+       * @return {string}
+       */
+function findRadioSelectedValue(elements) {
+  let val = '';
+
+  for (let i = 0; i &lt; elements.length; i++) {
+    if (elements[i].checked) {
+      val = elements[i].value;
+    }
+  }
+  return val;
+}
+
+/**
+ * Function to export application records to csv
+ * @param {Object} arr
+ */
+function convertToCSV(arr) {
+  /**
+   * Specifying exactly what column of csv to populate
+   * values to avoid wrong values to fall in wrong columns
+   * after update operation is performed.
+   * */
+  const csvString = [
+    [
+      'key',
+      'jobID',
+      'companyName',
+      'jobType',
+      'jobRole',
+      'doa',
+      'applicationStatus',
+      'description',
+      'lastUpdated',
+    ],
+    ...arr.map((item) => [
+      item.key,
+      item.jobID,
+      item.companyName,
+      item.jobType,
+      item.jobRole,
+      item.doa,
+      item.applicationStatus,
+      item.description.replace(/\n/g, ' '),
+      item.lastUpdated,
+    ]),
+  ].map((e) => e.join(','))
+      .join('\n');
+
+
+  // create a HTML element to download the csv link
+  const element = document.createElement('a');
+  element.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvString);
+  element.target = '_blank';
+  element.download = 'export.csv';
+  element.click();
+}
+
+module.exports = {getCurrentDate, findRadioSelectedValue, convertToCSV};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-Selenium Development Guide.html">Selenium Development Guide</a></li><li><a href="tutorial-branch-merge.html">branch-merge</a></li><li><a href="tutorial-coding-conventions.html">coding-conventions</a></li><li><a href="tutorial-git-conventions.html">git-conventions</a></li><li><a href="tutorial-jsdoc-conventions.html">jsdoc-conventions</a></li><li><a href="tutorial-project-management.html">project-management</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addApplication">addApplication</a></li><li><a href="global.html#addJobCardDeleteButton">addJobCardDeleteButton</a></li><li><a href="global.html#addJobCardEditButton">addJobCardEditButton</a></li><li><a href="global.html#checkIfEmpty">checkIfEmpty</a></li><li><a href="global.html#convertToCSV">convertToCSV</a></li><li><a href="global.html#createAppCards">createAppCards</a></li><li><a href="global.html#createCompanyNameElement">createCompanyNameElement</a></li><li><a href="global.html#createDateAppliedElement">createDateAppliedElement</a></li><li><a href="global.html#createDeleteModal">createDeleteModal</a></li><li><a href="global.html#createDescriptionElement">createDescriptionElement</a></li><li><a href="global.html#createEditModal">createEditModal</a></li><li><a href="global.html#createEmptyAppCard">createEmptyAppCard</a></li><li><a href="global.html#createJobCard">createJobCard</a></li><li><a href="global.html#createJobCardColumnOne">createJobCardColumnOne</a></li><li><a href="global.html#createJobCardColumnTwo">createJobCardColumnTwo</a></li><li><a href="global.html#createJobCardHeaderRow">createJobCardHeaderRow</a></li><li><a href="global.html#createJobIDElement">createJobIDElement</a></li><li><a href="global.html#createJobRoleElement">createJobRoleElement</a></li><li><a href="global.html#createJobTypeElement">createJobTypeElement</a></li><li><a href="global.html#createLastUpdatedElement">createLastUpdatedElement</a></li><li><a href="global.html#dbShowAppCards">dbShowAppCards</a></li><li><a href="global.html#deleteApplication">deleteApplication</a></li><li><a href="global.html#deleteViaModal">deleteViaModal</a></li><li><a href="global.html#displayTitle">displayTitle</a></li><li><a href="global.html#editApplication">editApplication</a></li><li><a href="global.html#editViaModal">editViaModal</a></li><li><a href="global.html#exportApplications">exportApplications</a></li><li><a href="global.html#findRadioSelectedValue">findRadioSelectedValue</a></li><li><a href="global.html#getCardContainer">getCardContainer</a></li><li><a href="global.html#getCurrentDate">getCurrentDate</a></li><li><a href="global.html#hideApplicationForm">hideApplicationForm</a></li><li><a href="global.html#isEmpty">isEmpty</a></li><li><a href="global.html#setInvalid">setInvalid</a></li><li><a href="global.html#setStatusBackgroundColor">setStatusBackgroundColor</a></li><li><a href="global.html#setValid">setValid</a></li><li><a href="global.html#showAppCards">showAppCards</a></li><li><a href="global.html#showApplicationForm">showApplicationForm</a></li><li><a href="global.html#updateStatsCard">updateStatsCard</a></li><li><a href="global.html#validateForm">validateForm</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Fri Dec 09 2022 01:53:53 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

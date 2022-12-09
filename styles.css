@@ -1,73 +1,159 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-
-body{
-  background: #f2f2f2;
-  font-family: 'Open Sans', sans-serif;
+:root {
+  --blue: #cde4fc;
+  --darkblue: #1265c3bc;
+  --green: #bdd4d1;
+  --darkgreen: #1a8678bb;
+  --orange: #f5d9c6;
+  --darkorange: #fa893ed5;
+  --red: #f6cbd0;
+  --darkred: #e55c6cc4;
 }
 
-.search {
-  width: 100%;
-  position: relative;
-  display: flex;
+html {
+  font-size: 100%;
+  scroll-behavior: smooth;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 10%;
+  padding-bottom: 10%;
 }
 
-.searchTerm {
-  width: 100%;
-  border: 3px solid #00B4CC;
-  border-right: none;
-  padding: 5px;
-  height: 20px;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  color: #9DBFAF;
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  z-index: 10;
 }
 
-.searchTerm:focus{
-  color: #00B4CC;
+body {
+  padding-right: 5%;
+  padding-bottom: 10%;
+  padding-left: 5%;
 }
 
-.searchButton {
-  width: 40px;
-  height: 36px;
-  border: 1px solid #00B4CC;
-  background: #00B4CC;
+.rounded-bottom-right-1 {
+  border-bottom-right-radius: .25rem;
+}
+
+.rounded-bottom-left-1 {
+  border-bottom-left-radius: .25rem;
+}
+
+.bg-danger-custom-status {
+  background-color: var(--red) !important;
+}
+
+.bg-success-custom-status {
+  background-color: var(--green) !important;
+}
+
+.bg-primary-custom-status {
+  background-color: var(--blue) !important;
+}
+
+.bg-warning-custom-status {
+  background-color: var(--orange) !important;
+}
+
+.bg-danger-custom-status {
+  background-color: var(--red) !important;
+}
+
+.bg-success-custom {
+  background-color: var(--green) !important;
+}
+
+.bg-primary-custom {
+  background-color: var(--blue) !important;
+}
+
+.bg-warning-custom {
+  background-color: var(--orange) !important;
+}
+
+.bg-danger-custom {
+  background-color: var(--red) !important;
+}
+
+.bg-success-custom:hover {
+  background-color: var(--darkgreen) !important;
+  color: white;
+}
+
+.bg-primary-custom:hover {
+  background-color: var(--darkblue) !important;
+  color: white;
+}
+
+.bg-warning-custom:hover {
+  background-color: var(--darkorange) !important;
+  color: white;
+}
+
+.bg-danger-custom:hover {
+  background-color: var(--darkred) !important;
+  color: white;
+}
+
+.bg-dark-primary-custom {
+  background-color: var(--darkblue);
+}
+
+.export-btn {
+  border-color: black !important;
+  margin-right: 2%;
+}
+
+.export-btn:hover {
+  background-color: black !important;
+  color: white !important;
+}
+
+.application-btn {
+  background-color: var(--blue) !important;
+  color: black !important;
+}
+
+.application-btn:hover {
+  background-color: var(--darkblue) !important;
+  color: white !important;
+}
+
+.delete-btn {
+  background-color: var(--red) !important;
+  color: black !important;
+}
+
+.delete-btn:hover {
+  background-color: var(--darkred) !important;
+  color: white !important;
+}
+
+.save-btn {
+  background-color: var(--green) !important;
+  color: black !important;
+}
+
+.save-btn:hover {
+  background-color: var(--darkgreen) !important;
+  color: white !important;
+}
+
+.form-group {
+  padding: 1% 0 1% 0;
+}
+
+#save {
+  margin-right: 0.4em;
+}
+
+#cancel {
+  margin-left: 0.4em;
+}
+
+#noApplications {
+  padding: 5%;
   text-align: center;
-  color: #fff;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-size: 20px;
 }
-
-/*Resize the wrap to see the search bar change!*/
-.wrap{
-  width: 30%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #666;
-  }
-  
-  li {
-    float: left;
-  }
-  
-  li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  
-  /* Change the link color to #111 (black) on hover */
-  li a:hover {
-    background-color: #111;
-  }
