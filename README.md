@@ -8,7 +8,9 @@
 5. [Testing Strategies](#testing)
 6. [Development standards](#coding)
 7. [Steps to Run the Project](#run)
+8. [Steps to Use the App](#use)
 8. [Relevant Documents](#documents)
+9. [Owners](#owners)
 
 ## Introduction <a name="introduction"></a>
 Every year, students from various fields of study apply for internships and jobs. However, keeping track of the applications and their status gets cumbersome in an Excel sheet, looking something like:
@@ -158,24 +160,45 @@ Throughout the development of the project, we established and followed high stan
 
 12. Repeat steps 4 to 9 after any changes to the application
 
+## Steps to use the App <a name="use"></a>
+
+1. **Add Application** - The steps to add an application are as follows: 
+    - Click on the Add Applications Button on the main page of the app.
+    - Add Application Form will appear to add all the details of new application.
+    - After adding all required details, hit Save button.
+    - The new application card will appear pertaining to the application added.
+
+2. **Edit Application** - The steps to edit an application are as follows:
+    - Go to the Application card of the application to be edited and click on the **Edit** button of that particular card. 
+    - Edit Modal will pop up with all the details of the current application populated.
+    - Edit the required details and hit the **Save** button.
+    - The last updated date field will be automatically updated based on the last change made to the application.
+    - View the changed application in the application card.
+
+3. **Delete Application** - Go to the Application card of the application to be edited and click on the **Delete** button of that particular card. The corresponding application will be deleted from all application cards after confimation of delete from delete modal.
+
+4. **View Statistics** - On top of the main page, we can view the count of applications in different stages of application tracking to be aware of our application progress.
+
+5. **Export Applications** - To export all the applications into a CSV file for ease of access, there is an **Export** button on the top right corner of the main page, which will generate and download the exported CSV file.
+
 ## Relevant Documents <a name="documents"></a>
 - ADR                                       
-  - [AllowDuplicates](https://github.com/r4sharma/CSE210_Group6/blob/Yinchao/ReadMe/Docs/ADR/AllowDuplicates.md)
-  - [AsynchronousCodeStrategy](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/AsynchronousCodeStrategy.md)
-  - [CICD](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/CICD.md)
-  - [NoLogin](https://github.com/r4sharma/CSE210_Group6/blob/Yinchao/ReadMe/Docs/ADR/NoLogin.md)
-  - [Database](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/Storage.md)
-  - [DatabaseTesting](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/DatabaseTesting.md)
-  - [UITesting](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/UITesting.md)
-  - [Webpack](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/Webpack.md)
-  - [GitWorkflow](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/GitWorkflow.md)
-  - [UI](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/UI.md)
+  - [AllowDuplicates](https://github.com/r4sharma/CSE210_Group6/blob/Yinchao/ReadMe/Docs/ADR/AllowDuplicates.md) - Why we didn't check for duplicates?
+  - [AsynchronousCodeStrategy](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/AsynchronousCodeStrategy.md) - Why we used Promise for Asynchronous Code?
+  - [CICD](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/CICD.md) -  Why we used GitHub Actions for configuring CICD pipeline?
+  - [NoLogin](https://github.com/r4sharma/CSE210_Group6/blob/Yinchao/ReadMe/Docs/ADR/NoLogin.md) - Why we don't have a profile login page?
+  - [Database](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/Storage.md) - Why we used IndexedDB for storage?
+  - [DatabaseTesting](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/DatabaseTesting.md) - Why we used Jest as TestingFramework?
+  - [UITesting](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/UITesting.md) - Why we used Selenium for e2e testing?
+  - [Webpack](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/Webpack.md) - Why we used WebPack as our integration layer?
+  - [GitWorkflow](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/GitWorkflow.md) - Why we used Gitflow as our Git Workflow Strategy?
+  - [UI](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/UI.md) - Why we made certain design decisions pertaining to UI?
 - Developing Guildline              
-  - [branch-merge](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/branch-merge.md)
-  - [coding-conventions](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/coding-conventions.md)
-  - [git-conventions](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/git-conventions.md) 
-  - [jsdoc-conventions](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/jsdoc-conventions.md)
-  - [project-management](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/project-management.md) 
+  - [branch-merge](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/branch-merge.md) - How to merge branches safely?
+  - [coding-conventions](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/coding-conventions.md) - What are the proper coding conventions to follow?
+  - [git-conventions](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/git-conventions.md) - What are git conventions to follow to commit in this repository?
+  - [jsdoc-conventions](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/jsdoc-conventions.md) - What are the JSDoc conventions?
+  - [project-management](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/guidelines/project-management.md)  - What is the Project Management workflow for this project?
 - Meeting Notes
   - [Sprint 1](https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%201)
   - [Sprint 2](https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%202)
@@ -183,7 +206,7 @@ Throughout the development of the project, we established and followed high stan
   - [Sprint 4](https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%204)
   - [Sprint 5](https://github.com/r4sharma/CSE210_Group6/tree/dev/Docs/meeting-notes/Sprint%205) 
 
-## Owners
+## Owners <a name="owners"></a>
 This project is created by:
 
 - [Alex Martakis](https://github.com/Sikatram)
