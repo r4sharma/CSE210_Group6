@@ -83,9 +83,8 @@ def getCardInfo(card_element):
     # No need to be concerned by card-text in other cards since this function searches for card-text within a particular element
     card_text_elements = card_element.find_elements(By.CLASS_NAME, card_text_class)
     expected = []
-    for i in card_text_elements:
-        if i.find_elements(By.CSS_SELECTOR, "text")[0].text != "Last Updated:":
-            expected.append(i.find_elements(By.CSS_SELECTOR, "text")[1].text)
+    for i in card_text_elements[:-1]:
+        expected.append(i.find_elements(By.CSS_SELECTOR, "text")[1].text)
     
     # Append the company name and application status
     expected.append(card_element.find_element(By.CLASS_NAME, "navbar-brand").text)
@@ -166,6 +165,7 @@ def main():
         'description_name': "All good",
     }
     testAddForm(form_saved, application, checkAssert = True)
+    time.sleep(2)
     closeDriver()
 if __name__ == '__main__':
     main()
