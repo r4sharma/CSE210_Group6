@@ -122,7 +122,6 @@ function setValid(field) {
 /**
  * Set a field in the form invalid
  * @param {HTMLElement} field
- * @param {string} message
  * @return {boolean} isValid
 */
 function checkIfEmpty(field) {
