@@ -35,7 +35,7 @@ To tackle this problem, we propose a solution –
 
 The application is local first: when the Internet does not work, events can still be read, created, deleted, updated through the application
 
-Through our discussions with the stakeholders, we were suggested additional requirements. We could implement some of them while had classify some of them as out of scope([Allow Duplicates](https://github.com/r4sharma/CSE210_Group6/blob/Yinchao/ReadMe/Docs/ADR/AllowDuplicates.md), [No Login](https://github.com/r4sharma/CSE210_Group6/blob/Yinchao/ReadMe/Docs/ADR/NoLogin.md)).
+Through our discussions with the stakeholders, we were suggested additional requirements. We could implement some of them while had classify some of them as out of scope([Allow Duplicates](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/AllowDuplicates.md), [No Login](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/NoLogin.md)).
 
 ## Technology Architecture <a name="architecture"></a>
 
@@ -187,10 +187,10 @@ Throughout the development of the project, we established and followed high stan
 
 ## Relevant Documents <a name="documents"></a>
 - ADR                                       
-  - [AllowDuplicates](https://github.com/r4sharma/CSE210_Group6/blob/Yinchao/ReadMe/Docs/ADR/AllowDuplicates.md) - Why we didn't check for duplicates?
+  - [AllowDuplicates](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/AllowDuplicates.md) - Why we didn't check for duplicates?
   - [AsynchronousCodeStrategy](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/AsynchronousCodeStrategy.md) - Why we used Promise for Asynchronous Code?
   - [CICD](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/CICD.md) -  Why we used GitHub Actions for configuring CICD pipeline?
-  - [NoLogin](https://github.com/r4sharma/CSE210_Group6/blob/Yinchao/ReadMe/Docs/ADR/NoLogin.md) - Why we don't have a profile login page?
+  - [NoLogin](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/NoLogin.md) - Why we don't have a profile login page?
   - [Database](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/Storage.md) - Why we used IndexedDB for storage?
   - [DatabaseTesting](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/DatabaseTesting.md) - Why we used Jest as TestingFramework?
   - [UITesting](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/UITesting.md) - Why we used Selenium for e2e testing?
