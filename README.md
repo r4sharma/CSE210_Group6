@@ -35,7 +35,7 @@ To tackle this problem, we propose a solution –
 
 The application is local first: when the Internet does not work, events can still be read, created, deleted, updated through the application
 
-Through our discussions with the stakeholders, we were suggested additional requirements. We could implement some of them while had classify some of them as out of scope([Allow Duplicates](https://github.com/r4sharma/CSE210_Group6/blob/Yinchao/ReadMe/Docs/ADR/AllowDuplicates.md), [No Login](https://github.com/r4sharma/CSE210_Group6/blob/Yinchao/ReadMe/Docs/ADR/NoLogin.md)).
+Through our discussions with the stakeholders, we were suggested additional requirements. We could implement some of them while had classify some of them as out of scope([Allow Duplicates](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/AllowDuplicates.md), [No Login](https://github.com/r4sharma/CSE210_Group6/blob/dev/Docs/ADR/NoLogin.md)).
 
 ## Technology Architecture <a name="architecture"></a>
 
